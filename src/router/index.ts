@@ -1,15 +1,24 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import home from '../views/home/home.vue';
+import Home from '../views/home/Home.vue';
+import { UserLayout } from '@/layout';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    name: 'index',
+    component: UserLayout,
+    meta: { title: '首页' },
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: Home,
+      }
+    ]
   },
   {
     path: '/about',

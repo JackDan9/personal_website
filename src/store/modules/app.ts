@@ -24,49 +24,49 @@ const app:App = {
     mutations: {
         SET_SIDEBAR_TYPE: (state: State, type: boolean) => {
             state.sidebar = type;
-            Vue.ls.set(SIDEBAR_TYPE, type);
+            (Vue as any).ls.set(SIDEBAR_TYPE, type);
         },
         CLOSE_SIDEBAR: (state: State) => {
-            Vue.ls.set(SIDEBAR_TYPE, true);
+            (Vue as any).ls.set(SIDEBAR_TYPE, true);
             state.sidebar = false;
         },
         TOGGLE_DEVICE: (state: State, device:string) => {
             state.device = device;
         },
         TOGGLE_THEME: (state:State, theme:string) => {
-            Vue.ls.set(DEFAULT_THEME, theme);
+            (Vue as any).ls.set(DEFAULT_THEME, theme);
             state.theme = theme;
         },
         TOGGLE_LAYOUT_MODE: (state:State, layout:string) => {
-            Vue.ls.set(DEFAULT_LAYOUT_MODE, layout);
+            (Vue as any).ls.set(DEFAULT_LAYOUT_MODE, layout);
             state.layout = layout;
         },
         TOGGLE_FIXED_HEADER: (state:State, fixed: boolean) => {
-            Vue.ls.set(DEFAULT_FIXED_HEADER, fixed);
+            (Vue as any).ls.set(DEFAULT_FIXED_HEADER, fixed);
             state.fixedHeader = fixed;
         },
         TOGGLE_FIXED_HEADER_HIDDEN: (state:State, show:boolean) => {
-            Vue.ls.set(DEFAULT_FIXED_HEADER_HIDDEN, show);
+            (Vue as any).ls.set(DEFAULT_FIXED_HEADER_HIDDEN, show);
             state.autoHideHeader = show;
         },
         TOGGLE_FIXED_SIDEBAR: (state:State, fixed:boolean) => {
-            Vue.ls.set(DEFAULT_FIXED_SIDEMENU, fixed);
+            (Vue as any).ls.set(DEFAULT_FIXED_SIDEMENU, fixed);
             state.fixSiderbar = fixed;
         },
         TOGGLE_CONTENT_WIDTH: (state: State, type:string) => {
-            Vue.ls.set(DEFAULT_CONTENT_WIDTH_TYPE, type);
+            (Vue as any).ls.set(DEFAULT_CONTENT_WIDTH_TYPE, type);
             state.contentWidth = type;
         },
         TOGGLE_COLOR: (state:State, color: string) => {
-            Vue.ls.set(DEFAULT_COLOR, color);
+            (Vue as any).ls.set(DEFAULT_COLOR, color);
             state.color = color;
         },   
         TOGGLE_WEAK: (state:State, flag: boolean) => {
-            Vue.ls.set(DEFAULT_COLOR_WEAK, flag);
+            (Vue as any).ls.set(DEFAULT_COLOR_WEAK, flag);
             state.weak = flag;
         },
         TOGGLE_MULTI_TAB: (state:State, bool:boolean) => {
-            Vue.ls.set(DEFAULT_MULTI_TAB, bool);
+            (Vue as any).ls.set(DEFAULT_MULTI_TAB, bool);
             state.multiTab = bool;
         },
     },
