@@ -36,3 +36,19 @@ a:hover {
     outline: none;
     text-decoration: none;
 }
+
+html, body, div, span, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+hr {
+    border: none;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: medium;
+}
