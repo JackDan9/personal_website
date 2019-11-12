@@ -16,7 +16,80 @@
                 <p class="panel-cover__description">Hi, 我是单军军(@jackdan), 一名狂热的前端开发者。</p>
                 <hr class="panel-cover__divider panel-cover__divider--secondary" />
                 <p class="panel-cover__description"></p>
-                <div class="navigation-wrapper"></div>
+                <div class="navigation-wrapper">
+                    <div>
+                        <nav class="cover-navigation cover-navigation--primary">
+                            <ul class="navigation">
+                                <li class="navigation__item">
+                                    <a href="/blog" title="访问博客" class="blog-button">博客</a>
+                                </li>
+                                <li class="navigation__item">
+                                    <a href="/jackdan.cat" title="我得简历" class="blog-button">简历</a>
+                                </li>
+                                <li class="navigation__item">
+                                    <a href="/apps" title="我所使用的 app 们" class="blog-button">工具</a>
+                                </li>
+                                <li class="navigation__item">
+                                    <a href="/subscribe" target="_blank" title="邮件订阅本站" class="blog-button">订阅</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div>
+                        <nav class="cover-navigation navigation--social">
+                            <ul class="navigation">
+                                <!-- Weibo -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的微博" target="_blank">
+                                        <i class="social fa icon iconfont icon-weibo">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                                <!-- Github -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的 Github" target="_blank">
+                                        <i class="social fa icon iconfont icon-github">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                                <!-- Twitter -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的 Twitter" target="_blank">
+                                        <i class="social fa icon iconfont icon-twitter">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                                <!-- Google Plus -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的 Google Plus" target="_blank">
+                                        <i class="social fa icon iconfont icon-googleplussquare">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                                <!-- RSS -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的 RSS" target="_blank">
+                                        <i class="social fa icon iconfont icon-rss">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                                <!-- Email -->
+                                <li class="navigation__item">
+                                    <a href="http://weibo.com/jackdan" title="@jackdan 的 Email" target="_blank">
+                                        <i class="social fa icon iconfont icon-email">
+ 
+                                        </i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +123,7 @@ export default Vue.extend({
         position: relative;
         z-index: 800;
         padding: 0 60px;
-        vertial-align: middle;
+        vertical-align: middle;
     }
     .panel-main__content {
         max-width: 620px;
@@ -91,5 +164,58 @@ export default Vue.extend({
     .panel-cover__divider--secondary {
         width: 15%;
     }
-    
+    .cover-navigation {
+        position: relative;
+        display: inline-block;
+        margin-top: 42px;
+    }
+    .navigation {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        list-style-type: none;
+        list-style: none;
+    }
+    .navigation__item {
+        display: inline-block;
+        margin: 5px 5px 0 0;
+        line-height: 1em;
+
+        a {
+            position: relative;
+            display: block;
+            padding: 10px 20px;
+            border: 1px solid #FFF;
+            border-radius: 20px;
+            color: #FFF;
+            font-size: .9em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: none;
+            -webkit-font-smoothing: antialiased;
+            opacity: .8;
+        }
+        a:hover {
+            color: #FFF;
+            border-color: #FFF; 
+            opacity: 1;
+        }
+    }
+    .fa {
+        display: inline-block;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .social {
+        font-size: 22px;
+    }
+    .navigation--social {
+        a {
+            border: 0px;
+            padding: 6px 8px 6px 9px;
+        }
+    }
 </style>
