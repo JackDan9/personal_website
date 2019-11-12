@@ -24,7 +24,7 @@
                                     <a href="/blog" title="访问博客" class="blog-button">博客</a>
                                 </li>
                                 <li class="navigation__item">
-                                    <a href="/jackdan.cat" title="我得简历" class="blog-button">简历</a>
+                                    <a href="/resume" title="我得简历" class="blog-button">简历</a>
                                 </li>
                                 <li class="navigation__item">
                                     <a href="/apps" title="我所使用的 app 们" class="blog-button">工具</a>

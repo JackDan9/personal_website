@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/home/Home.vue';
+import Resume from '../views/resume/Resume.vue';
 import { UserLayout } from '@/layout';
 
 Vue.use(VueRouter);
@@ -20,6 +21,12 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/resume',
+    name: 'resume',
+    component: Resume,
+    meta: { title: '简历' },
+  }
   // {
   //   path: '/about',
   //   name: 'about',
