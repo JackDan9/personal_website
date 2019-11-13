@@ -13,10 +13,21 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/#about" data-target="#about">
+                            <a href="/#projects" data-target="#projects">
                                 <span>{{ $t('projects') }}</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/#experience" data-target="#experience">
+                                <span>{{ $t('experience') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/#contact" data-target="#contact">
+                                <span>{{ $t('contact') }}</span>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
             </div>
