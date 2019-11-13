@@ -7,7 +7,16 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        
+                        <li class="nav-item">
+                            <a href="/#about" data-target="#about">
+                                <span>{{ $t('home') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/#about" data-target="#about">
+                                <span>{{ $t('projects') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -46,7 +55,13 @@ export default class Resume extends Vue {
             text-transform: uppercase;
             font-weight: bold;
             font-size: 1.2em;
-            color: #2b2b2b;
+            color: #2b2b2b; 
+        }
+        
+        .navbar-collapse {
+            border-color: #e7e7e7;
+            margin-right: 15px;
+            margin-left: 15px;
         }
     }
     $min-height-num: 70px;
@@ -71,53 +86,70 @@ export default class Resume extends Vue {
         left: 0;
         z-index: 1030;
         border-width: 0 0 1px;
-    }
-    @mixin width($property) {
-        width: $property;
-    }
 
-    @media (min-wdith: 768px) {
-        .container {
-            @include width(750px);
-
-            .navbar-header {
-                float: left;
-                margin-right: 0;
-                margin-left: 0;
-            }
-
-            .navbar-brand {
-                margin-left: -15px;
-            }
+        .navbar-collapse {
+            max-height: 340px;
         }
     }
 
-    @media (min-width: 992px) {
-        .container {
-            @include width(970px);
-
-
-        }
+    .navbar-collapse {
+        padding-right: 15px;
+        padding-left: 15px;
+        overflow-x: visible;
+        -webkit-overflow-scrolling: touch;
+        border-top: 1px solid transparent;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
     }
 
-    @media (min-width: 1200px) {
-        .container {
-            @include width(1170px);
-            
-            .navbar-header {
-                float: none;
-                min-height: inherit;
-            }
+    .collapse {
+        display: none;
+    }
 
-            .navbar-brand {
+    .nav {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+
+        li {
+            position: relative;
+            display: block;
+            font-size: 16px;
+
+            a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
                 height: inherit;
                 line-height: 50px;
                 padding-top: 10px;
                 padding-bottom: 10px;
+
+                white-space: nowrap;
+                transition: 0.2s ease;
+                color: #34495e;
+                font-weight: 600;
             }
         }
     }
-    
+    .nav:before {
+        display: table;
+        content: "";
+    }
+    .nav:after {
+        display: table;
+        content: "";
+        clear: both;
+    }
+
+    .navbar-nav {
+        margin: 7.5px 15px;
+    }
+
+    .navbar-right {
+        float: right !important;
+        margin-right: -15px;
+    }
     .container {
         padding-right: 15px;
         padding-left: 15px;
@@ -149,5 +181,82 @@ export default class Resume extends Vue {
         display: table;
         content: "";
         clear: both;
+    }
+    @mixin width($property) {
+        width: $property;
+    }
+
+    @media (min-width: 768px) {
+        .container {
+            @include width(750px);
+
+            .navbar-brand {
+                margin-left: -15px;
+            }
+
+            .navbar-collapse {
+                margin-right: 0;
+                margin-left: 0;
+                padding-right: 0;
+                padding-left: 0;
+            }
+
+            .navbar-header {
+                float: none;
+                min-height: inherit;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        .collapse {
+            display: block !important;
+            height: auto !important;
+            padding-bottom: 0;
+            overflow: visible !important;
+        }
+        .navbar-collapse {
+            width: auto;
+            border-top: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .navbar-nav {
+            float: left;
+            margin: 0;
+        }
+
+        .nav {
+            li {
+                float: left;
+            }
+        }
+    }
+
+    @media (min-width:992px) {
+        .container {
+            @include width(970px);
+
+
+        }
+    }
+
+    @media (min-width:1200px) {
+        .container {
+            @include width(1170px);
+            
+            .navbar-header {
+                float: left;
+                margin-right: 0;
+                margin-left: 0;
+                min-height: inherit;
+            }
+
+            .navbar-brand {
+                height: inherit;
+                line-height: 50px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        }
     }
 </style>
