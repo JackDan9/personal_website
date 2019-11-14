@@ -18,6 +18,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/#skills" data-target="#skills">
+                                <span>{{ $t('skills') }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/#experience" data-target="#experience">
                                 <span>{{ $t('experience') }}</span>
                             </a>
@@ -27,7 +32,11 @@
                                 <span>{{ $t('contact') }}</span>
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a style="cursor: pointer" @click="handleLocaleLanguage()" data-target="">
+                                <span>{{ $t('language') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -41,6 +50,13 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Resume extends Vue {
     private currentLocale = 'en';
 
+    private handleLocaleLanguage() {
+        if (this.$i18n.locale === 'en') {
+            this.$i18n.locale = 'zh';
+        } else {
+            this.$i18n.locale = 'en';
+        }
+    }
 
 }
 </script>
