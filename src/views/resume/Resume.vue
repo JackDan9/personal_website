@@ -7,29 +7,12 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item">
-                            <a href="/#about" data-target="#about">
-                                <span>{{ $t('home') }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/#projects" data-target="#projects">
-                                <span>{{ $t('projects') }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/#skills" data-target="#skills">
-                                <span>{{ $t('skills') }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/#experience" data-target="#experience">
-                                <span>{{ $t('experience') }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/#contact" data-target="#contact">
-                                <span>{{ $t('contact') }}</span>
+                        <li v-for="(item, index) in tabMapOptions" 
+                            v-bind:key="index"
+                            v-bind:class="[activeIndex == index ? 'active' : '']"
+                            @click="handleSwitchTab(index)">
+                            <a href="#" data-target="">
+                                <span>{{ $t(item.label) }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -41,14 +24,86 @@
                 </div>
             </div>
         </nav>
+
+        <section id="about" class="home-section">
+            <div class="container">
+                <div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                    <div class="col-xs-12 col-md-4">
+                        <div id="profile">
+                            <div class="portrait" itemprop="image">
+                            </div>
+                            <div class="portrait-title">
+                                <h2 itemprop="author">{{ $t('author') }}</h2>
+                                <h3 itemprop="jobTitle">{{ $t('jobTitle') }}</h3>
+                                <h3 itemprop="worksFor">
+                                    <a href="/home" target="_blank">
+                                        JackDan's Den(@jackdan)
+                                    </a>
+                                </h3>
+                            </div>
+                            <ul class="social-icon" aria-hidden="true">
+                                <li>
+                                    <a href="" target="_blank">
+                                        <i class="fa icon iconfont icon-email big-icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" target="_blank">
+                                        <i class="fa icon iconfont icon-twitter big-icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" target="_blank">
+                                        <i class="fa icon iconfont icon-weibo big-icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" target="_blank">
+                                        <i class="fa icon iconfont icon-github big-icon"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-8" itemprop="description">
+                        <div id="description">
+                            <h1 id="summary">{{ $t('summary') }}</h1>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <h3></h3>
+                                    <ul class="ul-interests"></ul>
+                                </div>
+                                <div class="col-sm-7">
+                                    <h3></h3>
+                                    <ul class="ul-edu fa-ul"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
-@Component({})
+@Component({
+    name: 'Resume',
+})
 export default class Resume extends Vue {
-    private currentLocale = 'en';
+    private activeIndex = 0;
+
+    private tabMapOptions = [
+        { label: 'home', linkLabel: 'about' },
+        { label: 'projects', linkLabel: 'projects' },
+        { label: 'skills', linkLabel: 'skills' },
+        { label: 'experience', linkLabel: 'experience' },
+        { label: 'contact', linkLabel: 'contact' }
+    ]
 
     private handleLocaleLanguage() {
         if (this.$i18n.locale === 'en') {
@@ -58,6 +113,9 @@ export default class Resume extends Vue {
         }
     }
 
+    private handleSwitchTab(index:number) {
+        this.activeIndex = index;
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -171,6 +229,14 @@ export default class Resume extends Vue {
 
     .navbar-nav {
         margin: 7.5px 15px;
+
+        .active {
+            a {
+                color: #0095eb;
+                font-weight: 700;
+                background-color: transparent !important;
+            }
+        }
     }
 
     .navbar-right {
@@ -285,5 +351,109 @@ export default class Resume extends Vue {
                 padding-bottom: 10px;
             }
         }
+    }
+
+    .home-section:first-of-type {
+        padding-top: 70px;
+    }
+    .home-section {
+        background-color: rgb(255, 255, 255);
+        padding: 110px 0 110px 0;
+        animation: intro 0.3s both;
+        animation-delay: 0.15s;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .row:before {
+        content: " ";
+        display: table;
+    }
+    .row:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+    #description {
+        padding-top: 30px;
+        padding-left: 10px;
+        position: relative;
+        h1 {
+            font-size: 2.25rem;
+        }
+        p {
+            margin: 0 0 10px;
+            margin-bottom: 1rem;
+        }
+    }
+    #profile {
+        text-align: center;
+        padding: 30px 10px;
+        position: relative;
+
+        .portrait {
+            background-image: url('~@/assets/avtar.png');
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+        }
+
+        .portrait-title {
+            h2 {
+                font-size: 1.75em;
+                font-weight: bold;
+                color: #000000;
+                text-transform: uppercase;
+                margin: 20px 0 10px 0;
+            }
+            h3 {
+                font-size: 1.13em;
+                font-weight: 400;
+                color: #AAAAAA;
+                text-transform: uppercase;
+                margin: 0px 0 10px 0;
+
+                a {
+                    color: #0095eb;
+                    text-decoration: none;
+                    text-transform: none;
+                    transition: color 0.6s ease;
+                }
+            }
+        }
+        ul.social-icon {
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+
+            li {
+                margin-right: 10px;
+                a {
+                    color: #0095eb;
+                    text-decoration: none;
+                    transition: color 0.6s ease;
+
+                    .fa {
+                        display: inline-block;
+                        font: normal normal normal 14px/1 FontAwesome;
+                        font-size: 2rem;
+                        text-rendering: auto;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                    }
+                }
+            }
+        }
+    }
+    .big-icon {
+        font-size: 2rem;
     }
 </style>

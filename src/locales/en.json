@@ -5,5 +5,8 @@
   "skills": "Skills",
   "experience": "Experience",
   "contact": "Contact",
-  "language": "中文"
+  "language": "中文",
+  "author": "JackDan",
+  "jobTitle": "Front-end developer",
+  "summary": "Summary"
 }
