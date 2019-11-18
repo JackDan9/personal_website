@@ -68,7 +68,7 @@
                     <div class="col-xs-12 col-md-8" itemprop="description">
                         <div id="description">
                             <h1 id="summary">{{ $t('summary') }}</h1>
-                            <p></p>
+                            <p style="font-size: 1rem">{{ $t('summary_detail') }}</p>
                             <p></p>
                             <p></p>
                             <div class="row">
