@@ -4,6 +4,8 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-size: 20px;
+    font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 body {
@@ -35,7 +37,7 @@ a:hover {
     text-decoration: none;
 }
 
-html, body, div, span, h1, h2, h3, h4, h5, h6, ul, li, i, a {
+body, div, span, h1, h2, h3, h4, h5, h6, ul, li, i, a {
     margin: 0;
     padding: 0;
     border: 0;
@@ -115,11 +117,24 @@ hr {
   .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
     float: left;
   }
+
   .col-md-4 {
     width: 33.33333333%;
   }
   .col-md-8 {
     width: 66.66666667%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-sm-5 {
+    width: 41.66666667%;
+  }
+  .col-sm-7 {
+    width: 58.33333333%;
+  }
+  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
+    float: left;
   }
 }
 

@@ -96,10 +96,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    
+import { Component, Vue, Watch } from 'vue-property-decorator';
+
+@Component({
+    name: 'Name',
 })
+export default class Home extends Vue {
+    private homeTabOptions = [
+
+    ];
+}
 </script>
 
 <style lang="scss" scoped>

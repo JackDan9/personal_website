@@ -24,7 +24,7 @@ const state: State = {
     autoHideHeader: true,
     color: null,
     weak: false,
-    multiTab: false
-}
+    multiTab: false,
+};
 
 export default state;

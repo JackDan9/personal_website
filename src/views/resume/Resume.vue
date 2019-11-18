@@ -69,16 +69,28 @@
                         <div id="description">
                             <h1 id="summary">{{ $t('summary') }}</h1>
                             <p style="font-size: 1rem">{{ $t('summary_detail') }}</p>
-                            <p></p>
-                            <p></p>
+                            <p style="font-size: 1rem">{{ $t('summary_subdetail') }}</p>
+                            <p style="font-size: 1rem">{{ $t('summary_work') }}</p>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h3></h3>
-                                    <ul class="ul-interests"></ul>
+                                    <h3>兴趣爱好</h3>
+                                    <ul class="ul-interests">
+                                        <li>Web服务领域</li>
+                                        <li>移动互联网领域</li>
+                                        <li>开源软件开发</li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-7">
-                                    <h3></h3>
-                                    <ul class="ul-edu fa-ul"></ul>
+                                    <h3>教育经历</h3>
+                                    <ul class="ul-edu fa-ul">
+                                        <li>
+                                            <i class="fa-li"></i>
+                                            <div class="description">
+                                                <p class="course">计算机科学与技术, 工学学士学位, 2017</p>
+                                                <p class="institution">郑州大学</p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +114,8 @@ export default class Resume extends Vue {
         { label: 'projects', linkLabel: 'projects' },
         { label: 'skills', linkLabel: 'skills' },
         { label: 'experience', linkLabel: 'experience' },
-        { label: 'contact', linkLabel: 'contact' }
-    ]
+        { label: 'contact', linkLabel: 'contact' },
+    ];
 
     private handleLocaleLanguage() {
         if (this.$i18n.locale === 'en') {
@@ -113,7 +125,7 @@ export default class Resume extends Vue {
         }
     }
 
-    private handleSwitchTab(index:number) {
+    private handleSwitchTab(index: number) {
         this.activeIndex = index;
     }
 }
@@ -385,6 +397,47 @@ export default class Resume extends Vue {
         p {
             margin: 0 0 10px;
             margin-bottom: 1rem;
+        }
+        h3 {
+            font-weight: 700;
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+        }
+        .ul-interests {
+            margin-left: 35px;
+
+            li {
+                font-size: 0.9rem;
+            }
+        }
+        .ul-edu {
+            list-style: none;
+        }
+        .fa-ul {
+            padding-left: 0;
+            margin-left: 2.14285714em;
+            list-style-type: none;
+
+            .fa-li {
+                position: absolute;
+                left: -2.14285714em;
+                width: 2.14285714em;
+                top: 0.14285714em;
+                text-align: center;
+            }
+
+            .description {
+                p {
+                    margin: 0;
+                }
+                p.cource {
+                    font-size: 0.9rem;
+                }
+                p.institution {
+                    font-size: 0.75rem;
+                    color: rgba(0,0,0,0.6);
+                }
+            }
         }
     }
     #profile {
