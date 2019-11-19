@@ -70,39 +70,43 @@
                             <h1 id="summary">{{ $t('summary') }}</h1>
                             <p style="font-size: 1rem">{{ $t('summary_detail') }}</p>
                             <p style="font-size: 1rem">{{ $t('summary_subdetail') }}</p>
-                            <p style="font-size: 1rem">{{ $t('summary_work') }}</p>
+                            <p style="font-size: 1rem">
+                                {{ $t('summary_work01') }}
+                                <a href="https://www.easystack.cn" target="_blank">EasyStack</a>
+                                {{ $t('summary_work02') }}
+                            </p>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h3>兴趣爱好</h3>
+                                    <h3>{{ $t('interests') }}</h3>
                                     <ul class="ul-interests fa-ul">
                                         <li>
                                             <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
                                             <div class="description">
-                                                <p class="content">Web服务领域</p>
+                                                <p class="content">{{ $t('web_services') }}</p>
                                             </div>
                                         </li>
                                         <li>
                                             <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
                                             <div class="description">
-                                                <p class="content">移动互联网领域</p>
+                                                <p class="content">{{ $t('mobile_internet') }}</p>
                                             </div>
                                         </li>
                                         <li>
                                             <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
                                             <div class="description">
-                                                <p class="content">开源软件开发</p>
+                                                <p class="content">{{ $t('open_source_software') }}</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-7">
-                                    <h3>教育经历</h3>
+                                    <h3>{{ $t('education') }}</h3>
                                     <ul class="ul-edu fa-ul">
                                         <li>
                                             <i class="fa-li fa icon iconfont icon-graduation-cap"></i>
                                             <div class="description">
-                                                <p class="course">计算机科学与技术, 工学学士学位, 2017</p>
-                                                <p class="institution">郑州大学</p>
+                                                <p class="course">{{ $t('profession') }}</p>
+                                                <p class="institution">{{ $t('college') }}</p>
                                             </div>
                                         </li>
                                     </ul>
@@ -113,6 +117,21 @@
                 </div>
             </div>
         </section>
+
+        <section id="projects_selected" class="home-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 section-heading">
+                        <h1>Selected Projects</h1>
+                    </div>
+                    <div class="col-xs-12 col-md-8">
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
     </div>
 </template>
 <script lang="ts">
@@ -383,6 +402,9 @@ export default class Resume extends Vue {
     .home-section:first-of-type {
         padding-top: 70px;
     }
+    .home-section:nth-of-type(even) {
+        background-color: rgb(247, 247, 247);
+    }
     .home-section {
         background-color: rgb(255, 255, 255);
         padding: 110px 0 110px 0;
@@ -418,6 +440,11 @@ export default class Resume extends Vue {
             margin-top: 1.5rem;
             font-size: 1.25rem;
         }
+        a {
+            color: #0095eb;
+            text-decoration: none;
+            transition: color 0.6s ease;
+        }
         .ul-interests {
             list-style: none;
 
@@ -428,7 +455,7 @@ export default class Resume extends Vue {
                 i {
                     font-size: 29px !important;
                     color: rgba(255, 0, 0, 0.5);
-                    top: 0 !important;
+                    top: -0.08em !important;
                     left: -1.84285714em !important;
                     margin-right: -10px;
                     
@@ -550,5 +577,13 @@ export default class Resume extends Vue {
     }
     .big-icon {
         font-size: 2rem;
+    }
+
+    // Second-section
+    .section-heading {
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.25rem;
+        }
     }
 </style>

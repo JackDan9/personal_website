@@ -9,5 +9,15 @@
   "author": "JackDan",
   "jobTitle": "Front-end developer",
   "summary": "Summary",
-  "summary_detail": "summart_detail"
+  "summary_detail": "JackDan is a professional developer who focuses on the Front-end now. He has extensive knowledge and years of practical experience in HTML, CSS, JavaScript, Node.js, Front-end popular frameworks (Vue, React) and network programming. He applies these technologies to solutions such as multi-terminal applications and common frameworks, many of which are recognized and highly appreciated by customers on different browsers. Some solutions are applied by other developers in the open source community to other software. The feedback is good. At the same time, he is actively involved in the construction of the open source community, active in Pyvmomi, Ant Design and other domestic and foreign open source communities to accumulate technical experience and ideas, to put the best front-end development application practices and advanced technology into China and has a long way to go.",
+  "summary_subdetail": "JackDan also loves basketball, reading, and sci-fi movies. He is always willing to try new things, and keeping to learn from them. (not accepting the old)",
+  "summary_work01": "Now, he works for ",
+  "summary_work02": "as a software engineer.",
+  "interests": "Interests",
+  "web_services": "Web Services",
+  "mobile_internet": "Mobile Internet",
+  "open_source_software": "Open Source Software",
+  "education": "Education",
+  "profession": "Computer Science and Technology, Enginnering, 2017",
+  "college": "ZhengZhou University, China"
 }
