@@ -74,17 +74,32 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <h3>兴趣爱好</h3>
-                                    <ul class="ul-interests">
-                                        <li>Web服务领域</li>
-                                        <li>移动互联网领域</li>
-                                        <li>开源软件开发</li>
+                                    <ul class="ul-interests fa-ul">
+                                        <li>
+                                            <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
+                                            <div class="description">
+                                                <p class="content">Web服务领域</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
+                                            <div class="description">
+                                                <p class="content">移动互联网领域</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <i class="fa-li fa icon iconfont icon-xingquaihao1"></i>
+                                            <div class="description">
+                                                <p class="content">开源软件开发</p>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-7">
                                     <h3>教育经历</h3>
                                     <ul class="ul-edu fa-ul">
                                         <li>
-                                            <i class="fa-li"></i>
+                                            <i class="fa-li fa icon iconfont icon-graduation-cap"></i>
                                             <div class="description">
                                                 <p class="course">计算机科学与技术, 工学学士学位, 2017</p>
                                                 <p class="institution">郑州大学</p>
@@ -404,14 +419,29 @@ export default class Resume extends Vue {
             font-size: 1.25rem;
         }
         .ul-interests {
-            margin-left: 35px;
+            list-style: none;
 
             li {
-                font-size: 0.9rem;
+                position: relative;
+                padding: 0px 15px 4px 3px;
+
+                i {
+                    font-size: 29px !important;
+                    color: rgba(255, 0, 0, 0.5);
+                    top: 0 !important;
+                    left: -1.84285714em !important;
+                    margin-right: -10px;
+                    
+                }
             }
         }
         .ul-edu {
             list-style: none;
+
+            li {
+                position: relative;
+                padding: 0px 15px 4px 3px;
+            }
         }
         .fa-ul {
             padding-left: 0;
@@ -422,8 +452,17 @@ export default class Resume extends Vue {
                 position: absolute;
                 left: -2.14285714em;
                 width: 2.14285714em;
-                top: 0.14285714em;
+                top: 0.3685714em;
                 text-align: center;
+            }
+
+            .fa {
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
             }
 
             .description {
@@ -431,6 +470,9 @@ export default class Resume extends Vue {
                     margin: 0;
                 }
                 p.cource {
+                    font-size: 0.9rem;
+                }
+                p.content {
                     font-size: 0.9rem;
                 }
                 p.institution {
