@@ -125,7 +125,16 @@
                         <h1>Selected Projects</h1>
                     </div>
                     <div class="col-xs-12 col-md-8">
-                        
+                        <div class="project-toolbar">
+                            <div id="filters">
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <a href="#" data-filter="*" class="btn btn-primary btn-large active">全部</a>
+                                        <a href="#" data-filter=".app" class="btn btn-primary btn-large">app应用</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -585,5 +594,118 @@ export default class Resume extends Vue {
             margin: 0 0 10px 0;
             font-size: 2.25rem;
         }
+    }
+    .project-toolbar {
+        margin-bottom: 2rem;
+    }
+    .btn-toolbar {
+        margin-left: -5px;
+        .btn-group {
+            float: left;
+            margin-left: 5px;
+
+            a, h3.article-title a:hover {
+                color: #0095eb;
+                text-decoration: none;
+                transition: color 0.6s ease;
+            }
+            
+            a {
+                color: #337ab7;
+                text-decoration: none;
+                background-color: transparent;
+            }
+
+        }
+        .btn {
+            font-size: 0.9rem;
+            padding: 10px 14px 9px;
+            border: none;
+        }
+    }
+    .btn-group-vertical>.btn.active, .btn-group-vertical>.btn:active, .btn-group-vertical>.btn:focus, .btn-group-vertical>.btn:hover, .btn-group>.btn.active, .btn-group>.btn:active, .btn-group>.btn:focus, .btn-group>.btn:hover {
+        z-index: 2;
+    }
+    .btn-group>.btn:first-child {
+        margin-left: 0;
+    }
+    .btn-toolbar .btn:first-child {
+        border-radius: 6px 0 0 6px;
+    }
+    .btn-toolbar .btn.btn-primary:active, .btn-toolbar .btn.btn-primary.active {
+        background-color: rgba(0,89,175,1);
+    }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background: #0095eb;
+    }
+    .btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group {
+        float: left;
+    }
+    .btn-group-vertical>.btn, .btn-group>.btn {
+        position: relative;
+        float: left;
+    }
+    .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
+        background-image: none;
+    }
+    .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
+        color: #fff;
+        background-color: #286090;
+        border-color: #204d74;
+    }
+    .btn.active, .btn:active {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+        box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    }
+    .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .btn-toolbar:before {
+        display: table;
+        content: " ";
+    }
+    .btn-toolbar:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+    .btn-group {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    .btn-primary {
+        border-color: #0095eb;
+        background: #0095eb;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
     }
 </style>
