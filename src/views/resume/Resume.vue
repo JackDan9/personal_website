@@ -32,7 +32,7 @@
                         <div id="profile">
                             <div class="portrait" itemprop="image">
                             </div>
-                            <div class="portrait-title">
+                            <div class="portrait-tnavShowitle">
                                 <h2 itemprop="author">{{ $t('author') }}</h2>
                                 <h3 itemprop="jobTitle">{{ $t('jobTitle') }}</h3>
                                 <h3 itemprop="worksFor">
@@ -199,7 +199,22 @@
                     <div class="col-xs-12 col-md-4 section-heading">
                         <h1>Selected Skills</h1>
                     </div>
-                    <div class="col-xs-12 col-md-8"></div>
+                    <div class="col-xs-12 col-md-8">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="home-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 section-heading">
+                        <h1>Other Skills</h1>
+                    </div>
+                    <div class="col-xs-12 col-md-8">
+
+                    </div>
                 </div>
             </div>
         </section>
