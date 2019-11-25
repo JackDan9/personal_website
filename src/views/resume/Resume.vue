@@ -122,18 +122,48 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-4 section-heading">
-                        <h1>Selected Projects</h1>
+                        <h1>{{ $t('selected_projects') }}</h1>
                     </div>
                     <div class="col-xs-12 col-md-8">
                         <div class="project-toolbar">
                             <div id="filters">
                                 <div class="btn-toolbar">
                                     <div class="btn-group">
-                                        <a href="#" data-filter="*" class="btn btn-primary btn-large active">全部</a>
-                                        <a href="#" data-filter=".app" class="btn btn-primary btn-large">app应用</a>
-                                        <a href="#" data-filter=".app" class="btn btn-primary btn-large">PC应用</a>
+                                        <a href="#" data-filter="*" class="btn btn-primary btn-large active">{{ $t('all') }}</a>
+                                        <a href="#" data-filter=".app" class="btn btn-primary btn-large">{{ $t('app') }}</a>
+                                        <a href="#" data-filter=".web" class="btn btn-primary btn-large">{{ $t('web') }}</a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div id="container-projects" class="row isotope" style="position: relative; height: 1734px;">
+                            <!-- First Web Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item web" style="position: absolute; left: 0px; top: 0px">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/soil.jpg" alt="soil" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank"></a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Second Web Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope web" style="position: absolute; left: 365px; top: 0px;">
+
+                            </div>
+                            <!-- Third App Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 0px; top: 578px;">
+                                
+                            </div>
+                            <!-- Fourth App Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 365px; top: 578px;">
+                                
                             </div>
                         </div>
                     </div>
@@ -141,7 +171,38 @@
             </div>
         </section>
 
+        <section id="projects" class="home-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 section-heading">
+                        <h1>Other Projects</h1>
+                    </div>
+                    <div class="col-xs-12 col-md-8">
+                        <p>I also built and worked on these projects: </p>
+                        <h3 id="scrapy-mygirl">
+                            <a href="" target="_blank">scrapy-mygirl</a>
+                        </h3>
+                        <p>
+                            <span class="dim">scrapy weather</span>
+                        </p>
+                        <p>
 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="selected_skills" class="home-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 section-heading">
+                        <h1>Selected Skills</h1>
+                    </div>
+                    <div class="col-xs-12 col-md-8"></div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 <script lang="ts">
@@ -604,12 +665,6 @@ export default class Resume extends Vue {
         .btn-group {
             float: left;
             margin-left: 5px;
-
-            a, h3.article-title a:hover {
-                color: #0095eb;
-                text-decoration: none;
-                transition: color 0.6s ease;
-            }
             
             a {
                 color: #337ab7;
@@ -723,5 +778,129 @@ export default class Resume extends Vue {
         position: relative;
         display: inline-block;
         vertical-align: middle;
+    }
+
+    #container-projects {
+        display: block;
+        position: relative;
+        margin-top: 5rem;
+        overflow: hidden;
+    }
+
+    .isotope-item {
+        z-index: 2;
+    }
+
+    .project-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background: #fff;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+        transition: all 0.2s ease-out;
+        .card-image {
+            display: block;
+            position: relative;
+            min-height: 100px;
+        }
+    }
+    
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+
+    a {
+        background-color: transparent;
+    }
+
+    a, h3.article-title a:hover {
+        color: #0095eb;
+        text-decoration: none;
+        transition: color 0.6s ease;
+    }
+
+    .card .card-image.hover-overlay:before {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        content: " ";
+        opacity: 0;
+        transition: all 0.2s ease-out;
+    }
+
+    .card .card-image.hover-overlay:after {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        transform: translate(0, -50%);
+        opacity: 0;
+        transition: all 0.2s ease-out;
+        font-family: 'FontAwesome';
+        content: '\f0c1';
+        text-align: center;
+        font-size: 3rem;
+        color: #666;
+    }
+
+    .img-responsive {
+        margin: 0 auto;
+    }
+
+    .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    img, video {
+        height: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    img {
+        vertical-align: middle;
+        border: 0;
+    }
+
+    .card .card-text {
+        padding: 0.75rem 1rem 0.75rem;
+    }
+
+    .card h4 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: uppercase;
+    }
+
+    .card h4 a {
+        color: #000;
+        border-bottom: solid 1px transparent;
+    }
+
+    .card p:last-child {
+        margin-bottom: 0;
+    }
+
+    .card .card-text p {
+        color: #999999;
+        font-size: 0.75rem;
+    }
+
+    .dim {
+        font-size: 0.7em;
+        color: #8e8e8e;
     }
 </style>

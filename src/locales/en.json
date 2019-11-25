@@ -19,5 +19,9 @@
   "open_source_software": "Open Source Software",
   "education": "Education",
   "profession": "Computer Science and Technology, Enginnering, 2017",
-  "college": "ZhengZhou University, China"
+  "college": "ZhengZhou University, China",
+  "selected_projects": "Selected Projects",
+  "all": "All",
+  "app": "App",
+  "web": "Web"
 }

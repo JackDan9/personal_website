@@ -19,5 +19,9 @@
     "open_source_software": "开源软件开发",
     "education": "教育经历",
     "profession": "计算机科学与技术, 工学学士学位, 2017",
-    "college": "郑州大学"
+    "college": "郑州大学",
+    "selected_projects": "精选项目",
+    "all": "全部",
+    "app": "App应用",
+    "web": "Web应用"
 }
