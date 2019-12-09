@@ -140,22 +140,34 @@
                             <!-- First Web Project -->
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item web" style="position: absolute; left: 0px; top: 0px">
                                 <div class="card">
-                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
-                                        <img src="~@/assets/soil.jpg" alt="soil" class="imp-responsive" />
+                                    <a href="" title="A software called soil" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/soil.svg" alt="soil" class="imp-responsive" />
                                     </a>
                                     <div class="card-text">
                                         <h4>
-                                            <a href="" target="_blank"></a>
+                                            <a href="" target="_blank">Soil</a>
                                         </h4>
                                         <div class="card-description">
-                                            <p></p>
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Soil 是一款基于Openstack私有云部署的软件，通过原生Openstack直接纳管VMware环境资源的管理工具，其目标是为企业用户实现基于Openstack架构纳管第三方云集算产品，实现操作入口、用户管理、使用习惯的整合，通过开源架构管理所有云资源。从而实现更好的服务、效率和管理的一体化运营。</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Second Web Project -->
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope web" style="position: absolute; left: 365px; top: 0px;">
-
+                                <div class="card">
+                                    <a href="" title="A software called hamal" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/hamal.svg" alt="hamal" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank">Hamal</a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Hamal 是一款</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Third App Project -->
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 0px; top: 578px;">
@@ -200,7 +212,24 @@
                         <h1>Selected Skills</h1>
                     </div>
                     <div class="col-xs-12 col-md-8">
-
+                        <div id="container-skills" class="row isotope" style="position: relative; height: 1734px;">
+                            <!-- First Skill Html -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 0px; top: 0px">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/html.svg" alt="html" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank"></a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
