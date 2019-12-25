@@ -164,18 +164,58 @@
                                             <a href="" target="_blank">Hamal</a>
                                         </h4>
                                         <div class="card-description">
-                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Hamal 是一款</p>
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Hamal 是一款用于V2V oVirt/RHV转换主机和CloudForms的OSP设备的自动化软件，Hamal软件收集其他虚拟机技术的虚拟机信息，然后将其迁移到KVM里面。软件流程如下：从hypervisor中检索XML配置文件, 导出磁盘镜像文件, 修改磁盘镜像文件, 在目标Hypervisor里创建虚拟机，Hamal软件将流程步骤集成到软件之中，使其自动化。</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Third App Project -->
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 0px; top: 578px;">
-                                
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 0px; top: 650px;">
+                                <div class="card">
+                                    <a href="" title="A software called smart_xinyang_app" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/smart_app.svg" alt="smart_app" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank">Smart_App</a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Smart App是一款基于Android与iOS的移动端应用，本人通过React Native实现了将Vue实现的前端应用打包为Android(.apk)以及iOS(.ipa)。本人从最初开始，以功能完善且优雅的设计，以稳定且满足敏捷开发、快速迭代的架构为原则，完成了页面服务以及打包为应用的所有实现。</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Fourth App Project -->
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 365px; top: 578px;">
-                                
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 365px; top: 650px;">
+                                <div class="card">
+                                    <a href="" title="A software called music app" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/music_app.svg" alt="music app" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank">Music_App</a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Music App是一款基于flex布局设计和实现的音乐播放H5应用，本人为了验证和解决传统布局方式上的难点，例如传统布局中垂直居中这类比较难以实现的问题。任何的容器都可以指定Flex布局，只需要为盒子增加一行display: flex，行内元素则是使用display: inline-block。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fifth App Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 0px; top: 1280px;">
+                                <div class="card">
+                                    <a href="" title="A software called Demo Kugou" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/demo_kugou.svg" alt="Demo Kugou" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank">Demo_Kugou</a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;"></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
