@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="container-projects" class="row isotope" style="position: relative; height: 1734px;">
+                        <div id="container-projects" class="row isotope" style="position: relative; height: 1881px;">
                             <!-- First Web Project -->
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item web" style="position: absolute; left: 0px; top: 0px">
                                 <div class="card">
@@ -196,7 +196,7 @@
                                             <a href="" target="_blank">Music_App</a>
                                         </h4>
                                         <div class="card-description">
-                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Music App是一款基于flex布局设计和实现的音乐播放H5应用，本人为了验证和解决传统布局方式上的难点，例如传统布局中垂直居中这类比较难以实现的问题。任何的容器都可以指定Flex布局，只需要为盒子增加一行display: flex，行内元素则是使用display: inline-block。</p>
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Music App 是一款基于flex布局设计和实现的音乐播放H5应用，我自己为了验证和解决传统布局方式上的难点，例如传统布局中垂直居中这类比较难以实现的问题。任何的容器都可以指定Flex布局，只需要为盒子增加一行display: flex，行内元素则是使用display: inline-block。</p>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,23 @@
                                             <a href="" target="_blank">Demo_Kugou</a>
                                         </h4>
                                         <div class="card-description">
-                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;"></p>
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">Demo Kugou是一款基于Vue然后由自己手动搭建的Kugou移动端Web应用软件，利用webpack-bundle-analyzer插件(用来分析打包之后每个文件的组成)从路由层优化项目代码打包后的体积。实现了包括热门推荐、音乐排行以及播放等，用Vue原生技术开发移动端项目软件，解决了滑动(better-scroll)、点击(fastclick)以及跨平台请求(axios)等问题。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sixth PC Project -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope app" style="position: absolute; left: 365px; top: 1280px;">
+                                <div class="card">
+                                    <a href="" title="A software called React Echarts" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/projects/react_echarts.svg" alt="React Echarts" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text">
+                                        <h4>
+                                            <a href="" target="_blank">React_Echarts</a>
+                                        </h4>
+                                        <div class="card-description">
+                                            <p style="font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">React Echarts 是一款将React特点(声明式编码、组件化编码、支持客户端与服务端渲染、高效以及单向数据流等)与Echarts特性(丰富的可视化类型、多种数据格式无需转换直接使用、千万数据的前端展现以及移动端优化)结合的软件，由于Echarts文件过大，所以自定义构建文件，按需引入Echarts。</p>
                                         </div>
                                     </div>
                                 </div>
@@ -231,14 +247,75 @@
                     </div>
                     <div class="col-xs-12 col-md-8">
                         <p>I also built and worked on these projects: </p>
+                        <!-- First Other Project -->
                         <h3 id="scrapy-mygirl">
-                            <a href="" target="_blank">scrapy-mygirl</a>
+                            <a href="" target="_blank">scrapy_mygirl</a>
                         </h3>
                         <p>
                             <span class="dim">scrapy weather</span>
                         </p>
                         <p>
-
+                            一款基于scrapy框架编写的可以自动获取指定城市的天气信息(温度、湿度、风向以及风速大小)，然后将其整理为风格独特且可以自定义的静态页面代码，配置邮件发送人以及收件人即可以将获取到的天气信息发送到指定人邮箱之中，自动化运行脚本文件让项目软件可以在每天指定时间(例如8:00进行邮件信息的整理以及发送)执行。
+                        </p>
+                        <!-- Second Other Project -->
+                        <h3 id="scrapy-mygirl-joke">
+                            <a href="" target="_blank">scrapy_mygirl_joke</a>
+                        </h3>
+                        <p>
+                            <span class="dim">scrapy joke</span>
+                        </p>
+                        <p>
+                            一款基于scrapy框架编写的可以自动获取内容健康的笑话内容(包括笑话动态图)，然后将其整理为风格独特且可以自定义的静态页面代码，配置邮件发送人以及收件人即可以将获取到的天气信息发送到指定人邮箱之中，自动化运行脚本文件让项目软件可以在每天指定时间(例如8:00进行邮件信息的整理以及发送)执行。
+                        </p>
+                        <!-- Third Other Project -->
+                        <h3 id="scrapy-mygirl-english">
+                            <a href="" target="_blank">scrapy_mygirl_english</a>
+                        </h3>
+                        <p>
+                            <span class="dim">scrapy english</span>
+                        </p>
+                        <p>
+                            一款基于scrapy框架编写的可以自动获取英文短文信息(包括短文图片信息、音频信息(时长与音频内容)以及短文内容等)，然后将其整理为页面html代码，配置邮件发送人以及收件人即可以将获取到的天气信息发送到指定人邮箱之中，自动化运行脚本文件让项目软件可以在每天指定时间(例如8:00进行邮件信息的整理以及发送)执行。
+                        </p>
+                        <!-- Third Other Project -->
+                        <h3 id="scrapy-mygirl-english">
+                            <a href="" target="_blank">scrapy_mygirl_english</a>
+                        </h3>
+                        <p>
+                            <span class="dim">scrapy english</span>
+                        </p>
+                        <p>
+                            一款基于scrapy框架编写的可以自动获取英文短文信息(包括短文图片信息、音频信息(时长与音频内容)以及短文内容等)，然后将其整理为页面html代码，配置邮件发送人以及收件人即可以将获取到的天气信息发送到指定人邮箱之中，自动化运行脚本文件让项目软件可以在每天指定时间(例如8:00进行邮件信息的整理以及发送)执行。
+                        </p>
+                        <!-- Fourth Other Project -->
+                        <h3 id="app-spider">
+                            <a href="" target="_blank">app_spider</a>
+                        </h3>
+                        <p>
+                            <span class="dim">app spider</span>
+                        </p>
+                        <p>
+                            一款自动分析视频分享的Url链接，然后整理得出分享内容中的视频源地址(其中主要的视频源地址格式要求为mp4)，将整理的视频源地址、视频源地址的出处等信息整合到特定接口(json数据返回)中提供给外界使用。
+                        </p>
+                        <!-- Fifth Other Project -->
+                        <h3 id="cpu-node">
+                            <a href="" target="_blank">cpu_node</a>
+                        </h3>
+                        <p>
+                            <span class="dim">cpu node</span>
+                        </p>
+                        <p>
+                            一款基于node实现的实时地监控系统CPU使用率(CPU总量以及CPU使用量信息)的Web项目，将CPU信息实时地收集回来然后利用数据去渲染Web视图层，外加结合了echarts特性将CPU实时变化的数据信息通过丰富的可视化类型更直观、清晰地展现出来。
+                        </p>
+                        <!-- Sixth Other Project -->
+                        <h3 id="react-blog">
+                            <a href="" target="_blank">react_blog</a>
+                        </h3>
+                        <p>
+                            <span class="dim">react blog</span>
+                        </p>
+                        <p>
+                            一款基于react实现的仿写了一个CNode社区。实现功能包括（各板块）帖子列表，帖子详文、评论的查看，新手入门页面，API页面，关于页面等功能模块。
                         </p>
                     </div>
                 </div>
@@ -249,22 +326,191 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-4 section-heading">
-                        <h1>Selected Skills</h1>
+                        <h1>职业技能</h1>
                     </div>
                     <div class="col-xs-12 col-md-8">
-                        <div id="container-skills" class="row isotope" style="position: relative; height: 1734px;">
+                        <div id="container-skills" class="row isotope" style="position: relative; height: 300px;">
                             <!-- First Skill Html -->
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 0px; top: 0px">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 0px; top: 0px; width: 20%;">
                                 <div class="card">
                                     <a href="" title="" class="card-image hover-overlay" target="_blank">
                                         <img src="~@/assets/skills/html.svg" alt="html" class="imp-responsive" />
                                     </a>
-                                    <div class="card-text">
-                                        <h4>
-                                            <a href="" target="_blank"></a>
-                                        </h4>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <!-- <h4>
+                                            <a href="" target="_blank">Html</a>
+                                        </h4> -->
                                         <div class="card-description">
-                                            <p></p>
+                                            <p>熟悉Html</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Second Skill CSS -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 120px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/CSS.svg" alt="css" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉css</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Third Skill Less -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 240px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/less.svg" alt="less" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉less</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fourth Skill SASS -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 360px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/SASS.svg" alt="sass" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉sass</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fifth Skill JavaScript -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 480px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/JavaScript.svg" alt="css" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉JavaScript</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sixth Skill Vue -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 600px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/Vue.svg" alt="vue" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Vue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Seventh Skill React -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 720px; top: 0px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/React.svg" alt="react" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉React</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Eighth Skill Node.js -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 0px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/node.svg" alt="node" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Node.js</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Ninth Skill Python -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 120px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/python.svg" alt="python" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Python</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tenth Skill Django -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 240px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/django.svg" alt="django" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Django</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Eleventh Skill Openstack -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 360px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/icon_openstack.svg" alt="openstack" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Openstack</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Twelfth Skill RabbitMQ -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 480px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/RabbitMQ.svg" alt="RabbitMQ" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉RabbitMQ</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Thirteenth Skiil Nginx -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 600px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/nginx.svg" alt="nginx" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Nginx</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fourteenth Skill Mysql -->
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 skill-item isotope-item html" style="position: absolute; left: 720px; top: 200px; width: 20%;">
+                                <div class="card">
+                                    <a href="" title="" class="card-image hover-overlay" target="_blank">
+                                        <img src="~@/assets/skills/my-SQL.svg" alt="mysql" class="imp-responsive" />
+                                    </a>
+                                    <div class="card-text" style="font-size: 12px;">
+                                        <div class="card-description">
+                                            <p>熟悉Mysql</p>
                                         </div>
                                     </div>
                                 </div>
@@ -282,8 +528,49 @@
                         <h1>Other Skills</h1>
                     </div>
                     <div class="col-xs-12 col-md-8">
-
+                        <p>I also built and worked on these skills: </p>
+                        <!-- First Other Skill -->
+                        <ul class="other-skill-list">
+                            <li class="other-skill-item">
+                                <img src="~@/assets/other_skills/software.svg" alt="software" class="imp-responsive" />
+                                <span>软件调研、设计</span>
+                            </li>
+                        </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="home-section">
+            <div class="container">
+                <div class="col-xs-12 col-md-4 section-heading">
+                    <h1>职业经历</h1>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <h3 id="2018-年-6-月-至今">2018年6月~至今</h3>
+                    <p>
+                        <a href="" target="_blank">EasyStack</a> 软件研发工程师
+                    </p>
+                    <ul>
+                        <li>项目组技术负责人</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="home-section">
+            <div class="container">
+                <div class="col-xs-12 col-md-4 section-heading">
+                    <h1>联系</h1>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <ul class="fa-ul">
+                        <li>
+                            <i class="fa fa-li icon iconfont icon-email big-icon"></i>
+                            <span>
+                                <a href="mailto:j.dan92016@gmail.com">j.dan92016@gmail.com</a>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -663,6 +950,9 @@ export default class Resume extends Vue {
                 }
             }
         }
+        .fa-ul > li {
+            position: relative;
+        }
     }
     #profile {
         text-align: center;
@@ -986,5 +1276,41 @@ export default class Resume extends Vue {
     .dim {
         font-size: 0.7em;
         color: #8e8e8e;
+    }
+
+    .other-skill-list {
+        display: block;
+    }
+
+    .other-skill-list .other-skill-item {
+        list-style: none;
+    }
+
+    .other-skill-item .imp-responsive {
+        display: inline-block;
+        width: 10%;
+    }
+
+    .other-skill-item span {
+        font-size: 0.8rem;
+    }
+
+    #contact.home-section .fa-ul {
+        margin-left: 3.14285714rem;
+    }
+
+    #contact.home-section li {
+        padding-top: 0.8rem;
+        margin-bottom: 0.3rem;
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    #contact.home-section .fa-li {
+        position: absolute;
+        left: 2.857rem;
+        width: 2rem;
+        top: 0.14285714em;
+        text-align: center;
     }
 </style>
