@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import App from './App.vue';
+import App from './App';
 import router from './router';
 import store from './store';
 import VueStorage from 'vue-ls';
-import config from '@/config/defaultSettings';
+import config from './config/defaultSettings';
 import '@/styles/index.scss';
 import i18n from './i18n'
 
