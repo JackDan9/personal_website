@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/home/Home.vue';
 import Resume from '../views/resume/Resume.vue';
+import Blog from '../views/blog/Blog.vue';
 import { UserLayout } from '@/layout';
 
 Vue.use(VueRouter);
@@ -26,6 +27,12 @@ const routes = [
     name: 'resume',
     component: Resume,
     meta: { title: '简历' },
+  },
+  {
+    path: '/blog',
+    name: 'blog',
+    component: Blog,
+    meta: { title: '博客' },
   }
   // {
   //   path: '/about',

@@ -11,6 +11,14 @@
     <noscript>
       <strong>We're sorry but personal_website doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
+        const html = document.querySelector('html');
+        let fontSize = window.innerWidth / 10;
+        fontSize = fontSize > 50 ? 50 : fontSize;
+        html.style.fontSize = fontSize + 'px';
+      })
+    </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
