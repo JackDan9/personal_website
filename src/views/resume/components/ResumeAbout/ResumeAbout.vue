@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-md-4">
           <div id="profile">
             <div class="portrait" itemprop="image"></div>
-            <div class="portrait-tnavShowitle">
+            <div class="portrait-title">
               <h2 itemprop="author">{{ $t('author') }}</h2>
               <h3 itemprop="jobTitle">{{ $t('jobTitle') }}</h3>
               <h3 itemprop="worksFor">
@@ -98,7 +98,145 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 })
 
 export default class ResumeAbout extends Vue {}
+
 </script>
 
 <style lang="scss" scoped>
+#description {
+  position: relative;
+  padding-top: 0.6rem;
+  padding-left: 0.2rem;
+
+  h1 {
+    font-size: 0.8rem;
+  }
+
+  h3 {
+    margin-top: 0.4rem;
+    font-weight: 700;
+    font-size: 0.4rem;
+  }
+
+  a {
+    transition: color 0.6s ease;
+    color: #0095eb;
+    text-decoration: none;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      position: relative;
+      padding: 0 0.3rem 0.08rem 0.06rem;
+    }
+
+    .fa-li {
+      position: absolute;
+      top: -0.04rem;
+      left: -0.55rem;
+      text-align: center;
+    }
+
+    .fa {
+      display: inline-block;
+      font: normal normal normal 0.28rem/1 FontAwesome;
+      font-size: 0.5rem;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-xingquaihao1 {
+      color: rgba(255, 0, 0, 0.5);
+    }
+
+    .icon-graduation-cap {
+      top: 0.04rem;
+      font-size: 0.4rem;
+    }
+
+    .description {
+      p {
+        margin: 0;
+      }
+      p.content {
+        font-size: 0.36rem;
+      }
+      p.course {
+        font-size: 0.36rem;
+      }
+      p.institution {
+        font-size: 0.25rem;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+}
+
+#profile {
+  position: relative;
+  padding: 0.6rem 0.2rem;
+  text-align: center;
+  
+  .portrait {
+    background-image: url("~@/assets/avtar.png");
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+  }
+
+  .portrait-title {
+    h2 {
+      margin: 0.4rem 0 0.2rem 0;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: #000000;
+    }
+    h3 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.4rem;
+      font-weight: 400;
+      color: #AAAAAA;
+      text-transform: uppercase;
+
+      a {
+        transition: color 0.6s ease;
+        color: #0095eb;
+        text-decoration: none;
+        text-transform: none;
+      }
+    }
+  }
+  ul.social-icon {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin-top: 0.6rem;
+
+    li {
+      margin-right: 0.2rem;
+      a {
+        color: #0095eb;
+        text-decoration: none;
+        transition: color 0.6s ease;
+
+        .fa {
+          display: inline-block;
+          font: normal normal normal 0.28rem/1 FontAwesome;
+          font-size: 1rem;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      }
+    }
+  }
+}
 </style>
