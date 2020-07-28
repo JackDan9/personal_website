@@ -659,10 +659,14 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import ResumeAbout from '~@/components/ResumeAbout';
+
+import ResumeAbout from './components/ResumeAbout/ResumeAbout';
 
 @Component({
   name: 'Resume',
+  components: {
+    ResumeAbout,
+  },
 })
 export default class Resume extends Vue {
   private activeIndex = 0;

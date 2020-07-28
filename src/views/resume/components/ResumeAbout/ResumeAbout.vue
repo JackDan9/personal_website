@@ -96,6 +96,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 @Component({
   name: 'ResumeAbout',
 })
+
 export default class ResumeAbout extends Vue {}
 </script>
 
