@@ -62,7 +62,7 @@ export default {
         height: 100%;
         background: url('~@/assets/bg.jpg') top left no-repeat #666666;
         background-size: cover;
-        z-index: 900;
+        // z-index: 900;
     }
 
     .top {

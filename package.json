@@ -13,6 +13,7 @@
     "core-js": "^3.3.2",
     "enquire.js": "^2.1.6",
     "tailwindcss": "^1.9.5",
+    "three": "^0.122.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-i18n": "^8.0.0",
