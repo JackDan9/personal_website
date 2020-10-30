@@ -372,15 +372,15 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class Index extends Vue {
-  private avatarUrl: String = '../../assets/avtar.png'
-  private currentYear: String = '2020'
-  private githubName: String = 'JackDan'
+  private avatarUrl: String = '../../assets/avtar.png';
+  private currentYear: String = '2020';
+  private githubName: String = 'JackDan';
 
   private personInfo: Object = {
-    name: "JackDan's Den",
+    name: 'JackDan\'s Den',
     content: '一分耕耘，一分收获',
-  }
-  private articlesList: Array<object> = [
+  };
+  private articlesList: object[] = [
     {
       title: '2019年终总结',
       content: '距离上一次写年终总结已经过去四年时间了。在人生中带上两个小朋友以后，远游这种事情的难度就高企不下了。一年里除了工作以外，活动的轨迹多半也都落在了以家为圆心两公里为半径的圆周里。看着小朋友',
@@ -395,10 +395,10 @@ export default class Index extends Vue {
       title: '2017年终总结',
       content: '距离上一次写年终总结已经过去四年时间了。在人生中带上两个小朋友以后，远游这种事情的难度就高企不下了。一年里除了工作以外，活动的轨迹多半也都落在了以家为圆心两公里为半径的圆周里。看着小朋友',
       date: '一天前',
-    }
+    },
   ];
 
-  private iconList: Array<object> = [
+  private iconList: object[] = [
     {
       name: 'icon-github',
       value: 'github',
@@ -417,32 +417,32 @@ export default class Index extends Vue {
     },
     {
       name: 'icon-qq',
-      value: 'qq'
-    }
-  ]
+      value: 'qq',
+    },
+  ];
 
-  private sibarList: Array<object> = [
+  private sibarList: object[] = [
     {
       icon: 'icon-zhuye',
-      name: '主页'
+      name: '主页',
     },
     {
       icon: 'icon-fenlei',
-      name: '分类'
+      name: '分类',
     },
     {
       icon: 'icon-biaoqian',
-      name: '标签'
+      name: '标签',
     },
     {
       icon: 'icon-guidang',
-      name: '归档'
+      name: '归档',
     },
     {
       icon: 'icon-guanyuwomen',
-      name: '关于'
+      name: '关于',
     },
-  ]
+  ];
 }
 </script>
 

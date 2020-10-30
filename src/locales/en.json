@@ -23,5 +23,8 @@
   "selected_projects": "Selected Projects",
   "all": "All",
   "app": "App",
-  "web": "Web"
+  "web": "Web",
+  "soil": "Soil",
+  "soil_detail": "Soil is a software based on Openstack. It is a management tool that directly manages VMware vSphere resources through Openstack. It's goal is to realize the management of other cloud products based on the Soil and realize the operation entrance, user management, Use the integration of habits to manage all cloud resources through Soil. So as to realize the integrated operation of better service, efficiency and management.",
+  "hamal_detail": "Hamal is an automation software for V2V oVirt/RHV conversion host and OSP equipment of CloudForms. Hamal software collects virtual machine information of other virtual machine technologies and then migrates it to KVM. The software process is as follows: retrieve the XML configuration file from the hypervisor, export the disk image file, modify the disk image file, create a virtual machine in the target hypervisor, and the Hamal software integrates the process steps into the software to automate it."
 }
