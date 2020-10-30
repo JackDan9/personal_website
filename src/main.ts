@@ -5,7 +5,8 @@ import store from './store';
 import VueStorage from 'vue-ls';
 import config from './config/defaultSettings';
 import '@/styles/index.scss';
-import i18n from './i18n'
+import i18n from './i18n';
+import '@/assets/tailwind.css';
 
 Vue.use(VueStorage, config.storageOptions);
 
