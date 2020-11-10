@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div
-      class="fixed top-0 left-0 pl-0 pr-0 h-full overflow-y-auto z-101 bg-blue-800 hidden sm:hidden md:hidden lg:flex xl:flex flex-col lg:w-80 xl:96"
-    >
+    <div class="fixed top-0 left-0 h-full z-101 bg-blue-800 hidden sm:hidden md:hidden lg:flex xl:flex flex-col w-5/6 sm:w-5/6 md:w-5/6 lg:w-1/6 xl:w-1/6">
       <div class="w-full block flex-grow">
-        <div class="flex flex-col mt-16 mr-8 mb-12 ml-16">
-          <div class="flex justify-normal">
+        <div class="flex flex-col mt-16 sm:mt-12 md:mt-12 mr-8 mb-12 ml-16 sm:ml-8 md:ml-8">
+          <div class="flex justify-center md:justify-center lg:justify-between xl:justify-between items-center">
             <a
               class="rounded-full h-24 w-24 block border border-2 border-yellow-700 overflow-hidden"
               style="
@@ -28,15 +26,9 @@
           </div>
           <div class="ml-2 mt-4 flex flex-wrap content-center">
             <div class="text-left w-full">
-              <a
-                href="/"
+              <a href="/"
                 class="text-2xl tracking-wider m-0 font-black"
-                style="
-                  color: rgba(255, 255, 255, 0.5);
-                  transition: color 0.35s ease-in-out;
-                  user-select: none;
-                "
-                >{{personInfo.name}}</a
+                style="color: rgba(255, 255, 255, 0.5); transition: color 0.35s ease-in-out; user-select: none;">{{personInfo.name}}</a
               >
             </div>
             <div
@@ -52,12 +44,7 @@
             <a
               class="flex w-full rounded-none text-base font-semibold tracking-wider pl-10 py-2 pr-4 my-0 mx-1 items-center"
               href="/"
-              style="
-                color: #fcfcfc;
-                transition: color 0.35s ease-in-out;
-                user-select: none;
-              "
-            >
+              style="color: #fcfcfc; transition: color 0.35s ease-in-out; user-select: none;">
               <i v-bind:class="[sibarItem.icon]" class="icon iconfont border border-1 border-gray-100 rounded-full w-6 h-6 leading-none text-xs ml-4 mr-4 pt-1 pl-0 inline-block text-center"></i>
               <span class="tracking-widest">{{sibarItem.name}}</span>
             </a>
@@ -75,10 +62,8 @@
       </div>
     </div>
     
-    <div class="bg-gray-100 pt-24 lg:pt-0 lg:ml-80 xl:ml-96">
-      <div
-        class="fixed z-100 bg-gray-100 inset-x-0 top-0 border-b-2 border-gray-200 lg:border-b-0 lg:static flex items-center"
-      >
+    <div class="bg-gray-100 pt-24 sm:pt-24 md:pt-24 lg:pt-0 xl:pt-0 ml-0 sm:ml-0 md:ml-0 lg:ml-80 xl:ml-96">
+      <div class="fixed z-100 bg-gray-100 inset-x-0 top-0 border-b-2 border-gray-200 lg:border-b-0 lg:static flex items-center">
         <div class="w-full max-w-screen-xl relative mx-auto px-6">
           <div
             class="lg:border-b-2 lg:border-gray-200 h-24 flex flex-col justify-center"
@@ -304,11 +289,11 @@
       ></div>
     </div>
 
-    <div class="bg-white lg:ml-80 xl:ml-96 relative min-h-screen px-0 pb-20">
-      <div class="pl-48 flex flex-wrap ml-0 mr-0">
-        <div class="relative w-full pl-0 pr-4 mt-12 lg:max-w-screen-md xl:max-w-screen-lg" style="min-height: calc(100vh - 3rem - 5rem - 35rem);">
-          <div class="pl-2 pr-8 pb-12">
-            <div class="pt-4 pr-2 xl:pt-6 ">
+    <div class="relative bg-white ml-0 sm:ml-0 md:ml-0 lg:ml-80 xl:ml-96 min-h-screen sm:min-h-screen md:min-h-screen lg:min-h-screen xl:min-h-screen px-0 sm:px-0 md:px-0 lg:px-0 xl:px-0 pb-0 sm:pb-0 md:pb-0 lg:pb-20 xl:pb-20 overflow-y-scroll">
+      <div class="p-2 flex flex-wrap ml-0 mr-0 sm:pl-2 md:pl-2 lg:pl-36 xl:pl-48">
+        <div class="relative w-full pl-0 pr-0 sm:pr-0 md:pr-2 lg:pr-4 xl:pr-4 mt-0 sm:mt-0 md:mt-2 lg:mt-4 xl:mt-12 lg:max-w-screen-md xl:max-w-screen-lg">
+          <div class="pl-0 sm:pl-0 md:pl-0 lg:pl-2 xl:pl-2 pr-0 sm:pr-0 md:pr-0 lg:pr-4 xl:pr-8 pb-0 sm:pb-0 md:pb-4 lg:pb-8 xl:pb-12">
+            <div class="pt-0 sm:pt-0 md:pt-0 lg:pt-2 xl:pt-4 pr-0 sm:pr-0 md:pr-0 lg:pr-1 xl:pr-2">
               <div class="pt-6 pb-4 border-b border-gray-200" v-for="(article, index) in articlesList" :key="index">
                 <div class="flex lg:pr-2 xl:pr-2 justify-between">
                   <h1 class="m-0 text-2xl font-normal font-sans">
@@ -328,7 +313,7 @@
           </div>
         </div>
         <!-- right panel -->
-        <div class="mt-10 ml-8" style="max-width: 300px;">
+        <div class="mt-0 sm:mt-0 md:mt-4 lg:mt-8 xl:mt-10 ml-0 sm:ml-0 md:ml-4 lg:ml-6 xl:ml-8 hidden sm:hidden md:hidden lg:block xl:block" style="max-width: 300px;">
           <div class="sticky top-8 mr-6 mt-12 mb-16" style="transition: top 0.2s ease-in-out;">
             <div class="mb-16 pl-4 border-l border-gray-500">
               <h3 class="pt-2 pb-2 mt-0 mb-0 text-base text-gray-600 font-semibold tracking-tight">最近更新</h3>
@@ -351,12 +336,12 @@
         </div>
       </div>
 
-      <footer class="flex w-full justify-center absolute bottom-0 py-0 px-4 bg-white h-20 xl:pl-0 text-sm" style="color: #7a7b7d;">
+      <footer class="flex w-full justify-center absolute bottom-0 py-0 sm:py-0 md:py-0 lg:py-0 xl:py-0 px-2 sm:px-2 md:px-2 lg:px-4 xl:px-4 pl-0 sm:pl-0 md:pl-0 lg:pl-0 xl:pl-0 h-10 sm:h-10 md:h-12 lg:h-16 xl:h-20 bg-white  text-sm" style="color: #7a7b7d;">
         <div class="flex justify-between items-center">
           <div class="w-full">
-            <p class="m-0">
+            <p class="m-0 sm:m-0 md:m-0 lg:m-0 xl:m-0">
                © {{currentYear}} 
-               <a class="text-sm" style="color: #7a7b7d;" href="">{{githubName}}</a>
+               <a class="text-sm sm:text-sm md:text-sm lg:text-base xl:text-base italic text-teal-700" href="https://github.com/JackDan9/">{{githubName}}</a>
                .
                <span>保留部分权益</span>
             </p>
@@ -388,6 +373,11 @@ export default class Index extends Vue {
     },
     {
       title: '2018年终总结',
+      content: '距离上一次写年终总结已经过去四年时间了。在人生中带上两个小朋友以后，远游这种事情的难度就高企不下了。一年里除了工作以外，活动的轨迹多半也都落在了以家为圆心两公里为半径的圆周里。看着小朋友',
+      date: '一天前',
+    },
+    {
+      title: '2017年终总结',
       content: '距离上一次写年终总结已经过去四年时间了。在人生中带上两个小朋友以后，远游这种事情的难度就高企不下了。一年里除了工作以外，活动的轨迹多半也都落在了以家为圆心两公里为半径的圆周里。看着小朋友',
       date: '一天前',
     },
