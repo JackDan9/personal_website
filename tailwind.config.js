@@ -7,10 +7,23 @@ module.exports = {
     screens: {
       sm: '576px',
       md: '768px',
-      lg: '992px',
+      xmd: '850px',
+      lg: '1024px',
       xl: '1280px',
+      xxl: '1440px',
+      xxxl: '1650px',
     },
     extend: {
+      width: {
+        '70': '210px',
+        '80': '260px',
+        '90': '360px',
+      },
+      margin: {
+        '70': '210px',
+        '80': '260px',
+        '90': '360px',
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         source: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],

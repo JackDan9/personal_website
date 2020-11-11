@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="fixed top-0 left-0 h-full z-101 bg-blue-800 hidden sm:hidden md:hidden lg:flex xl:flex flex-col w-5/6 sm:w-5/6 md:w-5/6 lg:w-1/6 xl:w-1/6">
+    <div class="fixed top-0 left-0 h-full z-101 bg-blue-800 hidden sm:hidden md:hidden lg:flex xl:flex flex-col w-5/6 sm:w-5/6 md:w-5/6 lg:w-70 xl:w-80 xxxl:w-90">
       <div class="w-full block flex-grow">
-        <div class="flex flex-col mt-16 sm:mt-12 md:mt-12 mr-8 mb-12 ml-16 sm:ml-8 md:ml-8">
-          <div class="flex justify-center md:justify-center lg:justify-between xl:justify-between items-center">
+        <div class="flex flex-col mt-16 sm:mt-12 md:mt-12 mr-8 mb-12 ml-16 sm:ml-8 md:ml-8 lg:mx-0 xl:mx-0">
+          <div class="flex justify-center md:justify-center lg:justify-center xl:justify-center items-center">
             <a
               class="rounded-full h-24 w-24 block border border-2 border-yellow-700 overflow-hidden"
               style="
@@ -24,15 +24,15 @@
               />
             </a>
           </div>
-          <div class="ml-2 mt-4 flex flex-wrap content-center">
-            <div class="text-left w-full">
+          <div class="ml-2 mt-4 lg:mx-0 xl:mx-0 flex flex-wrap content-center">
+            <div class="text-left lg:text-center xl:text-center w-full">
               <a href="/"
                 class="text-2xl tracking-wider m-0 font-black"
                 style="color: rgba(255, 255, 255, 0.5); transition: color 0.35s ease-in-out; user-select: none;">{{personInfo.name}}</a
               >
             </div>
             <div
-              class="text-left w-full mt-1 text-base leading-5 italic font-sans"
+              class="text-left lg:text-center xl:text-center w-full mt-1 text-base leading-5 italic font-sans"
               style="color: #828282"
             >
               {{personInfo.content}}
@@ -42,10 +42,10 @@
         <ul class="flex flex-col h-64 pl-0 mb-0 list-none">
           <li class="flex justify-center h-12" v-for="(sibarItem, sibarIndex) in sibarList" :key="sibarIndex">
             <a
-              class="flex w-full rounded-none text-base font-semibold tracking-wider pl-10 py-2 pr-4 my-0 mx-1 items-center"
+              class="flex w-full rounded-none text-base font-semibold tracking-wider px-0 py-2 lg:px-0 xl:px-0 xxxl:pl-10 xxxl:pr-4 lg:justify-center xl:justify-center xxxl:justify-start my-0 mx-1 items-center"
               href="/"
               style="color: #fcfcfc; transition: color 0.35s ease-in-out; user-select: none;">
-              <i v-bind:class="[sibarItem.icon]" class="icon iconfont border border-1 border-gray-100 rounded-full w-6 h-6 leading-none text-xs ml-4 mr-4 pt-1 pl-0 inline-block text-center"></i>
+              <i v-bind:class="[sibarItem.icon]" class="icon iconfont border border-1 border-gray-100 rounded-full w-6 h-6 leading-none text-xs ml-4 mr-4 pt-1 pl-0 inline-block text-center lg:hidden xl:hidden xxxl:inline-block"></i>
               <span class="tracking-widest">{{sibarItem.name}}</span>
             </a>
           </li>
@@ -62,12 +62,10 @@
       </div>
     </div>
     
-    <div class="bg-gray-100 pt-24 sm:pt-24 md:pt-24 lg:pt-0 xl:pt-0 ml-0 sm:ml-0 md:ml-0 lg:ml-80 xl:ml-96">
+    <div class="bg-gray-100 pt-24 sm:pt-24 md:pt-24 lg:pt-0 xl:pt-0 ml-0 sm:ml-0 md:ml-0 lg:ml-70 xl:ml-80 xxxl:ml-90">
       <div class="fixed z-100 bg-gray-100 inset-x-0 top-0 border-b-2 border-gray-200 lg:border-b-0 lg:static flex items-center">
         <div class="w-full max-w-screen-xl relative mx-auto px-6">
-          <div
-            class="lg:border-b-2 lg:border-gray-200 h-24 flex flex-col justify-center"
-          >
+          <div class="lg:border-b-2 lg:border-gray-200 h-24 flex flex-col justify-center">
             <div class="flex items-center -mx-6">
               <div class="lg:w-1/4 xl:w-1/5 pl-6 pr-6">
                 <div class="flex items-center">
@@ -284,14 +282,12 @@
           </div>
         </div>
       </div>
-      <div
-        class="w-full max-w-screen-xl relative mx-auto px-6 pt-16 pb-40 md:pb-24 hidden"
-      ></div>
+      <div class="w-full max-w-screen-xl relative mx-auto px-6 pt-16 pb-40 md:pb-24 hidden"></div>
     </div>
 
-    <div class="relative bg-white ml-0 sm:ml-0 md:ml-0 lg:ml-80 xl:ml-96 min-h-screen sm:min-h-screen md:min-h-screen lg:min-h-screen xl:min-h-screen px-0 sm:px-0 md:px-0 lg:px-0 xl:px-0 pb-0 sm:pb-0 md:pb-0 lg:pb-20 xl:pb-20 overflow-y-scroll">
-      <div class="p-2 flex flex-wrap ml-0 mr-0 sm:pl-2 md:pl-2 lg:pl-36 xl:pl-48">
-        <div class="relative w-full pl-0 pr-0 sm:pr-0 md:pr-2 lg:pr-4 xl:pr-4 mt-0 sm:mt-0 md:mt-2 lg:mt-4 xl:mt-12 lg:max-w-screen-md xl:max-w-screen-lg">
+    <div class="relative bg-white ml-0 sm:ml-0 md:ml-0 lg:ml-70 xl:ml-80 xxl:ml-80 xxxl:ml-90 min-h-screen sm:min-h-screen md:min-h-screen lg:min-h-screen xl:min-h-screen px-0 sm:px-0 md:px-0 lg:px-0 xl:px-0 pb-0 sm:pb-0 md:pb-0 lg:pb-20 xl:pb-20 overflow-y-scroll">
+      <div class="p-2 flex flex-wrap ml-0 mr-0 sm:pl-2 md:pl-2 lg:pl-12 xl:pl-12 xxxl:pl-48">
+        <div class="relative w-full pl-0 pr-0 sm:pr-0 md:pr-2 lg:pr-4 xl:pr-4 mt-0 sm:mt-0 md:mt-2 lg:mt-4 xl:mt-12 lg:max-w-screen-md xl:max-w-screen-md xxxl:max-w-screen-xmd">
           <div class="pl-0 sm:pl-0 md:pl-0 lg:pl-2 xl:pl-2 pr-0 sm:pr-0 md:pr-0 lg:pr-4 xl:pr-8 pb-0 sm:pb-0 md:pb-4 lg:pb-8 xl:pb-12">
             <div class="pt-0 sm:pt-0 md:pt-0 lg:pt-2 xl:pt-4 pr-0 sm:pr-0 md:pr-0 lg:pr-1 xl:pr-2">
               <div class="pt-6 pb-4 border-b border-gray-200" v-for="(article, index) in articlesList" :key="index">
@@ -313,7 +309,7 @@
           </div>
         </div>
         <!-- right panel -->
-        <div class="mt-0 sm:mt-0 md:mt-4 lg:mt-8 xl:mt-10 ml-0 sm:ml-0 md:ml-4 lg:ml-6 xl:ml-8 hidden sm:hidden md:hidden lg:block xl:block" style="max-width: 300px;">
+        <div class="mt-0 sm:mt-0 md:mt-4 lg:mt-8 xl:mt-10 ml-0 sm:ml-0 md:ml-4 lg:ml-6 xl:ml-8 hidden sm:hidden md:hidden lg:hidden xl:block xxxl:block" style="max-width: 300px;">
           <div class="sticky top-8 mr-6 mt-12 mb-16" style="transition: top 0.2s ease-in-out;">
             <div class="mb-16 pl-4 border-l border-gray-500">
               <h3 class="pt-2 pb-2 mt-0 mb-0 text-base text-gray-600 font-semibold tracking-tight">最近更新</h3>
