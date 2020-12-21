@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../views/home/Home.vue';
 import Resume from '../views/resume/Resume.vue';
 import Blog from '../views/blog/index.vue';
+import BlogDetail from '../views/blog-detail/index.vue';
+import BlogEditor from '../views/blog-editor/index.vue';
 import { UserLayout } from '@/layout';
 
 Vue.use(VueRouter);
@@ -33,7 +35,19 @@ const routes = [
     name: 'blog',
     component: Blog,
     meta: { title: '博客' },
-  }
+  },
+  {
+    path: '/blog-detail',
+    name: 'blog-detail',
+    component: BlogDetail,
+    meta: { title: '博客详情' },
+  },
+  {
+    path: '/blog-editor',
+    name: 'blog-editor',
+    component: BlogEditor,
+    meta: { title: '博客编辑' },
+  },
   // {
   //   path: '/about',
   //   name: 'about',

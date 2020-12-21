@@ -54,6 +54,7 @@ module.exports = {
         '80': '20rem',
         '128': '32rem',
         '(screen-16)': 'calc(100vh - 4rem)',
+        '(screen-24)': 'calc(100vh - 6rem)',
       },
       inset: {
         '16': '4rem',
@@ -70,6 +71,7 @@ module.exports = {
         xs: '20rem',
         sm: '30rem',
         '(screen-16)': 'calc(100vh - 4rem)',
+        '(screen-24)': 'calc(100vh - 6rem)',
       },
       boxShadow: {
         'md-light': '0 0 12px 8px rgb(255,255,255)',
