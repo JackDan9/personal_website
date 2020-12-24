@@ -2,30 +2,30 @@
   <div class="panel-main">
     <canvas
       id="main"
-      style="position: relative; width: 100%; height: 100%; overflow: hidden;"
+      style="position: relative; width: 100%; height: 100%; overflow: hidden"
     ></canvas>
   </div>
 </template>
 
 <script lang="ts">
-import '../../assets/img/sun_bg.jpg';
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { CSS2DRenderer, CSS2DObject } from '../../utils/CSS2DRenderer';
+import "../../assets/img/sun_bg.jpg";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { CSS2DRenderer, CSS2DObject } from "../../utils/CSS2DRenderer";
 declare function require(any: any): string;
 
-const sun_bg = require('../../assets/img/sun_bg.jpg');
-const earth_bg = require('../../assets/img/earth_bg.jpg');
-const jupiter_bg = require('../../assets/img/jupiter_bg.jpg');
-const mars_bg = require('../../assets/img/mars_bg.jpg');
-const mercury_bg = require('../../assets/img/mercury_bg.jpg');
-const neptune_bg = require('../../assets/img/neptune_bg.jpg');
-const pluto_bg = require('../../assets/img/pluto_bg.jpg');
-const saturn_bg = require('../../assets/img/saturn_bg.jpg');
-const saturn_ring = require('../../assets/img/saturn_ring.jpg');
-const uranus_bg = require('../../assets/img/uranus_bg.jpg');
-const venus_bg = require('../../assets/img/venus_bg.jpg');
+const sun_bg = require("../../assets/img/sun_bg.jpg");
+const earth_bg = require("../../assets/img/earth_bg.jpg");
+const jupiter_bg = require("../../assets/img/jupiter_bg.jpg");
+const mars_bg = require("../../assets/img/mars_bg.jpg");
+const mercury_bg = require("../../assets/img/mercury_bg.jpg");
+const neptune_bg = require("../../assets/img/neptune_bg.jpg");
+const pluto_bg = require("../../assets/img/pluto_bg.jpg");
+const saturn_bg = require("../../assets/img/saturn_bg.jpg");
+const saturn_ring = require("../../assets/img/saturn_ring.jpg");
+const uranus_bg = require("../../assets/img/uranus_bg.jpg");
+const venus_bg = require("../../assets/img/venus_bg.jpg");
 // import "./img/earth_bg.jpg";
 // import "./img/jupiter_bg.jpg";
 // import "./img/mars_bg.jpg";
@@ -40,18 +40,18 @@ const venus_bg = require('../../assets/img/venus_bg.jpg');
 declare let document: Document | any;
 
 @Component({
-  name: 'Name',
+  name: "Name",
 })
 export default class Home extends Vue {
   public mounted(): void {
-    const canvas = document.getElementById('main');
+    const canvas = document.getElementById("main");
 
     /*画布大小*/
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     /*renderer*/
-    const renderer = new THREE.WebGLRenderer({
+    const renderer: any = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
       antialias: true,
@@ -69,7 +69,7 @@ export default class Home extends Vue {
       45,
       window.innerWidth / window.innerHeight,
       1,
-      3000,
+      3000
     );
     camera.position.set(-200, 50, 0);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -80,8 +80,8 @@ export default class Home extends Vue {
 
     const labelRenderer = new CSS2DRenderer();
     labelRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    labelRenderer.domElement.style.position = 'absolute';
-    labelRenderer.domElement.style.top = '0px';
+    labelRenderer.domElement.style.position = "absolute";
+    labelRenderer.domElement.style.top = "0px";
     document.body.appendChild(labelRenderer.domElement);
 
     const orbitcontrols = new OrbitControls(camera, labelRenderer.domElement);
@@ -100,9 +100,9 @@ export default class Home extends Vue {
     });
     const Sun = new THREE.Mesh(
       new THREE.SphereGeometry(14, 30, 30),
-      sunMaterial,
+      sunMaterial
     );
-    Sun.name = 'Sun';
+    Sun.name = "Sun";
     SunSystem.add(Sun);
 
     // const planetDiv = document.createElement("div");
@@ -112,67 +112,41 @@ export default class Home extends Vue {
     // const planetLabel = new CSS2DObject(planetDiv);
     // planetLabel.position.set(0, 14, 0);
     // Sun.add(planetLabel);
-
-    // 添加水星
-    const Mercury = loadPlanet('mercury', 2, 20, 0.02);
-    planets.push(Mercury);
-    // 添加金星
-    const Venus = loadPlanet('venus', 4, 30, 0.012);
-    planets.push(Venus);
-    // 添加地球
-    const Earth = loadPlanet('earth', 5, 40, 0.01);
-    planets.push(Earth);
-    // 添加火星
-    const Mars = loadPlanet('mars', 4, 50, 0.008);
-    planets.push(Mars);
-    // 添加木星
-    const Jupiter = loadPlanet('jupiter', 9, 70, 0.006);
-    planets.push(Jupiter);
-    // 添加土星
-    const Saturn = loadPlanet('saturn', 7, 100, 0.005);
-    planets.push(Saturn);
-    // 添加天王星
-    const Uranus = loadPlanet('uranus', 4, 120, 0.003);
-    planets.push(Uranus);
-    // 添加海王星
-    const Neptune = loadPlanet('neptune', 3, 150, 0.002);
-    planets.push(Neptune);
-    // 添加冥王星
-    const Pluto = loadPlanet('pluto', 4, 160, 0.0016);
-    planets.push(Pluto);
-
-    const particleSystem = initParticle();
-    scene.add(particleSystem);
-
-    function loadPlanet(name: any, radius: any, position: any, speed: any) {
+    const loadPlanet: any = (
+      name: any,
+      radius: any,
+      position: any,
+      speed: any
+    ) => {
       const planetSystem: any = new THREE.Mesh(
         new THREE.SphereGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial(),
-      ); // 材质设定
+        new THREE.MeshLambertMaterial()
+      );
+      // 材质设定
       planetSystem.speed = speed;
       let materialLoader = pluto_bg;
-      if (name === 'mercury') {
+      if (name === "mercury") {
         materialLoader = mercury_bg;
       }
-      if (name === 'venus') {
+      if (name === "venus") {
         materialLoader = venus_bg;
       }
-      if (name === 'earth') {
+      if (name === "earth") {
         materialLoader = earth_bg;
       }
-      if (name === 'mars') {
+      if (name === "mars") {
         materialLoader = mars_bg;
       }
-      if (name === 'jupiter') {
+      if (name === "jupiter") {
         materialLoader = jupiter_bg;
       }
-      if (name === 'saturn') {
+      if (name === "saturn") {
         materialLoader = saturn_bg;
       }
-      if (name === 'uranus') {
+      if (name === "uranus") {
         materialLoader = uranus_bg;
       }
-      if (name === 'neptune') {
+      if (name === "neptune") {
         materialLoader = neptune_bg;
       }
       const material = new THREE.MeshBasicMaterial({
@@ -180,20 +154,20 @@ export default class Home extends Vue {
       });
       const planet = new THREE.Mesh(
         new THREE.SphereGeometry(radius, 30, 30),
-        material,
+        material
       );
       planet.position.z = -position;
       // planet.rotateOnAxis(new THREE.Vector3(1, 0, 0).normalize(), -23.36 * Math.PI / 180)
       planetSystem.add(planet);
 
-      if (name === 'saturn') {
+      if (name === "saturn") {
         const ringMaterial = new THREE.MeshBasicMaterial({
           map: loader.load(saturn_ring),
           side: THREE.DoubleSide,
         });
         const ring = new THREE.Mesh(
           new THREE.RingGeometry(radius * 1.2, radius * 1.5, 64, 1),
-          ringMaterial,
+          ringMaterial
         );
         ring.rotation.x = -Math.PI / 2;
         planet.add(ring);
@@ -203,7 +177,7 @@ export default class Home extends Vue {
         new THREE.RingGeometry(position, position + 0.05, 64, 1),
         new THREE.MeshBasicMaterial({
           side: THREE.DoubleSide,
-        }),
+        })
       );
       track.rotation.x = -Math.PI / 2;
       scene.add(track);
@@ -219,12 +193,44 @@ export default class Home extends Vue {
       SunSystem.add(planetSystem);
 
       return planetSystem;
-    }
+    };
+    // Add Mercury 添加水星
+    const Mercury = loadPlanet("mercury", 2, 20, 0.02);
+    planets.push(Mercury);
+    // Add Venus 添加金星
+    const Venus = loadPlanet("venus", 4, 30, 0.012);
+    planets.push(Venus);
+    // Add Earth 添加地球
+    const Earth = loadPlanet("earth", 5, 40, 0.01);
+    planets.push(Earth);
+    // Add Mars 添加火星
+    const Mars = loadPlanet("mars", 4, 50, 0.008);
+    planets.push(Mars);
+    // Add Jupiter 添加木星
+    const Jupiter = loadPlanet("jupiter", 9, 70, 0.006);
+    planets.push(Jupiter);
+    // Add Saturn 添加土星
+    const Saturn = loadPlanet("saturn", 7, 100, 0.005);
+    planets.push(Saturn);
+    // Add Uranus 添加天王星
+    const Uranus = loadPlanet("uranus", 4, 120, 0.003);
+    planets.push(Uranus);
+    // Add Neptune 添加海王星
+    const Neptune = loadPlanet("neptune", 3, 150, 0.002);
+    planets.push(Neptune);
+    // Add Pluto 添加冥王星
+    const Pluto = loadPlanet("pluto", 4, 160, 0.0016);
+    planets.push(Pluto);
 
-    function initParticle() {
-      /*背景星星*/
-      const particles = 50000; // 星星数量
-      /*buffer做星星*/
+    const initParticle = () => {
+      /**
+       * Particles 背景星星数量
+       */
+      const particles = 50000;
+
+      /**
+       * Buffer Geometry buffer做星星
+       */
       const bufferGeometry = new THREE.BufferGeometry();
 
       const positions = new Float32Array(particles * 3);
@@ -232,7 +238,10 @@ export default class Home extends Vue {
 
       const color = new THREE.Color();
 
-      const gap = 900; // 定义星星的最近出现位置
+      /**
+       * gap 定义星星的最近出现位置
+       */
+      const gap = 900;
 
       for (let i = 0; i < positions.length; i += 3) {
         // positions
@@ -246,11 +255,11 @@ export default class Home extends Vue {
         const biggest =
           Math.abs(x) > Math.abs(y)
             ? Math.abs(x) > Math.abs(z)
-              ? 'x'
-              : 'z'
+              ? "x"
+              : "z"
             : Math.abs(y) > Math.abs(z)
-            ? 'y'
-            : 'z';
+            ? "y"
+            : "z";
 
         const pos: any = { x, y, z };
 
@@ -291,12 +300,12 @@ export default class Home extends Vue {
       }
 
       bufferGeometry.setAttribute(
-        'position',
-        new THREE.BufferAttribute(positions, 3),
+        "position",
+        new THREE.BufferAttribute(positions, 3)
       );
       bufferGeometry.setAttribute(
-        'color',
-        new THREE.BufferAttribute(colors, 3),
+        "color",
+        new THREE.BufferAttribute(colors, 3)
       );
       bufferGeometry.computeBoundingSphere();
 
@@ -308,9 +317,12 @@ export default class Home extends Vue {
       const particleSystem = new THREE.Points(bufferGeometry, material);
 
       return particleSystem;
-    }
+    };
 
-    function resizeRendererToDisplaySize(renderer: any) {
+    const particleSystem = initParticle();
+    scene.add(particleSystem);
+
+    const resizeRendererToDisplaySize = (renderer: any) => {
       const canvas = renderer.domElement;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
@@ -319,9 +331,9 @@ export default class Home extends Vue {
         renderer.setSize(width, height, false);
       }
       return needResize;
-    }
+    };
 
-    function render(time: any) {
+    const render = (time: any) => {
       time *= 0.00001;
 
       if (resizeRendererToDisplaySize(renderer)) {
@@ -343,7 +355,7 @@ export default class Home extends Vue {
       labelRenderer.render(scene, camera);
 
       requestAnimationFrame(render);
-    }
+    };
 
     requestAnimationFrame(render);
   }
@@ -452,6 +464,7 @@ export default class Home extends Vue {
     opacity: 1;
   }
 }
+
 .fa {
   display: inline-block;
   font-style: normal;
@@ -460,9 +473,11 @@ export default class Home extends Vue {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .social {
   font-size: 0.44rem;
 }
+
 .navigation--social {
   a {
     border: 0;

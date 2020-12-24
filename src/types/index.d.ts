@@ -103,7 +103,7 @@ export interface ArticleDetail {
   author: string;
   category: Array<object>;
   comments: Array<Comments>;
-  create_time: string;
+  created_time: string;
   desc: string;
   content: string;
   id: number;
@@ -116,7 +116,7 @@ export interface ArticleDetail {
   state: number;
   tags: Array<object>;
   title: string;
-  update_time: string;
+  updated_time: string;
 }
 
 export interface ArticleDetailParams {

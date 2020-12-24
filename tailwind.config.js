@@ -40,6 +40,7 @@ module.exports = {
           white: 'var(--color-code-white)',
         },
         'green-150': '#e6ffee',
+        'gray-50': '#6c757d',
       },
       spacing: {
         '2px': '2px',
