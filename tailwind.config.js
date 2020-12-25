@@ -41,6 +41,7 @@ module.exports = {
         },
         'green-150': '#e6ffee',
         'gray-50': '#6c757d',
+        'global-footer-color': '#7a7b7d'
       },
       spacing: {
         '2px': '2px',

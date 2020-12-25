@@ -44,7 +44,7 @@ export interface ArticleDetailIF {
   author?: string;
   category?: Array<object>;
   comments?: Array<Comments>;
-  create_time: string;
+  created_time: string;
   desc?: string;
   content?: string;
   content_url?: string;
@@ -58,7 +58,7 @@ export interface ArticleDetailIF {
   state?: number;
   tags?: Array<object>;
   title?: string;
-  update_time?: string;
+  updated_time?: string;
 }
 
 export interface ArticleDetailParams {

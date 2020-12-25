@@ -5,6 +5,7 @@ import Vue from "vue";
 
 declare module "vue/types/vue" {
   interface Vue {
-    md2html: any
+    md2html: any,
+    $route: any
   }
 }
