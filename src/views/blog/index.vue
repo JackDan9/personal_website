@@ -65,7 +65,7 @@ import SiderBar from '@/components/SiderBar/index';
     'v-footer': GlobalFooter,
     'v-right-panel': RightPanel,
     'v-sider-bar': SiderBar,
-  }
+  },
 })
 export default class Index extends Vue {
   private articlesList: object[] = [];

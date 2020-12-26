@@ -55,8 +55,8 @@ import SiderBar from '@/components/SiderBar/index';
     'v-header': GlobalHeader,
     'v-footer': GlobalFooter,
     'v-right-panel': RightPanel,
-    'v-sider-bar': SiderBar
-  }
+    'v-sider-bar': SiderBar,
+  },
 })
 export default class Index extends Vue {
 

@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class GlobalFooter extends Vue {
-  private currentYear:string = '2020';
-  private githubName:string = 'JackDan';
-  private content:string = '保留部分权益';
+  private currentYear: string = '2020';
+  private githubName: string = 'JackDan';
+  private content: string = '保留部分权益';
 }
 </script>
 

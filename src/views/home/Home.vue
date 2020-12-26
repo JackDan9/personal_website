@@ -105,7 +105,7 @@ export default class Home extends Vue {
     const planets: any = [];
 
     /**
-     * @description sun 
+     * @description sun
      */
     const sunMaterial = new THREE.MeshBasicMaterial({
       map: loader.load(sun_bg),
@@ -117,12 +117,12 @@ export default class Home extends Vue {
     Sun.name = 'Sun';
     SunSystem.add(Sun);
 
-    const planetLink = document.createElement("a");
-    planetLink.className = "label";
-    planetLink.textContent = "博客";
-    planetLink.style.marginTop = "-0.3em";
-    planetLink.style.fontSize = "1rem";
-    planetLink.href = "/blog";
+    const planetLink = document.createElement('a');
+    planetLink.className = 'label';
+    planetLink.textContent = '博客';
+    planetLink.style.marginTop = '-0.3em';
+    planetLink.style.fontSize = '1rem';
+    planetLink.href = '/blog';
     const planetLabel = new CSS2DObject(planetLink);
     planetLabel.position.set(0, 14, 0);
     Sun.add(planetLabel);
