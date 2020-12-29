@@ -14,7 +14,6 @@ import '@/styles/index.scss';
 import '@/assets/index.css';
 import i18n from './i18n';
 import '@/assets/tailwind.css';
-import './assets/img/sun_bg.jpg';
 
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';

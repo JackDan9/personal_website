@@ -15,25 +15,8 @@
           最近更新
         </h3>
         <ul class="text-sm pb-1 pl-0 mt-2 ml-1 mb-4">
-          <li class="h-8 truncate overflow-hidden" style="list-style: none">
-            <a style="color: #7d6c6c"
-              >Swift 中使用 Option Pattern 改善可选项的 API 设计</a
-            >
-          </li>
-          <li class="h-8 truncate overflow-hidden" style="list-style: none">
-            <a style="color: #7d6c6c"
-              >Swift 中使用 Option Pattern 改善可选项的 API 设计</a
-            >
-          </li>
-          <li class="h-8 truncate overflow-hidden" style="list-style: none">
-            <a style="color: #7d6c6c"
-              >Swift 中使用 Option Pattern 改善可选项的 API 设计</a
-            >
-          </li>
-          <li class="h-8 truncate overflow-hidden" style="list-style: none">
-            <a style="color: #7d6c6c"
-              >Swift 中使用 Option Pattern 改善可选项的 API 设计</a
-            >
+          <li class="h-8 truncate overflow-hidden" style="list-style: none" v-for="(item, index) in articlesList" :key="index">
+            <a style="color: #7d6c6c">Swift 中使用 Option Pattern 改善可选项的 API 设计</a>
           </li>
         </ul>
       </div>
@@ -42,11 +25,38 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
+import { Route } from 'vue-router';
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import { ArticlesData } from './types/index';
 
 @Component({})
 export default class RightPanel extends Vue {
+  private articlesList: object[] = [];
 
+  mounted(): void {
+    this.handleSearch();
+  }
+
+  @Watch('$route')
+  public routeChange(val: Route, oldVal: Route) {
+    this.articlesList = [];
+    this.handleSearch();
+  }
+
+  private async handleSearch(): Promise<void> {
+    const data: ArticlesData = await axios.get('/static/articles.json').then((response) => {
+      const res = response.data;
+      return { list: res.data };
+    }, (error) => {
+      throw new Error(error);
+    });
+    this.articlesList = [...this.articlesList, ...data.list];
+  }
+
+  private articleDetail(id: number): void {
+    this.$router.push({name: 'blog-detail', query: { article_id: id.toString() }});
+  }
 }
 </script>
 
