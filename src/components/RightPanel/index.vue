@@ -16,7 +16,7 @@
         </h3>
         <ul class="text-sm pb-1 pl-0 mt-2 ml-1 mb-4">
           <li class="h-8 truncate overflow-hidden" style="list-style: none" v-for="(item, index) in articlesList" :key="index">
-            <a style="color: #7d6c6c">Swift 中使用 Option Pattern 改善可选项的 API 设计</a>
+            <span class="hover:border-b-2 cursor-pointer" style="color: #7d6c6c" @click="articleDetail(item.id)">{{ item.title }}</span>
           </li>
         </ul>
       </div>
