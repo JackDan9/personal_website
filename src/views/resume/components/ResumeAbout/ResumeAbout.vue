@@ -180,7 +180,7 @@ export default class ResumeAbout extends Vue {}
   text-align: center;
   
   .portrait {
-    background-image: url("~@/assets/avtar.png");
+    background-image: url("~@/assets/avatar.png");
     width: 4rem;
     height: 4rem;
     margin: 0 auto;

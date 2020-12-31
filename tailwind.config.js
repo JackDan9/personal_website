@@ -1,7 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  purge: ['./src/**/*.{js,mdx}'],
+  purge: [
+    './src/**/*.html',
+    './src/**/*.vue',
+    './src/**/*.jsx',
+  ],
   important: true,
   theme: {
     screens: {

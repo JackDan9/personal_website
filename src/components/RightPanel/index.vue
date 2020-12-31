@@ -55,7 +55,7 @@ export default class RightPanel extends Vue {
   }
 
   private articleDetail(id: number): void {
-    this.$router.push({name: 'blog-detail', query: { article_id: id.toString() }});
+    this.$router.replace({name: 'blog-detail', params: { article_id: id.toString() }});
   }
 }
 </script>

@@ -5,7 +5,7 @@
     <!-- v-header -->
     <v-header></v-header>
     <div
-      class="relative bg-white ml-0 lg:ml-70 xl:ml-80 xxl:ml-80 xxxl:ml-90 px-0 pb-0 h-(screen-24) overflow-y-scroll"
+      class="blog-detail-container relative bg-white ml-0 lg:ml-70 xl:ml-80 xxl:ml-80 xxxl:ml-90 px-0 pb-0 overflow-y-scroll"
     >
       <div
         class="pl-2 pr-2 flex flex-wrap ml-0 mr-0 lg:pl-12 xl:pl-12 xxxl:pl-48"
@@ -48,6 +48,7 @@ import GlobalFooter from '@/components/GlobalFooter/index';
 import RightPanel from '@/components/RightPanel/index';
 import GlobalHeader from '@/components/GlobalHeader/index';
 import SiderBar from '@/components/SiderBar/index';
+import { Route } from 'vue-router';
 
 
 @Component({
@@ -93,7 +94,13 @@ export default class Index extends Vue {
   private articleDetailList: any = [];
 
   public mounted(): void {
-    this.articleParams.id = this.$route.query.article_id;
+    this.articleParams.id = this.$route.params.article_id;
+    this.handleArticleDetail();
+  }
+
+  @Watch('$route')
+  public routeChange(val: Route, oldVal: Route): void {
+    this.articleParams.id = this.$route.params.article_id;
     this.handleArticleDetail();
   }
 
@@ -126,6 +133,9 @@ export default class Index extends Vue {
   &:first-child {
     margin-left: 0 !important;
   }
+}
+.blog-detail-container {
+  height: calc(100vh - 6rem);
 }
 .updated-time::before {
   content: "\2022";

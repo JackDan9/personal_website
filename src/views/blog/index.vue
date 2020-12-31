@@ -5,7 +5,7 @@
     <v-sider-bar></v-sider-bar>
     <!-- v-header -->
     <v-header></v-header>
-    <div class="relative bg-white ml-0 lg:ml-70 xl:ml-80 xxl:ml-80 xxxl:ml-90 px-0 pb-0 h-(screen-24) overflow-y-scroll">
+    <div class="blog-container relative bg-white ml-0 lg:ml-70 xl:ml-80 xxl:ml-80 xxxl:ml-90 px-0 pb-0 overflow-y-scroll">
       <div
         class="pl-2 pr-2 flex flex-wrap ml-0 mr-0 lg:pl-12 xl:pl-12 xxxl:pl-48"
       >
@@ -100,7 +100,7 @@ export default class Index extends Vue {
   }
 
   private articleDetail(id: number): void {
-    this.$router.push({name: 'blog-detail', query: { article_id: id.toString() }});
+    this.$router.push({name: 'blog-detail', params: { article_id: id.toString() }});
   }
 }
 </script>
@@ -108,6 +108,9 @@ export default class Index extends Vue {
 <style lang="scss" scoped>
 .algolia-autocomplete {
   width: 100% !important;
+}
+.blog-container {
+  height: calc(100vh - 6rem);
 }
 .my-info {
   margin-left: 0.25rem !important;

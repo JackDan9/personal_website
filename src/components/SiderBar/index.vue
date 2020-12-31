@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 left-0 h-full z-101 bg-blue-800 hidden lg:flex xl:flex flex-col w-5/6 sm:w-5/6 md:w-5/6 lg:w-70 xl:w-80 xxxl:w-90"
+    class="sider-bar-container fixed top-0 left-0 h-full z-101 hidden lg:flex xl:flex flex-col w-5/6 sm:w-5/6 md:w-5/6 lg:w-70 xl:w-80 xxxl:w-90"
   >
     <div class="w-full block flex-grow">
       <div
@@ -22,7 +22,7 @@
           >
             <img
               class="w-full h-full"
-              :src="avatarUrl"
+              src='~@/assets/avatar.png'
               alt="avatar"
               onerror="this.style.display='none'"
               style="transition: transform 0.5s"
@@ -97,61 +97,65 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({})
 export default class SiderBar extends Vue {
-  private avatarUrl: String = '../../assets/avtar.png';
-
-  private personInfo: Object = {
-    name: 'JackDan\'s Den',
-    content: '一分耕耘，一分收获',
+  private personInfo:object = {
+    name: "JackDan's Den",
+    content: "一分耕耘，一分收获",
   };
 
   private iconList: object[] = [
     {
-      name: 'icon-github',
-      value: 'github',
+      name: "icon-github",
+      value: "github",
     },
     {
-      name: 'icon-emailFilled',
-      value: 'email',
+      name: "icon-emailFilled",
+      value: "email",
     },
     {
-      name: 'icon-gongzhonghao',
-      value: '微信',
+      name: "icon-gongzhonghao",
+      value: "微信",
     },
     {
-      name: 'icon-weibo',
-      value: '微博',
+      name: "icon-weibo",
+      value: "微博",
     },
     {
-      name: 'icon-qq',
-      value: 'qq',
+      name: "icon-qq",
+      value: "qq",
     },
   ];
 
   private sibarList: object[] = [
     {
-      icon: 'icon-zhuye',
-      name: '主页',
+      icon: "icon-zhuye",
+      name: "主页",
     },
     {
-      icon: 'icon-fenlei',
-      name: '分类',
+      icon: "icon-fenlei",
+      name: "分类",
     },
     {
-      icon: 'icon-biaoqian',
-      name: '标签',
+      icon: "icon-biaoqian",
+      name: "标签",
     },
     {
-      icon: 'icon-guidang',
-      name: '归档',
+      icon: "icon-guidang",
+      name: "归档",
     },
     {
-      icon: 'icon-guanyuwomen',
-      name: '关于',
+      icon: "icon-guanyuwomen",
+      name: "关于",
     },
   ];
 }
 </script>
+<style lang="scss" scoped>
+.sider-bar-container {
+  background: url("~@/assets/bg.jpg") top left no-repeat #666666;
+  background-size: cover;
+}
+</style>

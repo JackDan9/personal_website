@@ -10,10 +10,9 @@ import App from './App';
 import router from './router';
 import store from './store';
 import config from './config/defaultSettings';
-import '@/styles/index.scss';
 import '@/assets/index.css';
+import './index.css';
 import i18n from './i18n';
-import '@/assets/tailwind.css';
 
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';

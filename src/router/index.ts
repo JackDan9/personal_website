@@ -37,7 +37,7 @@ const routes = [
     meta: { title: '博客' },
   },
   {
-    path: '/blog-detail',
+    path: '/blog-detail/:article_id',
     name: 'blog-detail',
     component: BlogDetail,
     meta: { title: '博客详情' },
