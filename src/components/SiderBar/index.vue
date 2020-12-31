@@ -21,11 +21,10 @@
             alt="avatar"
           >
             <img
-              class="w-full h-full"
+              class="w-full h-full avatar-img"
               src='~@/assets/avatar.png'
               alt="avatar"
               onerror="this.style.display='none'"
-              style="transition: transform 0.5s"
             />
           </a>
         </div>
@@ -157,5 +156,9 @@ export default class SiderBar extends Vue {
 .sider-bar-container {
   background: url("~@/assets/bg.jpg") top left no-repeat #666666;
   background-size: cover;
+  .avatar-img {
+    transition: transform 0.5s; 
+    object-fit:cover;
+  }
 }
 </style>
