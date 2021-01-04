@@ -1,3 +1,5 @@
+@import './iconfont.css';
+
 html,
 body {
   /* background: #000 url(./img/starry_sky_bg.jpg) no-repeat center center; */
@@ -18,7 +20,6 @@ body {
 .label {
   color: #FFF;
   font-family: sans-serif;
-  /* font-size: xx-small; */
   font-size: 1.2rem;
   padding: 2px;
 }
@@ -27,79 +28,26 @@ body {
   color: red;
 }
 
-@font-face {font-family: "iconfont";
-  src: url('./iconfont/iconfont.eot?t=1603872300061'); /* IE9 */
-  src: url('./iconfont/iconfont.eot?t=1603872300061#iefix') format('embedded-opentype'); /* IE6-IE8 */
-  src: url('./iconfont/iconfont.woff2?t=1603872300061')format('woff2'), 
-  url('./iconfont/iconfont.woff?t=1603872300061') format('woff'),
-  url('./iconfont/iconfont.ttf?t=1603872300061') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('./iconfont/iconfont.svg?t=1603872300061#iconfont') format('svg'); /* iOS 4.1- */
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
 }
 
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+h1 {
+  font-size: 2rem;
 }
 
-.icon-qq:before {
-  content: "\f003b";
+h2 {
+  font-size: 1.75rem;
 }
 
-.icon-weibo:before {
-  content: "\e63d";
+h3 {
+  font-size: 1.5rem;
 }
 
-.icon-guanyuwomen:before {
-  content: "\e605";
+h4 {
+  font-size: 1.25rem;
 }
 
-.icon-moonbyueliang:before {
-  content: "\e6a0";
-}
-
-.icon-biaoqian:before {
-  content: "\e62b";
-}
-
-.icon-gongzhonghao:before {
-  content: "\e63e";
-}
-
-.icon-zhuye:before {
-  content: "\e64d";
-}
-
-.icon-guidang:before {
-  content: "\e666";
-}
-
-.icon-emailFilled:before {
-  content: "\e647";
-}
-
-.icon-fenlei:before {
-  content: "\e86c";
-}
-
-.icon-github:before {
-  content: "\e620";
-}
-
-.icon-guidang1:before {
-  content: "\e6b9";
-}
-
-.icon-ziyuan:before {
-  content: "\e7cb";
-}
-
-.icon-taiyang:before {
-  content: "\e6ed";
-}
-
-.icon-huaban23:before {
-  content: "\e6fc";
+h5 {
+  font-size: 1.125rem;
 }

@@ -13,15 +13,15 @@ const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const IS_DEV = ["development"].includes(process.env.NODE_ENV);
 
 module.exports = {
-  configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-      // 生产环境修改配置
-      config.mode = "production";
-    } else {
-      // 测试环境修改配置
-      config.mode = "development";
-    }
-  },
+  // configureWebpack: config => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     // 生产环境修改配置
+  //     config.mode = "production";
+  //   } else {
+  //     // 测试环境修改配置
+  //     config.mode = "development";
+  //   }
+  // },
   chainWebpack: config => {
     // 添加别名
     config.resolve.alias

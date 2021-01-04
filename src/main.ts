@@ -1,17 +1,16 @@
 import Vue from 'vue';
 import VueStorage from 'vue-ls';
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 import showdown from 'showdown';
-// import showdownHeightlight from 'showdown-highlight';
 const showdownHeightlight = require('showdown-highlight');
-import hljs from 'highlight.js/lib/highlight';
-import 'highlight.js/styles/monokai-sublime.css';
 
 import App from './App';
 import router from './router';
 import store from './store';
 import config from './config/defaultSettings';
+import './tailwind.css';
 import '@/assets/index.css';
-import './index.css';
 import i18n from './i18n';
 
 import mavonEditor from 'mavon-editor';
@@ -29,7 +28,20 @@ Vue.prototype.md2html = (md) => {
   let text = md.toString();
   let html = converter.makeHtml(text);
   return html;
-}
+};
+
+import PageLoading from './components/PageLoading/index';
+Vue.use(PageLoading);
+
+Vue.http.interceptors.push((request, next) => {
+  store.dispatch('showLoading');
+  next((response) => {
+    setTimeout(function () {
+      store.dispatch('hideLoading');
+    }, 100);
+    return response;
+  })
+});
 
 new Vue({
   router,

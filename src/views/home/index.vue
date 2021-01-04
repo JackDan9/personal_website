@@ -2,19 +2,22 @@
   <div class="table w-full h-full">
     <canvas
       id="main"
-      style="position: relative; width: 100%; height: 100%; overflow: hidden"
+      class="relative w-full h-full overflow-hidden"
     ></canvas>
   </div>
 </template>
 
 <script lang="ts">
-import "../../assets/img/sun_bg.jpg";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { CSS2DRenderer, CSS2DObject } from "../../utils/CSS2DRenderer";
 
 declare function require(any: any): string;
+/**
+ * @function require
+ * @description 直接引入图片不能使用
+ */
 const sun_bg = require("../../assets/img/sun_bg.jpg");
 const earth_bg = require("../../assets/img/earth_bg.jpg");
 const jupiter_bg = require("../../assets/img/jupiter_bg.jpg");
@@ -29,10 +32,8 @@ const venus_bg = require("../../assets/img/venus_bg.jpg");
 
 declare let document: Document | any;
 
-@Component({
-  name: "Name",
-})
-export default class Home extends Vue {
+@Component({})
+export default class Index extends Vue {
   public mounted(): void {
     const canvas = document.getElementById("main");
 
@@ -358,7 +359,7 @@ export default class Home extends Vue {
       renderer.render(scene, camera);
       labelRenderer.render(scene, camera);
 
-      requestAnimationFrame(render);
+      window.requestAnimationFrame(render);
     };
 
     requestAnimationFrame(render);
@@ -367,125 +368,4 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// .panel-main {
-//   display: table;
-//   width: 100%;
-//   height: 100%;
-// }
-// .panel-inverted {
-//   font-weight: 100;
-//   text-align: center;
-//   color: #fff;
-//   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-
-//   a {
-//     color: #fff;
-//   }
-// }
-// .panel-main__inner {
-//   display: table-cell;
-//   position: relative;
-//   z-index: 900;
-//   padding: 0 1.2rem;
-//   vertical-align: middle;
-// }
-// .panel-main__content {
-//   max-width: 12.4rem;
-//   margin: 0 auto;
-// }
-// .panel-cover__logo {
-//   margin-bottom: 0.06rem;
-// }
-// .logo {
-//   border-radius: 50%;
-//   border: 0.06rem solid #fff;
-//   box-shadow: 0 0 0.02rem 0.02rem rgba(0, 0, 0, 0.3);
-// }
-// .panel-title {
-//   margin: 0 0 0.1rem 0;
-//   font-size: 0.75rem;
-//   letter-spacing: 0.08rem;
-//   color: #fff;
-// }
-// .panel-subtitle {
-//   display: block;
-//   font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande",
-//     "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei",
-//     "WenQuanYi Micro Hei", sans-serif;
-//   font-size: 0.36rem;
-//   font-weight: lighter;
-//   letter-spacing: 0.06rem;
-//   color: #fff;
-//   -webkit-font-smoothing: antialiased;
-// }
-// .panel-cover__divider {
-//   width: 50%;
-//   margin: 0.4rem auto;
-//   border-top: 0.02rem solid rgba(255, 255, 255, 0.14);
-// }
-// .panel-cover__description {
-//   margin: 0 0.6rem;
-//   font-size: 0.4rem;
-//   line-height: 0.51rem;
-// }
-// .panel-cover__divider--secondary {
-//   width: 15%;
-// }
-// .cover-navigation {
-//   position: relative;
-//   display: inline-block;
-//   margin-top: 0.84rem;
-// }
-// .navigation {
-//   position: relative;
-//   display: inline-block;
-//   margin: 0;
-//   list-style-type: none;
-//   list-style: none;
-// }
-// .navigation__item {
-//   display: inline-block;
-//   margin: 0.1rem 0.1rem 0 0;
-//   line-height: 0.3rem;
-
-//   a {
-//     position: relative;
-//     display: block;
-//     padding: 0.2rem 0.4rem;
-//     border: 1px solid #fff;
-//     border-radius: 0.4rem;
-//     color: #fff;
-//     font-size: 0.27rem;
-//     font-weight: bold;
-//     letter-spacing: 0.02rem;
-//     text-shadow: none;
-//     -webkit-font-smoothing: antialiased;
-//     opacity: 0.8;
-//   }
-//   a:hover {
-//     color: #fff;
-//     border-color: #fff;
-//     opacity: 1;
-//   }
-// }
-
-// .fa {
-//   display: inline-block;
-//   font-style: normal;
-//   font-weight: normal;
-//   line-height: 1;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-// }
-
-// .social {
-//   font-size: 0.44rem;
-// }
-
-// .navigation--social {
-//   a {
-//     border: 0;
-//     padding: 0.12rem 0.16rem 0.12rem 0.18rem;
-//   }
-// }
 </style>

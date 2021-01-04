@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/home/Home.vue';
 import Resume from '../views/resume/Resume.vue';
-import Blog from '../views/blog/index.vue';
-import BlogDetail from '../views/blog-detail/index.vue';
 import BlogEditor from '../views/blog-editor/index.vue';
 import { UserLayout } from '@/layout';
 
@@ -20,7 +17,8 @@ const routes = [
       {
         path: '/home',
         name: 'home',
-        component: Home,
+        component: () => import(/* webpackChunkName: "home" */ '../views/home/index.vue'),
+        meta: { title: '首页' }
       }
     ]
   },
@@ -33,13 +31,13 @@ const routes = [
   {
     path: '/blog',
     name: 'blog',
-    component: Blog,
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/index.vue'),
     meta: { title: '博客' },
   },
   {
     path: '/blog-detail/:article_id',
     name: 'blog-detail',
-    component: BlogDetail,
+    component: () => import(/* webpackChunkName: "blog-detail" */ '../views/blog-detail/index.vue'),
     meta: { title: '博客详情' },
   },
   {
@@ -49,20 +47,16 @@ const routes = [
     meta: { title: '博客编辑' },
   },
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true },
+  { 
+    path: '*', 
+    redirect: '/404', 
+    hidden: true 
+  },
   {
     path: '/404',
-    component: () => import('@/views/error-page/404'),
+    component: () => import(/* webpackChunkName: "404" */ '@/views/error-page/404'),
     hidden: true
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  // },
 ];
 
 const router = new VueRouter({

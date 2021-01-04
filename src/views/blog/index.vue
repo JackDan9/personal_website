@@ -47,7 +47,6 @@
       </div>
     </div>
   </div>
-  <v-page-loading v-if="isLoading"></v-page-loading>
 </div>
 </template>
 
@@ -62,20 +61,16 @@ import GlobalFooter from '@/components/GlobalFooter/index';
 import RightPanel from '@/components/RightPanel/index';
 import SiderBar from '@/components/SiderBar/index';
 
-import PageLoading from '@/components/PageLoading/index';
-
 @Component({
   components: {
     'v-header': GlobalHeader,
     'v-footer': GlobalFooter,
     'v-right-panel': RightPanel,
     'v-sider-bar': SiderBar,
-    'v-page-loading': PageLoading
   },
 })
 export default class Index extends Vue {
   private articlesList: object[] = [];
-  private isLoading: boolean = true;
 
   public mounted(): void {
     this.handleSearch();
@@ -88,14 +83,12 @@ export default class Index extends Vue {
   }
 
   private async handleSearch(): Promise<void> {
-    this.isLoading = true;
     const data: ArticlesData = await axios.get('/static/articles.json').then((response) => {
       const res = response.data;
       return { list: res.data };
     }, (error) => {
       throw new Error(error);
     });
-    this.isLoading = false;
     this.articlesList = [...this.articlesList, ...data.list];
   }
 
