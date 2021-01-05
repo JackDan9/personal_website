@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueStorage from 'vue-ls';
 import VueResource from 'vue-resource';
-Vue.use(VueResource);
 import showdown from 'showdown';
 const showdownHeightlight = require('showdown-highlight');
 
@@ -32,8 +31,19 @@ Vue.prototype.md2html = (md) => {
 
 import PageLoading from './components/PageLoading/index';
 Vue.use(PageLoading);
-
-Vue.http.interceptors.push((request, next) => {
+Vue.use(VueResource);
+// Vue.http.interceptors.push((request, next) => {
+//   store.dispatch('showLoading');
+//   next((response) => {
+//     setTimeout(() => {
+//       store.dispatch('hideLoading');
+//     }, 100);
+//     return response;
+//   });
+// })
+// TS
+(Vue as any).http.interceptors.push((request, next) => {
+  console.log(this)
   store.dispatch('showLoading');
   next((response) => {
     setTimeout(function () {

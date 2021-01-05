@@ -7,8 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="<%= BASE_URL %>favicon.png">
   <style type="text/css">
-    html {
-      font-size: 14px
+    html,
+    body,
+    #app {
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     }
 
     @media (min-width:420px) {
@@ -17,9 +25,82 @@
       }
     }
 
-    html {
-      font-family: Inter var, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-      line-height: 1.5;
+    .loading-container {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle, #93c7d0, #66a0aa, #437881, #265158);
+      z-index: 100;
+    }
+
+    .main {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .outer2 {
+      border-radius: 50%;
+      border-top: 2px solid #da11d0;
+      border-bottom: 2px solid transparent;
+      border-left: 2px solid #da11d0;
+      border-right: 2px solid #da11d0;
+      width: 160px;
+      height: 160px;
+      animation: Rotate 7s linear infinite;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .outer {
+      border-radius: 50%;
+      border-top: 4px solid #cc0954;
+      border-bottom: 4px solid #cc0954;
+      border-left: 4px solid transparent;
+      border-right: 4px solid #cc0954;
+      width: 140px;
+      height: 140px;
+      animation: Rotate 5s linear infinite;
+    }
+
+    .circle {
+      border-radius: 50%;
+      border-top: 4px double transparent;
+      border-bottom: 4px double #ff9900;
+      border-left: 4px double #ff9900;
+      border-right: 4px double #ff9900;
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .text {
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      background: linear-gradient(to right, #da11d0, #cc0954, #ff9900);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 3px 3px #fff;
+    }
+
+    @keyframes Rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
   <title>JackDan's Den</title>
@@ -38,7 +119,18 @@
         html.style.fontSize = fontSize + 'px';
       })
     </script> -->
-  <div id="app"></div>
+  <div id="app">
+    <div class="loading-container">
+      <div class="main">
+        <div class="outer2">
+          <div class="outer"></div>
+          <div class="circle">
+            <div class="text">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- built files will be auto injected -->
 </body>
 

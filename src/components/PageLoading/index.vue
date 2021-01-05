@@ -26,6 +26,7 @@ export default class PageLoading extends Vue {}
   width: 100vw;
   height: 100vh;
   background: radial-gradient(circle, #93c7d0, #66a0aa, #437881, #265158);
+  z-index: 100;
 
   .main {
     width: 100%;

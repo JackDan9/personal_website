@@ -30,43 +30,42 @@
 </template>
 
 <script>
-import RouteView from './RouteView'
-import { mixinDevice } from '@/utils/mixin'
+import RouteView from "./RouteView";
+import { mixinDevice } from "@/utils/mixin";
 
 export default {
-  name: 'UserLayout',
+  name: "UserLayout",
   components: { RouteView },
   mixins: [mixinDevice],
-  data () {
-    return {}
+  data() {
+    return {};
   },
-  mounted () {
-    document.body.classList.add('userLayout')
+  mounted() {
+    document.body.classList.add("userLayout");
   },
-  beforeDestroy () {
-    document.body.classList.remove('userLayout')
-  }
-}
+  beforeDestroy() {
+    document.body.classList.remove("userLayout");
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-    #userLayout {
+#userLayout {
+  // display: block;
+}
 
-    }
+.container {
+  display: block;
+  position: fixed;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  background: url("~@/assets/bg.jpg") top left no-repeat #666666;
+  // background: #000000;
+  background-size: cover;
+}
 
-    .container {
-        display: block;
-        position: fixed;
-        width: 100%;
-        max-width: none;
-        height: 100%;
-        background: url('~@/assets/bg.jpg') top left no-repeat #666666;
-        background-size: cover;
-        // z-index: 900;
-    }
-
-    .top {
-        width: 100%;
-
-    }
+.top {
+  width: 100%;
+}
 </style>

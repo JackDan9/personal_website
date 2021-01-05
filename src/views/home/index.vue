@@ -231,7 +231,7 @@ export default class Index extends Vue {
       /**
        * Particles 背景星星数量
        */
-      const particles = 50000;
+      const particles = 15000;
 
       /**
        * Buffer Geometry buffer做星星
