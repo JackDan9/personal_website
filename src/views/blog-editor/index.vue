@@ -8,10 +8,17 @@
 import axios from 'axios';
 import {Component, Vue, Watch} from 'vue-property-decorator';
 
-export default class Index extends Vue{
+export default class Index extends Vue {
   private value: string = '';
-  private defaultData: string = "preview";
+  private defaultData: string = 'preview';
   private imgFile: any = {};
+
+
+  public mounted() {
+    this.$nextTick(() => {
+      console.log(1);
+    });
+  }
 
   private save(value: any, render: any, $e: any): void {
     const result: string = value;
@@ -27,7 +34,7 @@ export default class Index extends Vue{
     }).catch((error) => {
       const err = new Error(error);
       console.log(err);
-    })
+    });
 
     // const formdata:any = new FormData();
     // for(const _img in this.imgFile) {
@@ -41,13 +48,6 @@ export default class Index extends Vue{
     //     el.$img2Url(img[0], img[1]);
     //   }
     // })
-  }
-  
-
-  mounted() {
-    this.$nextTick(() => {
-      console.log(1);
-    })
   }
 
   private imgAdd(pos: any, $file: any): void {
