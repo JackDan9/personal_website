@@ -57,7 +57,7 @@
         >
           <a
             class="flex w-full rounded-none text-base font-semibold tracking-wider px-0 py-2 lg:px-0 xl:px-0 xxxl:pl-10 xxxl:pr-4 lg:justify-center xl:justify-center xxxl:justify-start my-0 mx-1 items-center"
-            href="/"
+            :href="[sibarItem.url]"
             style="
               color: #fcfcfc;
               transition: color 0.35s ease-in-out;
@@ -96,63 +96,68 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class SiderBar extends Vue {
-  private personInfo:object = {
-    name: "JackDan's Den",
-    content: "一分耕耘，一分收获",
+  private personInfo: object = {
+    name: 'JackDan\'s Den',
+    content: '一分耕耘，一分收获',
   };
 
   private iconList: object[] = [
     {
-      name: "icon-github",
-      value: "github",
-      url: "https://github.com/JackDan9"
+      name: 'icon-github',
+      value: 'github',
+      url: 'https://github.com/JackDan9',
     },
     {
-      name: "icon-emailFilled",
-      value: "email",
-      url: "mailto:j.dan92016@gmail.com"
+      name: 'icon-emailFilled',
+      value: 'email',
+      url: 'mailto:j.dan92016@gmail.com',
     },
     {
-      name: "icon-gongzhonghao",
-      value: "微信",
-      url: "tel:xxj19950917"
+      name: 'icon-gongzhonghao',
+      value: '微信',
+      url: 'tel:xxj19950917',
     },
     {
-      name: "icon-weibo",
-      value: "微博",
-      url: "https://weibo.com/p/1005055750162812/home"
+      name: 'icon-weibo',
+      value: '微博',
+      url: 'https://weibo.com/p/1005055750162812/home',
     },
     {
-      name: "icon-qq",
-      value: "qq",
-      url: "http://wpa.qq.com/msgrd?v=3&uin=1835812864&site=qq&menu=yes"
+      name: 'icon-qq',
+      value: 'qq',
+      url: 'http://wpa.qq.com/msgrd?v=3&uin=1835812864&site=qq&menu=yes',
     },
   ];
 
   private sibarList: object[] = [
     {
-      icon: "icon-zhuye",
-      name: "主页",
+      icon: 'icon-zhuye',
+      name: '主页',
+      url: '/blog',
     },
     {
-      icon: "icon-fenlei",
-      name: "分类",
+      icon: 'icon-fenlei',
+      name: '分类',
+      url: '/blog',
     },
     {
-      icon: "icon-biaoqian",
-      name: "标签",
+      icon: 'icon-biaoqian',
+      name: '标签',
+      url: '/blog',
     },
     {
-      icon: "icon-guidang",
-      name: "归档",
+      icon: 'icon-guidang',
+      name: '归档',
+      url: '/blog',
     },
     {
-      icon: "icon-guanyuwomen",
-      name: "关于",
+      icon: 'icon-guanyuwomen',
+      name: '关于',
+      url: '/blog',
     },
   ];
 }
