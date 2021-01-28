@@ -78,14 +78,14 @@
     >
       <span class="text-base">
         <i
-          class="icon iconfont icon-taiyang w-8 h-8 lg:w-4 lg:h-4 lg:text-xl xl:w-4 xl:h-4 xl:text-xl leading-none text-2xl text-yellow-400 pt-1 pl-0 inline-block text-center"
+          class="icon iconfont icon-taiyang w-8 h-8 lg:w-4 lg:h-4 lg:text-xl xl:w-4 xl:h-4 xl:text-xl leading-none text-2xl text-yellow-400 pt-1 pl-0 inline-block text-center cursor-pointer"
         ></i>
       </span>
       <span
         class="ml-1 mr-1 mt-3 w-1 h-1 border rounded-full"
         style="background: #525354"
       ></span>
-      <a v-for="(icon, index) in iconList" :key="index" href="" target="_blank">
+      <a v-for="(icon, index) in iconList" :key="index" :href="[icon.url]" target="_blank">
         <i
           v-bind:class="[icon.name]"
           class="icon iconfont w-8 h-8 lg:w-4 lg:h-4 lg:text-xl xl:w-4 xl:h-4 xl:text-xl leading-none text-2xl text-yellow-400 pt-1 pl-0 inline-block text-center"
@@ -109,22 +109,27 @@ export default class SiderBar extends Vue {
     {
       name: "icon-github",
       value: "github",
+      url: "https://github.com/JackDan9"
     },
     {
       name: "icon-emailFilled",
       value: "email",
+      url: "mailto:j.dan92016@gmail.com"
     },
     {
       name: "icon-gongzhonghao",
       value: "微信",
+      url: "tel:xxj19950917"
     },
     {
       name: "icon-weibo",
       value: "微博",
+      url: "https://weibo.com/p/1005055750162812/home"
     },
     {
       name: "icon-qq",
       value: "qq",
+      url: "http://wpa.qq.com/msgrd?v=3&uin=1835812864&site=qq&menu=yes"
     },
   ];
 

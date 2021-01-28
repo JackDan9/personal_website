@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Watch, Component } from "vue-property-decorator";
+import { Vue, Watch, Component } from 'vue-property-decorator';
 
 @Component({})
 export default class PageLoading extends Vue {}

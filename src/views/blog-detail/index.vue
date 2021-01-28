@@ -158,6 +158,8 @@ export default class Index extends Vue {
 }
 .blog-detail-container {
   height: calc(100vh - 6rem);
+  width: 100%;
+  overflow: hidden;
 }
 .updated-time::before {
   content: "\2022";
@@ -242,5 +244,40 @@ blockquote {
 .hljs-deletion,
 .hljs-meta {
   color: #75715e;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+caption {
+  height: 30px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+thead th,
+tbody td {
+  padding: 8px;
+  height: 19px;
+  line-height: 19px;
+  font-weight: 400;
+}
+
+thead th {
+  text-align: left;
+  color: #fff;
+  background-color: #353535;
+}
+
+tbody tr {
+  background-color: #fefefe;
+  color: #686868;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 </style>

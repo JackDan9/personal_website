@@ -594,16 +594,281 @@ console.log(String(sValue4)); //"undefined"
 
 #### Symbol类型
 
-- Symbol类型是ES6(ECMAScript2015)引入的
+- Symbol类型是ES6(ECMAScript2015)引入的，那为什么需要引入Symbol原始数据类型(`primitive type`)了?
+
+- ES5的对象属性名都是字符串，这容易造成属性名的冲突。
+
+
+```javascript
+/**
+ * @description 如果你使用了一个他人提供的对象，但又想为这个对象添加新的方法(mixin模式)
+ * ，新方法的名字就有可能与现有方法产生冲突。
+*/
+
+// jackdan定义的
+const obj = {};
+obj.name = 'JackDan';
+// jackdan1 去引入然后使用，再去定义一个name属性，复制
+
+obj.name = 'jackdan';
+
+console.log(obj); // jackdan，会发现jackdan定义的obj.name被覆盖了
+```
+
+- 如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是ES6引入`Symbol`的原因。
+
+```javascript
+const obj = {};
+obj[Symbol('name')] = 'JackDan';
+obj[Symbol('name')] = 'jackdan';
+
+console.log(obj); // {Symbol(name): "JackDan", Symbol(name): "jackdan"}
+```
+
+- ES6引入了一种新的原始数据类型`Symbol`，表示独一无二的值。Symbol值是通过`Symbol`函数生成。
+
+```javascript
+/**
+ * @description 对象得属性名现在可以有两种类型，一种是原来就有得字符串，另一种就是新增得Symbol类型。
+ * 凡是属性名属于Symbol类型，就都是独一无二，可以保证不会与其他属性名产生冲突。
+*/
+let s = Symbol();
+
+typeof s; // "symbol"
+/**
+ * @note 变量s就是一个独一无二得值。
+ * typeof运算符得结果，表明变量s是Symbol数据类型，而不是字符串之类的其他类型。
+*/
+```
+
+- `Symbol`函数可以接受一个字符串作为参数，表示对**Symbol实例的描述**，主要是为了在**控制台显示**，或者**转换为字符串时，比较容易区分**。
+
+```javascript
+/**
+ * @description sTemp1和sTemp2是两个Symbol值。
+ * 如果不加参数，它们在控制台的输出都是Symbol()，不利于区分。
+ * 有了参数以后，就等于为它们加上了描述，输出的时候就能够分清，到底是哪一个值。
+ * Symbol函数的参数只是表示对当前Symbol值的描述，因此相同参数的Symbol函数的返回值是不相等的。
+*/
+let sTemp1 = Symbol();
+let sTemp2 = Symbol();
+sTemp1 // Symbol()
+sTemp2 // Symbol()
+sTemp1 === sTemp2 // false
+
+let s1 = Symbol('jackdan1');
+let s2 = Symbol('jackdan2');
+s1 // Symbol(jackdan1)
+s2 // Symbol(jackdan2)
+s1 === s2 // false
+s1.toString() // "Symbol(jackdan1)"
+s2.toString() // "Symbol(jackdan2)"
+
+let s3 = Symbol('jackdan');
+let s4 = Symbol('jackdan');
+s3 === s4 // false
+// 上面代码中，s3和s4都是Symbol函数的返回值，而且参数相同，但是它们是不相等的。
+```
+
+- 需要注意的是，`Symbol`函数前不能使用`new`命令，否则会报错。那这又是为什么了？
+
+```javascript
+/**
+ * @description 这是因为生成的Symbol是一个原始类型的值，不是对象。
+*/
+let sError1 = Symbol('jackdan'); // Uncaught TypeError: Symbol is not a constructor
+
+let s = Symbol('jackdan'); 
+let sError2 = new s(); // Uncaught TypeError: Symbol is not a constructor
+```
+
+- 也就是说，由于**Symbol值**不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+
+- 如果`Symbol`的参数是一个对象，就会调用该对象的`toString`方法，将其转为字符串，然后才生成一个`Symbol`值。
+
+```javascript
+const obj  = {
+  toString() {
+    return 'jackdan';
+  }
+};
+const s = Symbol(obj);
+s // Symbol(jackdan)
+```
+
+- `Symbol`值不能与其他类型的值进行运算，会报错。
+
+```javascript
+let s1 = Symbol('jackdan');
+"your symbol is " + s1
+// Uncaught TypeError: Cannot convert a Symbol value to a string
+`your symbol is ${s1}`
+// Uncaught TypeError: Cannot convert a Symbol value to a string
+```
+
+- 但是，`Symbol`值可以显示转为字符串。
+
+```javascript
+let s = Symbol('jackdan');
+String(s); // 'Symbol(jackdan)'
+s.toString(); // 'Symbol(jackdan)'
+```
+
+- 另外，`Symbol`值也可以转为布尔值，但是不能转为数值。
+
+```javascript
+let s = Symbol();
+Boolean(s); // true
+!s // false
+
+if (s) {
+  // ...
+}
+
+Number(s); // TypeError
+s + 2; // TypeError
+```
 
 ------
 
 
 ### 对象类型(object type)
 - 同时也称为复杂数据类型（红宝书）。
+- ECMAScript中的对象其实就是**一组数据和功能的集合**。对象可以通过执行`new`操作符后跟要创建的对象类型的名称来创建。而创建`Object`类型的实例并为其添加属性和(或)方法，就可以创建自动逸对象，如下所示:
 
+```javascript
+/**
+ * @description An Object is logically a collection of properties.
+ * Each property is either a data property, or an accessor property:
+ * A data property associates a key value with an ECMAScript language value and a set of Boolean attributes.
+ * An accessor property associates a key value with one or two accessor functions, and a set of Boolean attributes. The accessor functions are used to store or retrieve an ECMAScript language value that is associated with the property.
+*/
+var obj = new Object();
+obj // {}
+```
+
+- 这个语法与Java中创建对象的语法相似；但在ECMAScript中，如果不给构造函数传递参数，则可以省略后面的那一对圆括号。也就是说，在像前面这个示例一样不传递参数的情况下，完全可以省略那对圆括号(但这不是推荐的做法):
+
+```javascript
+var obj = new Object;
+obj // {}
+```
+
+- 仅仅创建`Object`的实例并没有什么用处，但关键是要理解一个重要的思想:  即在ECMAScript中，（就像Java中的java.lang.Object对象一样）Object类型是所有它的实例的基础。换句话说，Object类型所具有的**任何属性和方法也同样存在于更具体的对象**中。
+- Object对象自身用处不大，但是ECMAScript中的**所有对象都由这个对象继承**而来，Object对象中的所有属性和方法都会出现在其他对象中，所以理解了Object对象，就可以更好第理解其他对象。
+
+- Object的每个实例都具有下列属性和方法。
+- **属性**:
+- `constructor`: 保存着用于创建当前对象的函数，`var obj = new Object();`构造函数(`constructor`)就是`Object()`。换句话说，`constructor`是对创建对象的函数的引用(指针)。对于`Object`对象，该指针指向原始的`Object()`函数。
+- `__proto__`: *该特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。*
+
+- **方法**:
+- `hasOwnProperty(propertyName)`: 用于检查**给定的属性**在当前对象实例中(**不是在实例的原型中**)是否存在。其中，作为参数的**属性名(propertyName)必须以字符串形式指定**(例如: `obj.hasOwnProperty("name")`)。
+- `isPrototypeOf(object)`: 用于检查**传入的对象是否是另一个对象的原型**。
+- `propertyIsEnumerable(propertyName)`: 用于检查**给定的属性是否能够使用`for-in`语句来枚举**。与`hasOwnProperty()`方法一样，作为参数的属性名必须以字符串形式指定。
+- `toLocaleString()`: 返回对象的字符串表示，该字符串与执行环境的地区对应。
+- `toString()`: 返回对象的字符串表示。
+- `valueOf()`: 返回对象的字符串、数值或布尔值表示。通常与`toString()`方法的返回值相同。
+
+```javascript
+/**
+ * @description 
+*/
+// constructor
+var obj = new Object();
+obj.constructor // ƒ Object() { [native code] }
+
+//hasOwnProperty
+obj.hasOwnProperty("name"); // false
+
+var obj1 = new Object();
+obj1.name = "jackdan";
+obj1.hasOwnProperty("name"); // true
+
+var obj2 = new Object();
+obj2.name = 'jackdan';
+function deleteProp() {
+  obj2.newName = obj2.name;
+  delete o.name;
+}
+obj2.hasOwnProperty('name');  // true
+deleteProp();
+obj2.hasOwnProperty('name');  // false
+
+// isPrototypeOf
+function Foo() {}
+function Bar() {}
+function Baz() {}
+Bar.prototype = Object.create(Foo.prototype);
+Baz.prototype = Object.create(Bar.prototype);
+var baz = new Baz();
+console.log(Baz.prototype.isPrototypeOf(baz)); // true
+console.log(Bar.prototype.isPrototypeOf(baz)); // true
+console.log(Foo.prototype.isPrototypeOf(baz)); // true
+console.log(Object.prototype.isPrototypeOf(baz)); // true
+
+// propertyIsEnumerable 每个对象都有一个 propertyIsEnumerable 方法。此方法可以确定对象中指定的属性是否可以被 for...in 循环枚举，但是通过原型链继承的属性除外。如果对象没有指定的属性，则此方法返回 false。
+const obj = new Object();
+const arr = new Array();
+obj.property1 = 42;
+arr[0] = 42;
+
+console.log(obj.propertyIsEnumerable('property1'));
+// expected output: true
+console.log(arr.propertyIsEnumerable(0));
+// expected output: true
+console.log(arr.propertyIsEnumerable('length'));
+// expected output: false
+
+// toLocaleString 该函数提供给对象一个通用的toLocaleString 方法，即使不是全部都可以使用它。
+const obj = new Object();
+console.log(obj.toLocaleString()); // "[object Object]"
+console.log(obj.toString()); // "[object Object]"
+console.log(obj.toLocaleString() === obj.toString()); // true
+```
+
+------
+
+### 拓展
+
+- `isPrototypeOf()`与`object instanceof constructor`
+- 如果你有段代码只在需要操作继承自一个特定的原型链的对象的情况下执行，同`instanceof`操作符一样`isPrototypeOf()`方法就会派上用场，例如，为了确保某些方法或属性将位于对象上。
+
+``` javascript
+// isPrototypeOf() 与 instanceof 运算符不同。在表达式 "object instanceof AFunction"中，object 的原型链是针对 AFunction.prototype 进行检查的，而不是针对 AFunction 本身。
+// instanceof 运算符用于检测构造函数的`prototype`属性是否出现在某个实例对象的原型链。
+// instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。
+// object instanceof constructor
+// 定义构造函数
+function Cat(){}
+function Dog(){}
+
+var obj = new Cat();
+
+console.log(obj instanceof Cat); // true，因为 Object.getPrototypeOf(obj) === Cat.prototype
+
+console.log(obj instanceof Dog); // false，因为 Dog.prototype 不在 obj 的原型链上
+
+console.log(obj instanceof Object); // true，因为 Object.prototype.isPrototypeOf(obj) 返回 true
+
+console.log(Cat.prototype instanceof Object); // true，同上
+
+Cat.prototype = {};
+var obj1 = new Cat();
+
+console.log(obj1 instanceof Cat); // true
+
+console.log(obj instanceof Cat); // false，Cat.prototype 指向了一个空对象,这个空对象不在 obj 的原型链上.
+
+Dog.prototype = new Cat(); // 继承
+var obj2 = new Dog();
+console.log(obj2 instanceof Dog); // true
+console.log(obj2 instanceof Cat); // true 因为 Cat.prototype 现在在 obj2 的原型链上
+```
 
 ------
 
 
 > http://www.ecma-international.org/ecma-262/6.0/#sec-type
+
+> https://en.wikipedia.org/wiki/Mixin

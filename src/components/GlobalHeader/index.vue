@@ -142,7 +142,7 @@
                       id="docsearch"
                       class="transition-colors duration-100 ease-in-out bg-white shadow-md focus:outline-0 border border-transparent placeholder-gray-600 rounded-lg py-2 pr-4 pl-10 block w-full appearance-none leading-normal ds-input text-base"
                       type="text"
-                      placeholder='Search the docs (Press "/" to focus)'
+                      placeholder='请输入内容'
                       autocomplete="off"
                       spellcheck="false"
                       role="combobox"
