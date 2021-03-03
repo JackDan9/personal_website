@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS `personal_website_data` DEFAULT CHARACTER SET utf8;

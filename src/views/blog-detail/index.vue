@@ -134,7 +134,12 @@ export default class Index extends Vue {
             this.articleDetail.author = item.author;
             this.articleDetail.created_time = item.created_time;
             this.articleDetail.updated_time = item.updated_time;
-            this.value = this.md2html(require("./markdown" + item.content_url));
+            // this.value = this.md2html(require("http://192.168.1.224/" + item.content_url));
+            // this.value = this.md2html("http://192.168.1.224" + item.content_url); 
+            axios.get("http://192.168.1.222:8080/api" + item.content_url).then((res) => {
+              // console.log(res);
+              debugger;
+            })
           }
         });
       },
