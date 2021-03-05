@@ -376,6 +376,13 @@ let car2 = new Car("H9", 400000);
 - 如果按照字面意思来理解, 那么`prototype`就是通过调用**构造函数**而创建的那个对象实例的**原型对象**。使用**原型对象的好处**是可以让**所有对象实例共享它所包含的属性和方法**。
 
 ```javascript
+/**
+ * 将sayName()方法和所有属性直接添加到了Car的prototype属性中, 构造函数变成了空函数。
+ * 即使如此，也仍然可以通过调用构造函数来创建新对象，而且新对象还会具有相同的属性和方法。
+ * 但是和构造函数模式不同的是，新对象的这些属性和方法是由实例共享的。
+ * 换句话说，car1和car2访问的都是同一组属性和同一个sayName()函数。
+ * 那这是为什么了？了解原因之前，我们需要理解原型对象。
+*/
 function Car() {
 }
 
@@ -392,6 +399,141 @@ let car2 = new Car();
 car2.sayName(); // 'H6'
 
 console.log(car1.sayName == car2.sayName); // true
+```
+
+### 理解原型对象
+
+- 无论在什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个`prototype`属性，这个属性指向函数的原型对象。
+- 在默认情况下，所有原型对象都会自动获得一个`constructor`(**构造函数**)属性，这个属性包含一个指向`prototype`属性所在函数的指针。
+
+```javascript
+/**
+ * @description Car.prototype.constructor 指向 Car.
+ * 而且通过这个构造函数，我们还可以继续为原型对象添加其他属性和方法.
+*/
+console.log(Car.prototype.constructor === Car); // true
+```
+
+- 创建了自定义的构造函数之后，其原型对象默认只会取得`constructor`属性; 至于其他方法，则都是从`Object`继承而来的。
+- 当调用**构造函数创建一个新实例**后，该**实例的内部将包含一个指针**(内部属性)，指向**构造函数的原型对象**。ECMA-262第5版中管这个指针叫`[[Prototype]]`。虽然在脚本中没有标准的方式访问`[[Prototype]]`，但Firefox、Safari和Chrome在每个对象上都支持一个属性`__proto__`；而在其他实现中，这个**属性对脚本则是完全不可见的**。不过，要明确的真正重要的一点就是，这个**连接存在于实例与构造函数的原型对象之间**，而**不是存在于实例与构造函数之间**。
+
+![car prototype](./images/car-prototype.png)
+
+
+- 上图所示，展示了 **`Car`构造函数**、**`Car`的原型属性**以及 **`Car`现有的两个实例**之间的关系。在这里，`Car.prototype`指向了原型对象，而`Car.prototype.constructor`又指回了`Car`。原型对象除了包含`constructor`属性之外，还包括后来添加的其他属性。`Car`的每个实例——`car1`和`car2`都包含一个内部属性，该属性仅仅指向了`Car.prototype`；换句话说，它们与构造函数没有直接的关系。此外，要格外注意的是，虽然这两个实例都不包含属性和方法，但我们却可以调用`car1.sayName()`。这是通过**查找对象属性**的过程来实现的。
+
+```javascript
+/**
+ * @description 虽然所有的实现中都无法访问到[[Prototype]]，但可以通过isPrototypeOf()方法来确定对象之间是否存在这种关系。
+ * 如果[[Prototype]]指向调用isPrototypeOf()方法的对象(Car.prototype)，那么这个方法就返回true。
+*/
+console.log(Car.prototype.isPrototypeOf(car1)); // true
+console.log(Car.prototype.isPrototypeOf(car2)); // true
+
+/**
+ * @desciption ECMAScript 5增加了一个新方法，叫Object.getPrototypeOf()，在所有支持的实现中，这个方法返回`[[Prototype]]`的值。
+ * 
+*/
+console.log(Object.getPrototypeOf(car1) == Car.prototype); // true 确定Object.getPrototypeOf()返回的对象实际就是这个对象的原型。
+console.log(Object.getPrototypeOf(car1).name); // "H6" 取得了原型对象中name属性的值，也就是"H6"。
+```
+
+- 使用`Object.getPrototypeOf()`可以方便地取得一个对象的原型，而这在利用**原型实现继承的情况**下是非常重要的。支持这个方法的浏览器有`IE9+`、`Firefox 3.5+`、`Safari 5+`、`Opera 12+`和`Chrome`。
+
+- 每当代码读取某个对象的某个属性时，都会执行一次搜索，目标时具有给定名字的属性。
+
+```javascript
+// 1. 首先从对象实例本身开始。如果在实例中找到了具有给定名字的属性，则返回属性的值；
+// 2. 如果没有找到，则继续搜索指针指向的原型对象，在原型对象中查找具有给定名字的属性。
+// 如果在原型对象中找到了这个属性，则返回该属性的值。
+// car1.sayName()的时候，会先后执行两次搜索。
+console.log(car1.sayName());
+
+// 解释器会问: 实例car1有sayName属性吗?
+// car1答: 没有，你去其他地方看看吧。
+// 解释器继续搜索，再问: ca1的原型有sayName属性吗?
+// car1原型答: 有，给你！(于是，它就读取那个保存在原型对象中的函数。)
+// 当我们调用car2.sayName()时, 将会出现相同的搜索过程, 得到相同的结果。
+// 而这正是多个对象实例共享原型所保存的属性和方法的基本原理。
+```
+
+- 原型最初只包含`constructor`属性，而该属性也是共享的，因此可以通过对象实例访问。
+
+- 虽然可以通过**对象实例访问保存在原型中的值**，但却**不能通过对象实例重写原型中的值**。
+- 如果我们在**实例中添加了一个属性**，而**该属性与实例原型中的一个属性同名**，那我们就在**实例中创建该属性**，**该属性将会屏蔽原型中的那个属性**。
+
+```javascript
+/**
+ * @description car1的那么被一个新值给屏蔽了。
+ * 但无论访问car1.name还是访问car2.name都能够正常地返回值，即分别是"H6 第三代"(来自对象实例)和"H6"(来自原型)
+ * 
+*/
+function Car() {
+}
+Car.prototype.name = "H6";
+Car.prototype.price = "140000";
+Car.prototype.sayName = function() {
+  console.log(this.name);
+}
+
+var car1 = new Car();
+var car2 = new Car();
+
+car1.name = "H6 第三代";
+console.log(car1.name); // H6 第三代——来自实例
+// 解释器会问: 实例car1有name属性吗?
+// car1答: 有，给你！(于是，它就读取那个在实例中名为name的属性。)
+
+// 解释器会问: 实例car2有name属性吗?
+// car2答: 没有，你去其他地方看看吧。
+// 解释器继续搜索，再问: car2的原型有name属性吗?
+// car2原型答: 有，给你！(于是，它就读取那个保存在原型对象中的函数。)
+console.log(car2.name); // H6——来自原型
+```
+
+- 当为对象实例添加一个属性时，这个属性就**会屏蔽原型对象中保存的同名属性**；换句话说，添加这**个属性只会阻止我们访问原型中的那个属性**，但**不会修改那个属性**。即使将这个属性设置为`null`，也只会在**实例中设置这个属性**，而**不会恢复其指向原型的连接**。不过，使用`delete`操作符则可以完全删除实例属性，从而让我**们能够重新访问原型中的属性**。
+
+```javascript
+/**
+ * @description car1的那么被一个新值给屏蔽了。
+ * 但无论访问car1.name还是访问car2.name都能够正常地返回值，即分别是"H6 第三代"(来自对象实例)和"H6"(来自原型)
+ * 
+*/
+function Car() {
+}
+Car.prototype.name = "H6";
+Car.prototype.price = "140000";
+Car.prototype.sayName = function() {
+  console.log(this.name);
+}
+
+var car1 = new Car();
+var car2 = new Car();
+
+car1.name = "H6 第三代";
+console.log(car1.name); // H6 第三代——来自实例
+// 解释器会问: 实例car1有name属性吗?
+// car1答: 有，给你！(于是，它就读取那个在实例中名为name的属性。)
+
+// 解释器会问: 实例car2有name属性吗?
+// car2答: 没有，你去其他地方看看吧。
+// 解释器继续搜索，再问: car2的原型有name属性吗?
+// car2原型答: 有，给你！(于是，它就读取那个保存在原型对象中的函数。)
+console.log(car2.name); // H6——来自原型
+delete car1.name;
+// delete操作符删除了car1.name，之前它保存的"H6 第三代"值屏蔽了同名的原型属性。
+// 把它删除以后，就恢复了对原型中name属性的连接。
+// 因此，接下来再调用car1.name时，返回的就是原型中name属性的值了。
+console.log(car1.name); // H6——来自原型
+```
+
+- 使用`hasOwnProperty()`方法可以**检测一个属性是存在于实例中**，还是**存在于原型中**。
+
+```javascript
+function Car() {
+}
+
+
 ```
 
 ------

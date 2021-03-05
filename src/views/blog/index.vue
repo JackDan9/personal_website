@@ -34,7 +34,7 @@
                   <i
                     class="icon iconfont icon-huaban23 text-base font-normal pr-1"
                   ></i>
-                  <span class="text-xs tracking-wide">{{ article.created_time }}</span>
+                  <span class="text-xs tracking-wide">{{ article.created_on }}</span>
                 </div>
               </div>
             </div>
@@ -61,6 +61,8 @@ import GlobalFooter from '@/components/GlobalFooter/index';
 import RightPanel from '@/components/RightPanel/index';
 import SiderBar from '@/components/SiderBar/index';
 
+import { fetchList } from '../../api/articles';
+
 @Component({
   components: {
     'v-header': GlobalHeader,
@@ -83,10 +85,10 @@ export default class Index extends Vue {
   }
 
   private async handleSearch(): Promise<void> {
-    const data: ArticlesData = await axios.get('/static/articles.json').then((response) => {
-      const res = response.data;
-      return { list: res.data };
+    const data: ArticlesData = await fetchList({}).then((response) => {
+      return { list: response.data};
     }, (error) => {
+      console.log(error);
       throw new Error(error);
     });
     this.articlesList = [...this.articlesList, ...data.list];

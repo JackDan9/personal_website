@@ -15,11 +15,3 @@ export function fetchDetail(id) {
     params: { id },
   })
 }
-
-// export function createArticle(data) {
-//   return request({
-//     url: '/personal_website/article/create',
-//     method: 'post',
-//     data: data,
-//   })
-// }

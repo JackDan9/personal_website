@@ -33,11 +33,7 @@
             class="mt-10 break-words pb-10 md:pb-12 lg:pb-16 xl:pb-20 border-b border-gray-200"
             style="word-wrap: break-word"
           >
-            <article
-              v-html="value"
-              class="leading-loose tracking-widest"
-              v-hljs
-            ></article>
+            <article v-html="value" class="leading-loose tracking-widest" v-hljs></article>
           </div>
           <v-pay></v-pay>
           <!-- v-footer -->
@@ -51,53 +47,59 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
-import { Component, Vue, Watch } from "vue-property-decorator";
+import axios from 'axios';
+import { Route } from 'vue-router';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
-import { ArticleDetailIF, ArticleDetailParams } from "./types/index";
+import { ArticleDetailIF, ArticleDetailParams } from './types/index';
 
-import hljs from "highlight.js";
-Vue.directive("hljs", (el) => {
-  let blocks = el.querySelectorAll("pre code");
+import hljs from 'highlight.js';
+Vue.directive('hljs', (el) => {
+  const blocks = el.querySelectorAll('pre code');
   Array.prototype.forEach.call(blocks, hljs.highlightBlock);
 });
-import "@/assets/monokai-sublime.min.css";
-import GlobalFooter from "@/components/GlobalFooter/index";
-import RightPanel from "@/components/RightPanel/index";
-import GlobalHeader from "@/components/GlobalHeader/index";
-import SiderBar from "@/components/SiderBar/index";
-import Pay from "@/components/Pay/index";
-import { Route } from "vue-router";
+
+import '@/assets/monokai-sublime.min.css';
+import GlobalFooter from '@/components/GlobalFooter/index';
+import RightPanel from '@/components/RightPanel/index';
+import GlobalHeader from '@/components/GlobalHeader/index';
+import SiderBar from '@/components/SiderBar/index';
+import Pay from '@/components/Pay/index';
+
+import { fetchDetail } from '../../api/articleDetails';
+// import { fetchAttachment } from '../../api/attachments';
+import Config from '../../config/config';
+
 
 @Component({
   components: {
-    "v-header": GlobalHeader,
-    "v-footer": GlobalFooter,
-    "v-right-panel": RightPanel,
-    "v-sider-bar": SiderBar,
-    "v-pay": Pay,
+    'v-header': GlobalHeader,
+    'v-footer': GlobalFooter,
+    'v-right-panel': RightPanel,
+    'v-sider-bar': SiderBar,
+    'v-pay': Pay,
   },
 })
 export default class Index extends Vue {
   private articleParams: ArticleDetailParams = {
-    id: "",
+    id: '',
     type: 1,
   };
 
   private value: any = null;
 
   private articleDetail: ArticleDetailIF = {
-    toc: "",
-    _id: "",
-    author: "jackdan",
+    toc: '',
+    _id: '',
+    author: 'jackdan',
     category: [],
     comments: [],
-    created_time: "",
-    desc: "",
-    content: "",
-    content_url: "",
+    created_time: '',
+    desc: '',
+    content: '',
+    content_url: '',
     id: 16,
-    img_url: "",
+    img_url: '',
     numbers: 0,
     keyword: [],
     like_users: [],
@@ -105,8 +107,8 @@ export default class Index extends Vue {
     origin: 0,
     state: 1,
     tags: [],
-    title: "",
-    updated_time: "",
+    title: '',
+    updated_time: '',
   };
 
   private articleDetailList: any = [];
@@ -117,36 +119,33 @@ export default class Index extends Vue {
     hljs.initHighlightingOnLoad();
   }
 
-  @Watch("$route")
+  @Watch('$route')
   public routeChange(val: Route, oldVal: Route): void {
     this.articleParams.id = this.$route.params.article_id;
     this.handleArticleDetail();
   }
 
   private async handleArticleDetail(): Promise<void> {
-    const data: any = await axios.get("/static/articleDetail.json").then(
-      (response) => {
-        const res = response.data;
-        res.data.map((item: any) => {
-          if (item.id == this.articleParams.id) {
-            document.title = item.title;
-            this.articleDetail.title = item.title;
-            this.articleDetail.author = item.author;
-            this.articleDetail.created_time = item.created_time;
-            this.articleDetail.updated_time = item.updated_time;
-            // this.value = this.md2html(require("http://192.168.1.224/" + item.content_url));
-            // this.value = this.md2html("http://192.168.1.224" + item.content_url); 
-            axios.get("http://192.168.1.222:8080/api" + item.content_url).then((res) => {
-              // console.log(res);
-              debugger;
-            })
-          }
-        });
-      },
-      (error) => {
-        throw new Error(error);
-      }
-    );
+    await fetchDetail({id: this.articleParams.id}).then((response) => {
+      response.data.map((item: any) => {
+        document.title = item.title;
+        this.articleDetail.title = item.title;
+        this.articleDetail.author = item.author;
+        this.articleDetail.created_time = item.created_on;
+        this.articleDetail.updated_time = item.updated_on;
+        if(item.content_url) {
+          this.getAttachment(item.content_url);
+        }
+      })
+    }, (error) => {
+      throw new Error(error);
+    })
+  };
+
+  private async getAttachment(url:string): Promise<void> {
+    await axios.get(Config.attachmentApi + url).then((response) => {
+      this.value = this.md2html(response.data);
+    })
   }
 }
 </script>
