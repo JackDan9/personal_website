@@ -3,7 +3,7 @@
 | 标题 | 内容 |
 | --- | --- |
 | Promise来源 | 为什么需要Promise对象？ |
-| Promise原理 | Prommise是怎么实现的？ |
+| Promise原理 | Promise是怎么实现的？ |
 | Promise实现 | 如何原生实现Promise？|
 
 ## 为什么需要Promise对象?
