@@ -74,6 +74,94 @@ readFile(fileA)
 
 ## 迎来Generator
 - `Generator`函数是ES6提供的一种**异步编程解决方案**，语法行为与传统函数完全不同。`Generator`函数将`JavaScript`**异步编程**带入了一个**全新的阶段**。
+- Generator函数返回的**遍历器对象**，只有**调用next方法**才会遍历下一个内部状态，所以其实提供了一种可以**暂停执行的函数**。**yield表达式就是暂停标志**。
+
+```javascript
+/**
+ * @expression yield
+ * 遇到yield表达式，就暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值。
+ * 下一次调用next方法时，再继续往下执行，直到遇到下一个yield表达式。
+ * 如果没有再遇到新的yield表达式，就一直运行到函数结束，直到return语句为止，并将return语句后面的表达式的值，作为返回的对象的value属性值。
+ * 如果该函数没有return语句，则返回的对象的value属性值为undefined, done属性值为true。
+*/
+var generator1 = function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+
+var g = generator1();
+
+console.log(g.next());
+console.log(g.next());
+console.log(g.next());
+console.log(g.next());
+```
+
+- yield表达式后面的表达式，只有当**调用next方法**、**内部指针指向该语句时才会执行**，因此等于为 JavaScript 提供了手动的"**惰性求值**"（`Lazy Evaluation`）的语法功能。
+
+```javascript
+/**
+ * @description yield后面的表达式123 + 678, 不会立即求值, 只会在next方法将指针移到这一句时，才会求值。
+*/
+function* generator() {
+  yield 123 + 678;
+}
+
+```
+
+- yield表达式与return语句既有相似之处，也有区别。
+- 相似之处: **都能返回紧跟在语句后面的那个表达式的值**。
+- 区别: 每次遇到yield，函数暂停执行，下一次再从该位置继续向后执行，而return语句不具备位置记忆的功能。
+- 一个函数里面，只能执行一次（或者说一个）return语句，但是可以执行多次（或者说多个）yield表达式。
+- 正常函数只能返回一个值，因为只能执行一次return；Generator 函数可以返回一系列的值，因为可以有任意多个yield。从另一个角度看，也可以说 Generator 生成了一系列的值，这也就是它的名称的来历（英语中，generator 这个词是“生成器”的意思）。
+
+- Generator 函数可以不用yield表达式，这时就变成了一个**单纯的暂缓执行函数**。
+
+```javascript
+function* f() {
+  console.log('执行了！')
+}
+
+var generator = f();
+
+setTimeout(function () {
+  generator.next()
+}, 2000);
+```
+
+```javascript
+/**
+ * @description 重点
+*/
+var fn = function (data) {
+  return new Promise(function (resolve, reject) {
+    let value = 1;
+    if(data === value) {
+      resolve(value);
+    } else {
+      return reject(value);
+    }
+  })
+}
+var generator1 = function* () {
+  var f1 = yield fn(1);
+  var f2 = yield fn(1);
+  console.log(f1.toString());
+  console.log(f2.toString());
+}
+
+var g = generator1();
+
+g.next().value.then(function(data){
+  g.next(data).value.then(function(data){
+    g.next(data);
+  });
+});
+// console.log(g.next()); {value: 1, done: false}
+// console.log(g.next()); {value: 2, done: false}
+
+```
 
 ### 协程
 
