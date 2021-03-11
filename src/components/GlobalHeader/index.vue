@@ -209,6 +209,7 @@
                 type="button"
                 id="sidebar-open"
                 class="text-gray-500 focus:outline-none focus:text-gray-700 flex px-6 items-center lg:hidden"
+                v-on:click="handleSidebar()"
               >
                 <svg
                   class="fill-current w-4 h-4"
@@ -234,7 +235,9 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class GlobalHeader extends Vue {
-
+  private handleSidebar(): void {
+    this.$store.dispatch('handleSidebar');
+  }
 }
 </script>
 

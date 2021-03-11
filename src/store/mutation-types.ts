@@ -1,2 +1,4 @@
 export const SHOWLOADING = 'SHOWLOADING';
 export const HIDELOADING  = 'HIDELOADING';
+export const SHOWSIDEBAR = 'SHOWSIDEBAR';
+export const HIDESIDEBAR = 'HIDESIDEBAR';

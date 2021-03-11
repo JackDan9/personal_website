@@ -61,7 +61,6 @@ export default {
   max-width: none;
   height: 100%;
   background: url("~@/assets/bg.jpg") top left no-repeat #666666;
-  // background: #000000;
   background-size: cover;
 }
 

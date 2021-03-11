@@ -15,7 +15,7 @@ const app:App = {
       state.isLoadingShow = true;
     },
     HIDELOADING: (state: State) => {
-        state.isLoadingShow = false;
+      state.isLoadingShow = false;
     }
   },
   actions: {
