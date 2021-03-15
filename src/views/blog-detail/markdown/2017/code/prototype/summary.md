@@ -2,10 +2,13 @@
 
 | 标题 | 内容 |
 | --- | --- |
-| 工厂模式 | JavaScript并不支持工厂模式 |
+| 工厂模式 | JavaScript并不支持工厂模式(略读) |
+| 构造函数 | 构造函数的介绍 |
 | 原型 | 我们创建的每个函数都有一个`prototype`(原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。 |
-| 原型链 |  |
-| 构造函数 | |
+| 原型链 | 原型链的实现  |
+| 继承 | JavaScript继承的实现 |
+| ES6类 | ES6类的实现  |
+| ES6类的继承  | ES6类的继承实现 |
 
 
 ------
@@ -13,7 +16,7 @@
 
 ## 工厂模式-Factory Pattern
 
-- 虽然**Object构造函数**或者**对象字面量**都可以用来创建单个对象，但这些方式有个明显的缺点: 使用同一个接口创建很多对象，会产生大量的重复代码。为解决这个问题，人们开始使用工厂模式的一种变体。
+- 虽然**Object构造函数**或者**对象字面量**都可以用来创建单个对象，但这些方式有个明显的缺点: 使用**同一个接口创建很多对象**，会产生大量的重复代码。为解决这个问题，人们开始使用工厂模式的一种变体。
 
 ### Object构造函数
 
@@ -39,8 +42,9 @@ let o = new Object(undefined);
 let o = new Object(null);
 ```
 
-### 对象字面量
+------
 
+### 对象字面量
 
 
 - 在**非构造函数上下文中**调用时，`Object`和`new Object()`表现一致。
@@ -193,7 +197,7 @@ console.log(car2);
 
 ## 构造函数 Constructor
 
-- ECMAScript中的构造函数可用来创建特定类型的对象。
+- `ECMAScript`中的构造函数可用来**创建特定类型的对象**。
 - 像`Object`和`Array`的原生构造函数，在运行时会自动出现在执行环境中。
 - 此外，也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。
 - 例如，可以使用构造函数模式将前面的例子重写如下：
@@ -315,7 +319,7 @@ o.sayName(); // "H大狗"
 ```
 
 #### 构造函数的问题
-- 构造函数模式虽然好用，但也并非没有缺点。使用构造函数的主要问题，就是每个方法都要在每个实例上重新创建一遍。
+- 构造函数模式虽然好用，但也并非没有缺点。使用构造函数的主要问题，就是**每个方法都要在每个实例上重新创建一遍**。
 
 ```javascript
 /**
@@ -329,7 +333,7 @@ let car2 = new Car("H9", 400000);
 
 ```javascript
 /**
- * @desciption 从这个角度上来看构造函数, 更容易明白每个Car实例都包含一个不同的Function实例(以显示name属性)的本质。
+ * @desciption 下面代码更容易明白每个Car实例都包含一个不同的Function实例(以显示name属性)的本质。
 */
 function Car(name, price) {
   this.name = name;
@@ -338,7 +342,7 @@ function Car(name, price) {
 }
 
 /**
- * @description 这种方式创建函数, 会导致不同的作用域链和标识解析，但创建Function新实例的机制仍然是相同的。
+ * @description 上面代码创建函数会导致不同的作用域链和标识解析，但创建Function新实例的机制仍然是相同的。
  * 因此, 不同实例上的同名函数是不相等的。
 */
 console.log(car1.sayName == car2.sayName); // false
@@ -365,15 +369,16 @@ let car1 = new Car("H6", 140000);
 let car2 = new Car("H9", 400000);
 ```
 
-- 如上所示, 由于`sayName()`包含的是一个**指向函数的指针**，因此`car1`和`car2`对象就**共享了在全局作用域中**定义的同一个`sayName()`函数。这样确实解决了两个函数做同一件事的问题，可是新问题又来了: 在**全局作用域中定义的函数实际上只能被某个对象调用**, 这让**全局作用域有点名不副实**。而更让人无法接受的是: 如果对象需要定义**很多方法**, 那么就要**定义很多个全局函数**, 于是我们这个**自定义的引用类型就丝毫没有封装性可言**了。好在，这些问题可以通过使用原型模式来解决。
+- 如上所示, 由于`sayName()`包含的是一个**指向函数的指针**，因此`car1`和`car2`对象就**共享了在全局作用域中**定义的同一个`sayName()`函数。这样确实解决了两个函数做同一件事的问题，可是新问题又来了: 在**全局作用域中定义的函数实际上只能被某个对象调用**, 这让**全局作用域有点名不副实**。而更让人无法接受的是: 如果对象需要定义**很多方法**, 那么就要**定义很多个全局函数**, 于是我们这个**自定义的引用类型就丝毫没有封装性可言**了。
+- 有没有**更好的模式**来解决这一类的问题了(**原型模式**(重点))?
 
 
 ------
 
 ## 原型-Prototype
 
-- 我们创建的每个函数都有一个`prototype(原型)`属性, 这个属性是**一个指针**, 指向**一个对象**, 而这个对象的用途是包含可以由**特定类型的所有实例**共享的属性和方法。
-- 如果按照字面意思来理解, 那么`prototype`就是通过调用**构造函数**而创建的那个对象实例的**原型对象**。使用**原型对象的好处**是可以让**所有对象实例共享它所包含的属性和方法**。
+- 我们创建的每个函数都有一个`prototype(原型)`属性, 这个属性是**一个指针**, 指向**一个对象**, 而这个对象的用途是包含可以由**特定类型的所有实例`共享`的`属性`和`方法`**。
+- 如果按照字面意思来理解, 那么`prototype(原型)`就是通过调用**构造函数**而创建的那个对象实例的**原型对象**。使用**原型对象的好处**是可以让**所有对象实例共享它所包含的属性和方法**。
 
 ```javascript
 /**
@@ -528,15 +533,496 @@ console.log(car1.name); // H6——来自原型
 ```
 
 - 使用`hasOwnProperty()`方法可以**检测一个属性是存在于实例中**，还是**存在于原型中**。
+- `hasOwnProperty()` 从Object对象继承，只在**给定属性**存在于对象实例中时，才会返回true。
+
+```javascript
+/**
+ * @function hasOwnProperty 从Object对象继承，只在给定属性存在于对象实例中时，才会返回true。
+ * @description 从下面代码来看，使用hasOwnProperty()方法可以非常清晰什么是否访问的是实例属性，
+ * 什么时候访问的是原型属性。
+*/
+function Car() {
+}
+
+Car.prototype.name = "H6";
+Car.prototype.price = "140000";
+Car.prototype.sayName = function () {
+  console.log(this.name);
+}
+
+var car1 = new Car();
+var car2 = new Car();
+
+console.log(car1.name); // "H6"
+console.log(car1.hasOwnProperty('name')); // false
+
+car1.name = "H9";
+console.log(car1.name); // "H9"
+// 只有当car1重写name属性后才会返回true，因为这时候name才是一个实例属性，而非原型属性。
+console.log(car1.hasOwnProperty("name")); // true
+
+console.log(car2.name); // "H6"
+console.log(car2.hasOwnProperty("name")); // false
+
+delete car1.name;
+console.log(car1.name); // "H6"
+console.log(car1.hasOwnProperty("name")); // false
+```
+
+### 原型与`in`操作符
+
+- 两种in操作符的使用方式: 单独使用和在`for ... in ` 循环中使用。
+
+```javascript
+/**
+ * @description "name" in car1始终返回true，无论该属性存在于实例中还是存在于原型中。
+ * 同时使用hasOwnProperty()方法和in操作符，就可以确定该属性到底是存在于对象中，还是存在于原型中。
+ * @param name 属性要么是直接在对象上访问的，要么是通过原型访问到的。
+*/
+
+function Car() {
+}
+
+Car.prototype.name = "H6";
+Car.prototype.price  = 140000;
+Car.prototype.sayName = function () {
+  console.log(this.name);
+}
+
+var car1 = new Car();
+var car2 = new Car();
+
+console.log(car1.hasOwnProperty("name")); // false
+console.log("name" in car1); // true
+
+car1.name = "H9";
+console.log(car1.name); // H9
+console.log(car1.hasOwnProperty("name")); // true
+console.log("name" in car1); // true
+
+console.log(car2.name); // H6
+console.log(car2.hasOwnProperty("name")); // false
+console.log("name" in car2); // true
+
+delete car1.name;
+console.log(car1.name); // H6
+console.log(car1.hasOwnProperty("name")); // false
+console.log("name" in car1); // true
+```
+
+```javascript
+/**
+ * @description name属性是存在于原型中，因此hasPrototypeProperty()返回true。
+ * 当在实例中重写name属性后，该属性就存在于实例中了，因此hasPrototypeProperty()返回false。
+ * 即使原型中仍然有name属性，但由于现在实例中也有这个属性，因此原型中的name属性就用不到了。
+*/
+function hasPrototypeProperty(object, name) {
+  return !object.hasOwnProperty(name) && (name in object);
+}
+
+function Car() {
+}
+
+Car.prototype.name = "H6";
+Car.prototype.price = 140000;
+Car.sayName = function () {
+  console.log(this.name);
+}
+
+var car1 = new Car();
+var car2 = new Car();
+
+console.log(hasPrototypeProperty(car1, "name")); // true
+car1.name = "H9";
+console.log(hasPrototypeProperty(car2, "name")); // false
+```
+
+- 在使用`for-in`循环时，返回的是所有能够**通过对象访问的**、**可枚举的(`enumerated`)属性**，其中既包括存在于**实例中的属性**，也包括**存在于原型中的属性**。屏蔽了原型中不可枚举属性的实例属性也会在`for-in`循环中返回，因为根据规定，所有开发人员定义的属性都是**可枚举的**——只有在`IE8`及更早版本中例外。
+
+```javascript
+/**
+ * @description 应该会输出一个警告，表明找到了toString()方法。
+ * 对象o定义了一个名为toString()的方法，该方法屏蔽了原型中(不可枚举)的toString()方法。
+*/
+var o = {
+  toString: function () {
+    return "My Object";
+  }
+};
+
+for (var prop in o) {
+  if (prop == "toString") {
+    console.log("Found toString");
+  }
+}
+```
+
+- `Object.keys()`方法，这个方法接收一个对象作为参数，返回一个包含所有可枚举属性的字符串数组。
+
+```javascript
+/**
+ * @description 变量keys中将保存一个数组，数组中是字符串"name"、"price"和"sayName"
+ * 这个顺序也是它们在for-in循环中出现的顺序。
+ * 通过Car的实例调用，则Object.keys()返回的数组只包含"name"和"price"这两个实例属性。
+*/
+function Car() {
+}
+
+Car.prototype.name = "H6";
+Car.prototype.price = 140000;
+Car.prototype.sayName = function () {
+  console.log(this.name);
+}
+
+var keys = Object.keys(Car.prototype);
+console.log(keys); // "name, price, sayName"
+
+var car1 = new Car();
+car1.name = "H9";
+car1.price =450000;
+var car1Keys = Object.keys(car1);
+console.log(car1Keys); // "name, price"
+
+// Object.getOwnPropertyNames()方法，无论它是否可枚举，都可以得到所有实例属性。
+var keys = Object.getOwnPropertyNames(Car.prototype);
+console.log(keys); // "constructor, name, price, sayName"
+```
+
+- `Object.getOwnPropertyNames()`方法返回结果中包含了不可枚举的`constructor`属性。`Object.keys()`和`Object.getOwnPropertyNames()`方法都可以用来替代`for-in`循环。
+
+------
+
+### 更简洁的原型语法
+
+- 用一个包含所有属性和方法的**对象字面量**来**重写整个原型对象**。
+
+```javascript
+/**
+ * @description Car.prototype设置为等于一个以对象字面量形式创建的新对象。
+*/
+function Car() {
+}
+
+Car.prototype = {
+  name: "H6",
+  price: 140000,
+  sayName: function () {
+    console.log(this.name);
+  }
+}
+```
+
+- `Car.prototype`设置为等于一个以**对象字面量形式创建的新对象**。
+- 但是，`Car`的`constructor属性`不再指向Car了。每创建一个函数，就会**同时创建它的`prototype`对象**，这个对象也会**自动获得`constructor`属性**。
+
+```javascript
+/**
+ * @description 完全重写了默认的prototype对象，因此constructor属性也就变成了新对象的constructor属性(指向Object构造函数), 不再指向Person函数。
+ * instanceof操作符还能返回正确的结果，但通过constructor已经无法确定对象的类型了
+*/
+function Car() {
+}
+
+Car.prototype = {
+  name: "H6",
+  price: 140000,
+  sayName: function () {
+    console.log(this.name);
+  }
+}
+
+var car1 = new Car();
+
+console.log(car1 instanceof Object); // true
+console.log(car1 instanceof Car);  // true
+console.log(car1.constructor == Car); // false
+console.log(car1.constructor == Object); // true
+```
+
+```javascript
+/**
+ * 
+*/
+function Car() {
+}
+
+Car.prototype = {
+  constructor: Car,
+  name: "H6",
+  price: 140000,
+  sayName: function () {
+    console.log(this.name);
+  }
+}
+
+Object.defineProperty(Car.prototype, "constructor", {
+  enumerable: false,
+  value: Car
+});
+```
+
+------
+
+### 原型的动态性
+
+- 由于在原型中查找值得过程时**一次搜索**，因此我们对**原型对象所做得任何修改**都能够立即从**实例上反映出来**——即使是**先创建了实例后修改原型**也照样如此。
+
+```javascript
+/**
+ * @description 先创建了Car的一个实例，并将其保存在car1中。
+ * 然后，下一条语句在Car.prototype中添加了一个方法sayPrice()。
+ * 即使car1实例是在添加新方法之前创建的，但它仍然可以访问这个新方法。
+ * 其原因可以归结为实例与原型之间的松散连接关系。
+ * 当我们调用car1.sayPrice()时，首先会在实例中搜索名为sayPrice的属性，在没找到的情况下，会继续搜索原型。
+ * 因为实例与原型之间的连接只不过是一个指针，而非一个副本，因此就可以在原型中找到新的sayPrice属性并返回保存在那里的函数。
+*/
+function Car() {
+}
+
+var car1 = new Car();
+
+Car.prototype.sayPrice = function () {
+  console.log(140000);
+}
+
+car1.sayPrice(); // 140000
+```
+
+- 尽管可以随时为**原型添加属性和方法**，并且修改能够立即在所有对象实例中反映出来，但如果是重写整个原型对象，那么情况就像如下代码所示了。
+- 调用构造函数时会为实例添加一个指向**最初原型**的`[[Prototype]]`指针，而把**原型修改为另外一个对象**就等于**切断了构造函数与最初原型之间的联系**。
+
+```javascript
+/**
+ * @description 调用构造函数时会为实例添加一个指向最初原型的[[Prototype]]指针，
+ * 而把原型修改为另外一个对象就等于切断了构造函数与最初原型之间的联系。
+ * 重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系; 它们引用的仍然是最初的原型。
+*/
+function Car() {
+}
+
+var car = new Car();
+
+Car.prototype = {
+  constructor: Car,
+  name: "H6",
+  price: 140000,
+  sayName: function () {
+    console.log(this.name);
+  }
+};
+
+car.sayName(); // Uncaught TypeError: car.sayName is not a function
+```
+
+------
+
+### 原生对象的原型
+- 原型模式的重要性不仅体现在创建自定义类型方面，就连所有原生的引用类型，都是采用这种模式创建的。所有原生引用类型(Object、Array、String, 等等)都在其构造函数的原型上定义了方法。
+
+```javascript
+console.log(typeof Array.prototype.sort); // "function"
+console.log(typeof String.prototype.substring); // "function"
+
+String.prototype.startsWith = function (text) {
+  return this.indexOf(text) == 0;
+};
+
+var msg = "Hello world";
+console.log(msg.startsWith("Hello")); // true
+```
+
+------
+
+### 原型对象的问题
 
 ```javascript
 function Car() {
 }
 
+Car.prototype = {
+  constructor: Car,
+  name: "H6",
+  price: 140000,
+  otherNames: ["H9", "H大狗"],
+  sayName: function () {
+    console.log(this.name);
+  }
+};
 
+var car1 = new Car();
+var car2 = new Car();
+
+car1.otherNames.push("H初恋");
+console.log(car1.otherNames); // Array(3) [ "H9", "H大狗", "H初恋" ]
+console.log(car2.otherNames); // Array(3) [ "H9", "H大狗", "H初恋" ]
+console.log(car1.otherNames === car2.otherNames); // true
 ```
 
 ------
 
 
 ## 组合使用构造函数模式和原型模式
+
+```javascript
+/**
+ * @description 
+*/
+function Car(name, price) {
+  this.name = name;
+  this.price = price;
+  this.otherNames = ["H9", "H大狗"];
+}
+
+Car.prototype = {
+  constructor: Car,
+  sayName: function () {
+    console.log(this.name);
+  }
+}
+
+var car1 = new Car("H6", 140000);
+var car2 = new Car("H初恋", 20000);
+
+car1.otherNames.push("H家旅");
+console.log(car1.otherNames); // Array(3) [ "H9", "H大狗", "H家旅" ]
+console.log(car2.otherNames); // Array [ "H9", "H大狗" ]
+console.log(car1.otherNames === car2.otherNames); // false
+console.log(car1.sayName === car2.sayName); // true
+```
+
+------
+
+## 动态原型模式
+
+```javascript
+function Car(name, price) {
+  this.name = name;
+  this.price = price;
+
+  if (typeof this.sayName != "function") {
+    Car.prototype.sayName = function () {
+      console.log(this.name);
+    };
+  }
+}
+
+var car1 = new Car("H6", 140000);
+console.log(car1.sayName()); // "H6"
+```
+
+------
+
+## 寄生构造函数模式
+
+```javascript
+function Car(name, price) {
+  var o = new Object();
+  o.name = name;
+  o.price = price;
+  o.sayName = function () {
+    console.log(this.name);
+  };
+  return o;
+}
+
+var car1 = new Car("H6", 140000);
+console.log(car1.sayName()); // "H6"
+```
+
+```javascript
+function SpecialCar () {
+  var values = new Array();
+  
+  values.push.apply(values, arguments);
+
+  values.toPipedString = function () {
+    return this.join("|");
+  };
+
+  return values;
+};
+
+var colors = new SpecialCar("H6", "H9");
+console.log(colors.toPipedString()); // "H6|H9"
+```
+
+------
+
+## 稳妥构造函数模式
+
+```javascript
+function Car(name, price) {
+  var o = new Object();
+
+  o.sayName = function () {
+    console.log(name);
+  };
+
+  return o;
+}
+
+var car1 = Car("H6", 140000);
+console.log(car1.sayName()); "H6"
+```
+
+------
+
+## 原型链
+
+- 每个**构造函数**都有一个**原型对象**，**原型对象**都包含一个**指向构造函数的指针**，而**实例**都包含一个**指向原型对象的内部指针**。
+
+```javascript
+/**
+ * @function SuperType 分别有一个属性和一个方法
+ * @function SubType 分别有一个属性和一个方法 继承了SuperType, 而继承是通过创建SuperType的实例，并将实例赋给SubType.prototype实现的。
+ * 实现的本质是重写原型对象，代之以一个新类型的实例。
+ * 原来存在于SuperType的实例重的所有属性和方法，现在也存在于SubType.prototype中了。
+ * 在确立了继承关系之后，我们给SubType.prototype添加了一个方法，这样就继承了SuperType的属性和方法的基础上又添加了一个新方法。
+*/
+function SuperType() {
+  this.property = true;
+}
+
+SuperType.prototype.getSuperValue = function () {
+  return this.property;
+};
+
+function SubType() {
+  this.subProperty = false;
+}
+
+// 继承了SuperType
+SubType.prototype = new SuperType();
+
+SubType.prototype.getSubValue = function () {
+  return this.subProperty;
+};
+
+console.log(SubType.prototype.__proto__ == SuperType.prototype); // true
+
+var subType1 = new SubType();
+console.log(SuperType.prototype.constructor === SuperType); // true
+console.log(subType1.__proto__ == SubType.prototype);
+console.log(subType1.getSuperValue()); // true
+console.log(subType1.getSubValue()); // false
+```
+
+------
+
+## 继承
+```javascript
+```
+
+------
+
+## ES6类
+
+```javascript
+```
+
+## ES6类的继承
+
+```javascript
+```
+
+> 
