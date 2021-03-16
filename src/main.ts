@@ -1,6 +1,7 @@
 import Vue from 'vue';
 // import VueStorage from 'vue-ls';
 // import VueResource from 'vue-resource';
+// https://github.com/showdownjs/showdown
 import showdown from 'showdown';
 const showdownHeightlight = require('showdown-highlight');
 
@@ -22,7 +23,9 @@ Vue.config.productionTip = false;
 
 Vue.prototype.md2html = (md) => {
   let converter = new showdown.Converter({
-    extensions: [showdownHeightlight]
+    extensions: [showdownHeightlight],
+    tables: true,
+    splitAdjacentBlockquotes: true
   });
   let text = md.toString();
   let html = converter.makeHtml(text);

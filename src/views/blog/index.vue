@@ -51,7 +51,6 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Route } from 'vue-router';
 

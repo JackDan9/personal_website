@@ -1,1 +1,4 @@
 INSERT INTO `article_details` (`parent_id`, `title`, `content_url`, `author`, `created_on`, `updated_on`) VALUES (1, '2017年度总结 —— 毕业季&洗礼季', '/2017/annual/summary.md', 'jackdan', '2017-07-09 12:39:40', '2017-07-21 01:23:24');
+INSERT INTO `article_details` (`parent_id`, `title`, `content_url`, `author`, `created_on`, `updated_on`) VALUES (2, 'JavaScript数据类型', '/2017/code/data-element/summary.md', 'jackdan', '2017-08-09 12:39:40', '2017-08-21 01:23:24');
+INSERT INTO `article_details` (`parent_id`, `title`, `content_url`, `author`, `created_on`, `updated_on`) VALUES (3, 'JavaScript原型与原型链', '/2017/code/prototype/summary.md', 'jackdan', '2017-09-09 12:39:40', '2017-09-21 01:23:24');
+INSERT INTO `article_details` (`parent_id`, `title`, `content_url`, `author`, `created_on`, `updated_on`) VALUES (4, 'JavaScript闭包', '/2017/code/closure/summary.md', 'jackdan', '2017-10-09 12:39:40', '2017-11-21 01:23:24');

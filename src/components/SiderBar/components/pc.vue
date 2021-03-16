@@ -53,7 +53,6 @@
             class="flex w-full rounded-none text-base font-semibold tracking-wider px-0 py-2 lg:px-0 xl:px-0 xxxl:pl-10 xxxl:pr-4 lg:justify-center xl:justify-center xxxl:justify-start my-0 mx-1 items-center"
             :href="[sibarItem.url]"
             style="color: #fcfcfc; transition: color 0.35s ease-in-out; user-select: none;"
-            :style="{justifyContent: isShowSidebar ? 'center' : 'normal'}"
           >
             <i
               v-bind:class="[sibarItem.icon]"
@@ -87,7 +86,6 @@
 </template>
 
 <script lang="ts">
-import { mapState } from 'vuex';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component({

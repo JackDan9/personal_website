@@ -10,8 +10,8 @@
       "updated_time": "2020-12-24"
     },
     {
-      "id": 2,
-      "parent_id": 2,
+      "id": 5,
+      "parent_id": 5,
       "author": "jackdan",
       "title": "2018年度总结",
       "content_url": "/2018/annual/summary.md",
@@ -37,8 +37,8 @@
       "updated_time": "2020-12-24"
     },
     {
-      "id": 5,
-      "parent_id": 5,
+      "id": 2,
+      "parent_id": 2,
       "author": "jackdan",
       "title": "JavaScript的数据类型",
       "content_url": "/2017/code/data-element/summary.md",

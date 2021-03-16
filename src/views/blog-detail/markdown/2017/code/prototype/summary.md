@@ -1,14 +1,16 @@
 # JavaScript原型与原型链
 
+
 | 标题 | 内容 |
 | --- | --- |
 | 工厂模式 | JavaScript并不支持工厂模式(略读) |
 | 构造函数 | 构造函数的介绍 |
-| 原型 | 我们创建的每个函数都有一个`prototype`(原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。 |
-| 原型链 | 原型链的实现  |
+| 原型 | 我们创建的每个函数都有一个`prototype`(原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。|
+| 原型链 | 原型链的实现 |
 | 继承 | JavaScript继承的实现 |
-| ES6类 | ES6类的实现  |
-| ES6类的继承  | ES6类的继承实现 |
+| ES6类 | ES6类的实现 |
+| ES6类的继承 | ES6类的继承实现 |
+
 
 
 ------
@@ -73,15 +75,17 @@ let o = new Object(null);
 
 
 #### 汽车类: 汽车标准规范类(Car)
-```typescript
+
+```javascript
 abstract class Car {
   public abstract make(): void;
   public abstract sale(): void;
 }
 ```
 
-#### HAVAL H6类: 制造HAVAL H6汽车()
-```typescript
+#### HAVAL H6类: 制造HAVAL(H6汽车)
+
+```javascript
 public class H6Car extends Car {  
   // @Override
   public make(): void {
@@ -94,8 +98,9 @@ public class H6Car extends Car {
 }
 ```
 
-#### HAVAL H9类: 制造HAVAL H9汽车
-```typescript
+#### HAVAL H9类: 制造HAVAL(H9汽车)
+
+```javascript
 public class H9Car implements Car {
   // @Override
   public make(): void {
@@ -109,7 +114,8 @@ public class H9Car implements Car {
 ```
 
 #### CarFactory类: 汽车代工厂(Factory)
-```typescript
+
+```javascript
 public class CarFactory {
   /**
    * 静态工厂方法
@@ -131,7 +137,8 @@ public class CarFactory {
 ```
 
 #### Example
-```typescript
+
+```javascript
 let car = CarFactory.createCar(H6Car);
 car.make();
 
@@ -147,7 +154,10 @@ car.make();
 
 - 也就是定义一个抽象工厂，其定义了产品的生产接口，但不负责具体的产品，将生产任务交给不同的派生类工厂。这样不用通过指定类型来创建对象了。
 
-```typescript
+```javascript
+/**
+ * @description 工厂方法模式-Factory Method Pattern
+*/
 ```
 
 ------
@@ -157,6 +167,7 @@ car.make();
 - 对于使用过基于类的语言(如Java或C++)的开发人员来说，JavaScript有点令人困惑，因为它是动态的，并且本身不提供一个`class`实现。(在ES2015/ES6中引入了`class`关键字，ES6的`class`可以看作只是一个**语法糖**，它的绝大部分功能，`ES5`都可以做到，新的`class`写法只是让**对象原型**的写法更加清晰、更像**面向对象编程的语法**而已。JavaScript仍然是基于原型的)。
 
 - 考虑到在ECMAScript中无法创建类，ECMAScript开发人员就发明了一种函数，用**函数来封装以特定接口创建对象**的细节，如下所示:
+
 
 ```javascript
 /**
@@ -178,6 +189,7 @@ function createCar(name, price) {
   };
   return obj;
 }
+
 /**
  * @description 函数`createCar()`能够根据接受的参数来构建一个包含所有必要信息的`Car`对象。
  * 可以无数次调用这个函数，而每次它都会返回一个包含三个属性一个方法的对象。
@@ -1007,22 +1019,266 @@ console.log(subType1.getSuperValue()); // true
 console.log(subType1.getSubValue()); // false
 ```
 
+- ![prototype chain](./images/prototype-chain.png)
+
 ------
 
 ## 继承
 ```javascript
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.toString = function () {
+  return '(' + this.x + ', ' + this.y + ')';
+}
+
+var p = new Point(1, 2);
 ```
 
 ------
 
 ## ES6类
 
+- ES6的`class`可以看作只是一个**语法糖**，它的绝大部分功能，ES5都可以做到，新的`class`写法只是让**对象原型的写法更加清晰**、**更像面向对象编程的语法**而已。
+
 ```javascript
+/**
+ * @description 生成实例对象的传统方法是通过构造函数。
+ * 
+*/
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.toString = function () {
+  return '(' + this.x + ', ' + this.y + ')';
+}
+
+var p = new Point(1, 2);
+console.log(p); // Object { x: 1, y: 2 }
+
+/**
+ * @description 引入class关键字，作为对象的模板。
+ * 通过class关键字，可以定义类。
+ * @function constructor 就是构造方法
+ * @param this this关键字则代表实例对象。
+ * 除了构造方法，还定义了一个toString()方法。
+ * 注意，定义toString()方法的时候，前面不需要要加上function这个关键字，直接把函数定义放进去了就可以了。
+ * 另外，方法与方法之间不需要逗号分隔，加了会报错。
+*/
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+
+  doOutput() {
+    console.log('output');
+  }
+}
+
+// 使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。
+var p1 = new Point(2, 3);
+console.log(p1); // Object { x: 1, y: 2 }
+// 类的数据类型就是函数，类本身就指向构造函数。
+typeof Point; // "function"
+console.log(Point === Point.prototype.constructor); // true
 ```
+
+- ES6中的类(`class`)，完全可以看作构造函数的另一种写法。
+
+```javascript
+/**
+ * @description 类的所有方法都定义在类的prototype属性上面。
+ * constructor(), toString(), toValue()这三个方法，其实都是定义在Point.prototype上面。
+*/
+class Point {
+  constructor() {
+    // ...
+  }
+
+  toString() {
+    // ...
+  }
+
+  toValue() {
+    // ...
+  }
+}
+
+// 等同于
+function Point() {
+}
+
+Point.prototype = {
+  constructor() {},
+  toString() {},
+  toValue() {},
+};
+```
+
+```javascript
+/**
+ * @description 在类的实例上面调用方法，其实就是调用原型上的方法。
+ * b是B类的实例，它的constructor()方法就是B类原型的constructor()方法。
+ * 类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。
+*/
+class B {}
+var b = new B();
+
+b.constructor === B.prototype.constructor; // true
+
+class Point {
+  constructor () {
+    // ...
+  }
+}
+
+// Object.assign()方法可以很方便地一次向类添加多个方法。
+Object.assign(Point.prototype, {
+  toString() {},
+  toValue() {},
+});
+
+// prototype对象的constructor()属性，直接指向"类"的本身，这与ES5的行为是一致的。
+Point.prototype.constructor === Point; // true
+```
+
+```javascript
+/**
+ * @description 类的内部所有定义的方法，都是不可枚举的(non-enumerable)。
+ * 这一点与ES5的行为不一致。
+*/
+class Point {
+  constructor(x, y) {
+    // ...
+  }
+
+  toString() {
+    // ...
+  }
+}
+
+Object.keys(Point.prototype);
+// []
+Object.getOwnPropertyNames(Point.prototype);
+// ["constructor", "toString"]
+
+
+/**
+ * @description ES5的写法，toString()方法就是可枚举的。
+*/
+var Point = function (x, y) {
+  // ...
+};
+
+Point.prototype.toString = function () {
+  // ...
+};
+
+Object.keys(Point.prototype);
+// [ "toString" ]
+Object.getOwnPropertyNames(Point.prototype);
+// [ "constructor", "toString" ]
+```
+
+------
 
 ## ES6类的继承
 
 ```javascript
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString () {
+    return '(' + this.x + ', ' + this.y +')'
+  }
+}
+
+class ColorPoint extends Point {
+  constructor(x, y, color) {
+    super(x, y);
+    this.color = color;
+  }
+
+  toString() {
+    return this.color + ', ' + super.toString();
+  }
+}
+
+var cp = new ColorPoint(26, 20, 'blue'); // Object { x: 26, y: 20, color: "blue" }
+cp instanceof ColorPoint; // true
+cp instanceof Point; // true
 ```
 
-> 
+- ES5实现ES6类的继承
+
+```javascript
+/**
+ * 
+*/
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.toString = function () {
+  return '(' + this.x + ', ' + this.y + ')'
+}
+
+function ColorPoint(x, y, color) {
+  Point.call(this, x, y);
+  this.color = color;
+}
+
+ColorPoint.prototype = new Point();
+ColorPoint.prototype.constructor = ColorPoint;
+
+var cp = new ColorPoint(26, 20, "blue"); // Object { x: 26, y: 20, color: "blue" }
+cp instanceof ColorPoint; // true
+cp instanceof Point; // true
+```
+
+- `class`类继承错误写法。
+
+```javascript
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+}
+
+class ColorPoint extends Point {
+  constructor(x, y, color) {
+    // Uncaught ReferenceError: must call super constructor before using 'this' in derived class constructor
+    this.color = color;
+    super(x, y);
+  }
+
+  toString() {
+    return this.color + ', ' + super.toString();
+  }
+}
+
+var cp = new ColorPoint(26, 20, 'blue');
+```
+
+------
+
+> https://es6.ruanyifeng.com/#docs/class
+> Thinking in JackDan

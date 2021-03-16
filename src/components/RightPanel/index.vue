@@ -29,26 +29,27 @@ import axios from 'axios';
 import { Route } from 'vue-router';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ArticlesData } from './types/index';
+import { fetchRecentlyUpdated } from '../../api/articles';
 
 @Component({})
 export default class RightPanel extends Vue {
   private articlesList: object[] = [];
 
   mounted(): void {
-    this.handleSearch();
+    this.handleRecentlyUpdated();
   }
 
   @Watch('$route')
   public routeChange(val: Route, oldVal: Route) {
     this.articlesList = [];
-    this.handleSearch();
+    this.handleRecentlyUpdated();
   }
 
-  private async handleSearch(): Promise<void> {
-    const data: ArticlesData = await axios.get('/static/articles.json').then((response) => {
-      const res = response.data;
-      return { list: res.data };
+  private async handleRecentlyUpdated(): Promise<void> {
+    const data: ArticlesData = await fetchRecentlyUpdated({}).then((response) => {
+      return { list: response.data };
     }, (error) => {
+      console.log(error);
       throw new Error(error);
     });
     this.articlesList = [...this.articlesList, ...data.list];

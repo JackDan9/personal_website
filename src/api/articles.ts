@@ -15,3 +15,11 @@ export function fetchDetail(id) {
     params: { id },
   })
 }
+
+export function fetchRecentlyUpdated(query) {
+  return request({
+    url: '/article/recently_updated',
+    method: 'get',
+    params: query,
+  })
+}

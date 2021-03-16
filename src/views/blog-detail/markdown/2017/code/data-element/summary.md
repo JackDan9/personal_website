@@ -2,7 +2,7 @@
 
 | 数据类型名称 | 数据类型内容 |
 | --- | --- |
-| 原始类型(primitive type) | Undefined类型、Null类型、Boolean类型、String类型、Number类型、Symbol类型(ES6新增) | 
+| 原始类型(primitive type) | Undefined类型、Null类型、Boolean类型、String类型、Number类型、Symbol类型(ES6新增) |
 | 对象类型(object) | Object类型 |
 
 ------

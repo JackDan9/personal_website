@@ -67,7 +67,6 @@ import SiderBar from '@/components/SiderBar/index';
 import Pay from '@/components/Pay/index';
 
 import { fetchDetail } from '../../api/articleDetails';
-// import { fetchAttachment } from '../../api/attachments';
 import Config from '../../config/config';
 
 
