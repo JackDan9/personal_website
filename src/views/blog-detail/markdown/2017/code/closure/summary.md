@@ -61,6 +61,20 @@ var f = checkScope();
 f();
 ```
 
+```javascript
+var scope = "global scope";
+
+function checkScope() {
+  var scope = "local scope";
+  function f() {
+    return scope;
+  }
+  return f();
+}
+
+checkScope();
+```
+
 ### 实践角度闭包
 
 - 1. 即使创建函数的上下文已经销毁，函数仍然存在(比如, 内部函数从父函数中返回)
