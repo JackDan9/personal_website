@@ -26,6 +26,8 @@ var object = {
 console.log(object.getNameFunc()());
 ```
 
+- `this`赋值给`that`。
+
 ```javascript
 var name = "The Window";
 var object = {
@@ -82,3 +84,7 @@ checkScope();
 
 ```javascript
 ```
+
+------
+
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures
