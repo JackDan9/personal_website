@@ -9,6 +9,18 @@
 - <em>迭代更新</em>
 - 网站开发使用<em>Vue.js</em>、<em>VueRouter</em>、<em>VueResource</em>、<em>Vue Class Component</em>、<em>Vuex</em>进行组件化开发、国际化使用<em>Vue I18n</em>、MarkDown文章解析使用<em>Showdown.js</em>、<em>Highlight.js</em>、<em>Markdown Loader</em>、<em>html-loader</em>、模拟数据生成器使用<em>Mock.js</em>编写单元测试、HTTP库使用<em>Axios</em>、UI库使用<em>ELement UI</em>、3D绘图使用<em>Three.js</em>、编译器使用<em>Babel</em>、静态资料打包使用<em>Webpack</em>、接口服务使用<em>Egg.js</em>
 
+
+## 文件目录
+├── README.md
+├── docs
+│   ├── mysql
+│   │   ├── database
+│   │   │   ├── create
+│   │   │   │   ├── personal_website.sql 
+│   │   ├── table
+│   ├── vue-router
+
+
 ## 功能列表
 
   - [X] 首页
