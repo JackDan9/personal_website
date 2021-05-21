@@ -12,6 +12,7 @@
 
 ## 文件目录
 
+```
 ├── README.md
 ├── docs
 │   ├── mysql
@@ -20,7 +21,7 @@
 │   │   │   │   ├── personal_website.sql 
 │   │   ├── table
 │   ├── vue-router
-
+```
 
 ## 功能列表
 
