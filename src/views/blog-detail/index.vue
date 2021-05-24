@@ -66,7 +66,7 @@ import GlobalHeader from '@/components/GlobalHeader/index';
 import SiderBar from '@/components/SiderBar/index';
 import Pay from '@/components/Pay/index';
 
-import { fetchDetail } from '../../api/articleDetails';
+import { fetchDetail } from '../../api/article-details';
 import Config from '../../config/config';
 
 
@@ -125,7 +125,7 @@ export default class Index extends Vue {
   }
 
   private async handleArticleDetail(): Promise<void> {
-    await fetchDetail({id: this.articleParams.id}).then((response) => {
+    await fetchDetail({id: this.articleParams.id}).then((response:any) => {
       response.data.map((item: any) => {
         document.title = item.title;
         this.articleDetail.title = item.title;
@@ -136,7 +136,7 @@ export default class Index extends Vue {
           this.getAttachment(item.content_url);
         }
       })
-    }, (error) => {
+    }, (error:any) => {
       throw new Error(error);
     })
   };

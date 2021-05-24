@@ -18,9 +18,20 @@
 │   ├── mysql
 │   │   ├── database
 │   │   │   ├── create
-│   │   │   │   ├── personal_website.sql 
+│   │   │   │   ├── personal_website.sql # 数据库创建文件
 │   │   ├── table
+│   │   │   ├── create
+│   │   │   │   ├── article_details.sql # 创建文章详细表格文件
+│   │   │   │   ├── articles.sql # 创建文章列表表格文件
+│   │   │   ├── drop
+│   │   │   │   ├── article_details.sql # 
+│   │   │   │   ├── articles.sql #
+│   │   │   ├── insert
+│   │   │   │   ├── article_details.sql # 
+│   │   │   │   ├── articles.sql #
 │   ├── vue-router
+│   │   ├── README.md # 路由说明文档
+
 ```
 
 ## 功能列表
