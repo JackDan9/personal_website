@@ -43,21 +43,21 @@ module.exports = {
       .set("@", resolve("src"));
     
     // ts组件
-    const tsRule = config.module.rule("ts")
-    tsRule.uses.clear()
-    tsRule.exclude.add(/node_modules/)
-    tsRule
-      .test(/\.ts$/)
-      .use("ts-loader")
-      .loader("ts-loader")
-      .options({
-        // Needed for <script lang="ts"> to work in *.vue files; see https://github.com/vuejs/vue-loader/issues/109
-        appendTsSuffixTo: [ /\.vue$/ ]
-      })
-      .end()
-      .use("tslint-loader")
-      .loader("tslint-loader")
-      .end()
+    // const tsRule = config.module.rule("ts")
+    // tsRule.uses.clear()
+    // tsRule.exclude.add(/node_modules/)
+    // tsRule
+    //   .test(/\.ts$/)
+    //   .use("ts-loader")
+    //   .loader("ts-loader")
+    //   .options({
+    //     // Needed for <script lang="ts"> to work in *.vue files; see https://github.com/vuejs/vue-loader/issues/109
+    //     appendTsSuffixTo: [ /\.vue$/ ]
+    //   })
+    //   .end()
+    //   .use("tslint-loader")
+    //   .loader("tslint-loader")
+    //   .end()
     // markdown 组件
     const mdRule = config.module.rule("md");
     mdRule.uses.clear();

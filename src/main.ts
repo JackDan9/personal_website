@@ -5,6 +5,12 @@ import Vue from 'vue';
 import showdown from 'showdown';
 const showdownHeightlight = require('showdown-highlight');
 
+import { Loading } from 'element-ui';
+import ElementUI from 'element-ui';
+Vue.use(ElementUI, {
+  size: 'medium' // set element-ui default size
+})
+
 import App from './App';
 import router from './router';
 import store from './store';

@@ -72,7 +72,6 @@ import { fetchList } from '../../api/articles';
 })
 export default class Index extends Vue {
   private articlesList: object[] = [];
-
   public mounted(): void {
     this.handleSearch();
   }
@@ -87,7 +86,7 @@ export default class Index extends Vue {
     const data: ArticlesData = await fetchList({}).then((response) => {
       return { list: response.data};
     }, (error) => {
-      console.log(error);
+      // console.error(error);
       throw new Error(error);
     });
     this.articlesList = [...this.articlesList, ...data.list];

@@ -32,6 +32,56 @@
     //   refreshRem();
     // })(window);
   </script>
+  <style type="text/css" rel="stylesheets">
+    html,
+    body,
+    #app {
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
+        sans-serif;
+      background-color: #fff;
+    }
+
+    @media (min-width: 420px) {
+      html {
+        font-size: 16px;
+      }
+    }
+
+    .loading-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      /* background: radial-gradient(circle, #93c7d0, #66a0aa, #437881, #265158); */
+      z-index: 100;
+      background-color: #f2f3f5;
+      
+    }
+
+   
+    .main {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-container img {
+      width: 120px;
+      height: 120px;
+    }
+  </style>
   <title>JackDan's Den</title>
 </head>
 
@@ -51,12 +101,7 @@
   <div id="app">
     <div class="loading-container">
       <div class="main">
-        <div class="outer2">
-          <div class="outer"></div>
-          <div class="circle">
-            <div class="text">Loading...</div>
-          </div>
-        </div>
+        <img src="./loading.gif" />
       </div>
     </div>
   </div>

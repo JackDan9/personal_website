@@ -29,22 +29,22 @@
   </div>
 </template>
 
-<script>
-import RouteView from "./RouteView";
-import { mixinDevice } from "@/utils/mixin";
+<script lang="ts">
+import RouteView from './RouteView';
+import { mixinDevice } from '@/utils/mixin';
 
 export default {
-  name: "UserLayout",
+  name: 'UserLayout',
   components: { RouteView },
   mixins: [mixinDevice],
   data() {
     return {};
   },
   mounted() {
-    document.body.classList.add("userLayout");
+    document.body.classList.add('userLayout');
   },
   beforeDestroy() {
-    document.body.classList.remove("userLayout");
+    document.body.classList.remove('userLayout');
   },
 };
 </script>

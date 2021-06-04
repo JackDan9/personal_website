@@ -86,6 +86,7 @@ export default class Index extends Vue {
   };
 
   private value: any = null;
+  private loading: boolean = true;
 
   private articleDetail: ArticleDetailIF = {
     toc: '',
@@ -125,26 +126,26 @@ export default class Index extends Vue {
   }
 
   private async handleArticleDetail(): Promise<void> {
-    await fetchDetail({id: this.articleParams.id}).then((response:any) => {
+    await fetchDetail({id: this.articleParams.id}).then((response: any) => {
       response.data.map((item: any) => {
         document.title = item.title;
         this.articleDetail.title = item.title;
         this.articleDetail.author = item.author;
         this.articleDetail.created_time = item.created_on;
         this.articleDetail.updated_time = item.updated_on;
-        if(item.content_url) {
+        if (item.content_url) {
           this.getAttachment(item.content_url);
         }
-      })
-    }, (error:any) => {
+      });
+    }, (error: any) => {
       throw new Error(error);
-    })
-  };
+    });
+  }
 
-  private async getAttachment(url:string): Promise<void> {
+  private async getAttachment(url: string): Promise<void> {
     await axios.get(Config.attachmentApi + url).then((response) => {
       this.value = this.md2html(response.data);
-    })
+    });
   }
 }
 </script>
