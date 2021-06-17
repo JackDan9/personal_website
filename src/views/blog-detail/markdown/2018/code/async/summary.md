@@ -1,12 +1,13 @@
-# async
+# async函数
 
 ------
 
 | 标题 | 内容 |
 | --- | --- |
-| async的引入 | `this`指向, `构造函数`, `arguments对象`,  `Generator` |
+| async的引入 | `AsyncFunction`构造函数, `Generator` |
 | async的含义 | async函数是什么? |
 | async的特点 | 内置执行器, 更好的语义, 更广的适用性, 返回值是`Promise` |
+| async的实现原理 | `Generator`函数, 自动执行器 |
 
 ------
 
@@ -348,6 +349,51 @@ async function asyncPrint(value, ms) {
 
 asyncPrint('hello world', 3000);
 // 间隔3秒 输出hello world
+```
+
+------
+
+## async的实现原理
+
+- async函数的实现原理, 就是将`Generator`函数和**自动执行器**, 包装在一个函数里。
+
+```javascript
+async function asyncFunction() {
+  // ...
+}
+
+// 等同于
+
+function asyncFunction(args) {
+  return spawn(function* () {
+    // ...
+  })
+}
+
+
+function spawn(genFunction) {
+  // 返回一个Promise对象, async返回的也是Promise对象
+  return new Promise(function(resolve, reject) {
+    const _gen = genFunction();
+    function step(nextFunction) {
+      let _next;
+      try {
+        _next = nextFunction();
+      } catch(e) {
+        return reject(e);
+      }
+      if(_next.done) {
+        return resolve(_next.value);
+      }
+      Promise.resolve(_next.value).then(function(v) {
+        step(function() { return _gen.next(v); });
+      }, function(e) {
+        step(function() { return _gen.throw(e); });
+      })
+    }
+    step(function() { return _gen.next(undefined); });
+  })
+}
 ```
 
 ------
