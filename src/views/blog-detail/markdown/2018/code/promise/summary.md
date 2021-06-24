@@ -1,10 +1,10 @@
 # Promise 对象
 
-| 标题 | 内容 |
-| --- | --- |
+| 标题        | 内容                    |
+| ----------- | ----------------------- |
 | Promise来源 | 为什么需要Promise对象？ |
-| Promise原理 | Promise是怎么实现的？ |
-| Promise实现 | 如何原生实现Promise？|
+| Promise原理 | Promise是怎么实现的？   |
+| Promise实现 | 如何原生实现Promise？   |
 
 ## 为什么需要Promise对象?
 
@@ -62,13 +62,30 @@ console.log(2);
 
 ------
 
-## JavaScript执行模式
+## JavaScript执行模式(额外知识点)
 
 - JavaScript语言将任务的执行模式分成两种: **同步**(`Synchronous`)和**异步**(`Asynchronous`)。
 
 ### JavaScript执行模式之同步模式
 
 - "**同步模式**"就是**单线程**的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；
+
+```javascript
+function f1() {
+  var i = 0;
+  while(i < 10) {
+    console.log(i);
+    i++;
+  }
+}
+
+function f2() {
+  console.log(13);
+}
+
+f1(); // f1执行完成之后才会执行f2
+f2();
+```
 
 ### JavaScript执行模式之异步模式
 
@@ -125,18 +142,18 @@ f1(f2);
 */
 function f1(callback) {
   callback();
-  console.log('我是主函数!');
+  console.log('f1()我是主函数!');
 }
 
 function f2() {
   setTimeout(function () {
-    console.log('我是回调函数!');
-  }, 3000); // 模仿耗时操作
+    console.log('f2()我是回调函数!');
+  }, 30000); // 模仿耗时操作
 }
 
 f1(f2);
-// 我是主函数
-// 我是回调函数
+// f1()我是主函数
+// f2()我是回调函数
 ```
 
 - 我们把**同步操作**变成了**异步操作**，`f1`不会堵塞程序运行，相当于**先执行程序的主要逻辑**，将**耗时的操作推迟执行**。
@@ -149,7 +166,7 @@ f1(f2);
 
 ```javascript
 /**
- * @description https://code.jquery.com/jquery-3.6.0.js
+ * @description 源码地址 https://code.jquery.com/jquery-3.6.0.js
  * @function f1 绑定一个事件
  * @function f2 当f1发生done事件，就执行f2。 
 */
@@ -170,11 +187,11 @@ function f1() {
 - 缺点: 整个程序都要变成**事件驱动型**，**运行流程**会变得很不清晰。
 
 #### 发布/订阅
-- 事件驱动中的事件，完全可以理解成"信号"。
+- 事件驱动中的事件，完全可以理解成"**信号**"。
 - 我们假定，存在一个"**信号中心**"，某个任务执行完成，就向**信号中心"发布"（publish）一个信号**，其他任务可以向**信号中心"订阅"（subscribe）这个信号**，从而知道什么时候自己可以开始执行。这就叫做"**发布/订阅模式**"(`publish-subscribe pattern`)，又称"**观察者模式**"(`observer pattern`)。
 
 ```javascript
-let publisher = {
+var publisher = {
   subscribers: {
     any: []
   },
@@ -185,7 +202,7 @@ let publisher = {
     this.subscribers[type].push(fn);
   },
   unSubscribe: function (fn, type=`any`) {
-    let newSubscribers = [];
+    var newSubscribers = [];
     this.subscribers[type].forEach((item, i) => {
       if (item !== fn) {
         newSubscribers.push(fn);
@@ -201,7 +218,7 @@ let publisher = {
 };
 
 function makePublisher(obj) {
-  for (let i in publisher) {
+  for (var i in publisher) {
     if (publisher.hasOwnProperty(i) && typeof publisher[i] === `function`) {
       obj[i] = publisher[i];
     }
@@ -241,7 +258,7 @@ paper.week(); // About to fall asleep reading this a week has seven days
 
 ```javascript
 /**
- * @description https://code.jquery.com/jquery-3.6.0.js
+ * @description 源码地址 https://code.jquery.com/jquery-3.6.0.js
  * 首先，f2向"信号中心"jQuery订阅"done"信号。
 */
 function f2() {
@@ -275,7 +292,7 @@ button.addEventListener("click", (event) => /* do something with the evnet */);
 /**
  * @description 
 */
-let n = 0;
+var n = 0;
 const evnet = new EventEmitter();
 
 event.subscribe("THUNDER_ON_THE_MOUNTAIN", value => (n = value));
@@ -291,12 +308,12 @@ event.emit("THUNDER_ON_THE_MOUNTAIN", 5);
 
 - **发布/订阅**方法的性质与"**事件监听**"类似，但是**明显优于后者**。因为我们可以通过查看"**消息中心**"，了解**存在多少信号**、**每个信号有多少订阅者**，从而**监控程序的运行**。
 
-- 以上就是异步编程和实现异步编程的几种方式，但是方式中都存在多多少少不完善的地方，所以在ES6引入了Promise(异步编程的一种解决方案)，因为Promise更加合理也更加强大，那为什么Promise更加合理和强大了？
+- 以上就是异步编程和实现异步编程的几种方式，但是方式中都存在多多少少不完善的地方，所以在ES6引入了`Promise`(异步编程的一种解决方案)，因为Promise更加合理也更加强大，那为什么Promise会更加合理和强大了？
 
 ------
 
-## Promise
-- `Promise` 是**异步编程的一种解决方案**，比传统的解决方案——**回调函数和事件**——更合理和更强大。
+## Promise原理
+- `Promise` 是**异步编程的一种解决方案**，比传统的解决方案——**回调函数和事件**——**更合理**和**更强大**。
 - 所谓`Promise`，简单说就是一个**容器**，里面保存着**某个未来才会结束的事件**（通常是一个异步操作）的结果。
 - 从语法上说，`Promise`是一个对象，从它可以获取异步操作的消息。
 - `Promise`提供统一的API，各种异步操作都可以用同样的方法进行处理。
@@ -318,9 +335,11 @@ const promise = new Promise(function(resolve, reject) {
 });
 ```
 
+------
+
 ### Promise特点
-- 1.对象的状态不受外界影响。
-- `Promise`对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`(`resolved`)（已成功）和`rejected`（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，**任何其他操作都无法改变这个状态**。这也是Promise这个名字的由来，它的英语意思就是"承诺"，表示**其他手段无法改变**。
+#### 1.对象的状态不受外界影响。
+- `Promise`对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`(`resolved`)（已成功）和`rejected`（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，**任何其他操作都无法改变这个状态**。这也是Promise这个名字的由来，它的英语意思就是"承诺"，表示**其他手段无法改变**(当然，这也是它本身受限制的地方)。
 
 ```javascript
 /**
@@ -334,7 +353,7 @@ const promise = new Promise(function(resolve, reject) {
 */
 const promise1 = new Promise(function(resolve, reject) {
   // ... some code
-  let value = 1;
+  var value = 1;
   if (value === 1) {
     resolve(value);
   } else {
@@ -357,7 +376,8 @@ promise1.then(function(value) {
 });
 ```
 
-- 2. 一旦状态改变，就不会再变，任何时候都可以得到这个结果，`Promise`对象的状态改变，只有两种可能: 从`pending`变为`fulfilled`和从`pending`变为`rejected`。
+#### 2. 一旦状态改变，就不会再变，任何时候都可以得到这个结果，`Promise`对象的状态改变，只有两种可能: 从`pending`变为`fulfilled`和从`pending`变为`rejected`。
+
 - 只要这两种情况发生，**状态就凝固**了，不会再变了，会一直保持这个结果，这时就称为 `resolved`（**已定型**）。
 - 如果改变已经发生了，你再对`Promise`对象添加**回调函数**，也会**立即得到这个结果**。
 - 这与事件（`Event`）完全不同，事件的特点是，如果你错过了它，再去监听，是**得不到结果的**。
@@ -386,7 +406,7 @@ function loadImageAsync(url) {
 
 ```javascript
 const promise2 = new Promise(function(resolve, reject) {
-  let value = 2;
+  var value = 2;
   if (value === 2) {
     resolve(value);
   } else {
@@ -395,13 +415,89 @@ const promise2 = new Promise(function(resolve, reject) {
 });
 ```
 
+------
+
 ### Promise的好处
 - 可以将异步操作以**同步操作的流程**表达出来，避免了**层层嵌套的回调函数**。
-- Promise对象提供了**统一的接口**，使得控制**异步操作更加容易**。
+- `Promise`对象提供了**统一的接口**，使得控制**异步操作更加容易**。
+
+------
 
 ### Promise的缺点
-- 无法取消Promise，一旦新建Promise就会立即执行，无法中途取消。
-- 不设置回调函数，Promise内部抛出错误，不会反应到外部。
-- 当处于`pending`状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)。
+- **无法取消Promise**，一旦新建Promise就会立即执行，**无法中途取消**。
+- **不设置回调函数**，Promise内部抛出错误，不会反应到外部。
+- 当处于`pending`状态时，无法得知目前进展到哪一个阶段(**刚刚开始还是即将完成**)。
 
 
+-----
+
+## 如何去实现一个Promise
+
+```javascript
+var _MyPromise = function (resolver) {
+  var _this = this
+  _this._status = 'pending'
+  _this._result = ''
+  resolver(_this.resolve.bind(_this), _this.reject.bind(_this))
+}
+
+_MyPromise.prototype.resolve = function (result) {
+  var _this = this
+  if (_this._status === 'pending') {
+    _this._status = 'fullfilled'
+    _this._result = result
+  }
+  return _this
+}
+
+_MyPromise.prototype.reject = function (reject) {
+  var _this = this
+  if (_this._status === 'pending') {
+    _this._status = 'rejected'
+    _this._result = result
+  }
+  return _this
+}
+
+_MyPromise.prototype.then = function (isResolve, isReject) {
+  var _this = this
+  if (_this._status === 'fullfilled') {
+    var _isPromise = isResolve(_this._result)
+    if (_isPromise instanceof _MyPromise) {
+      return _isPromise(_this._result)
+    }
+    return _this
+  } else if (_this._status === 'rejected' && arguments[1]) {
+    var _err = TypeError(_this._result)
+    var _isPromise = isReject(_err)
+    if (_isPromise instanceof _MyPromise) {
+      return _isPromise(_err)
+    }
+    return _this
+  }
+}
+
+_MyPromise.prototype.catch = function (isReject) {
+  var _this = this
+  if (_this._status === 'rejected') {
+    var _err = TypeError(_this._result)
+    var _isPromise = isReject(_err)
+    if (_isPromise instanceof _MyPromise) {
+      return isPromise(_err)
+    }
+    return _this
+  }
+}
+
+var promise1 = new _MyPromise(function (resolve, reject) {
+  var a = 10
+  resolve(10)
+})
+
+```
+
+------
+
+> JackDan Thinking
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
+> https://es6.ruanyifeng.com/#docs/promise
