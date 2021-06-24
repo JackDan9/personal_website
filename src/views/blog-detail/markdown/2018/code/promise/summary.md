@@ -17,7 +17,30 @@
 - 看文章的帅哥/美女都会有这样的烦恼，就是追求者排起长龙，但是帅哥/美女对于自己的感情史又需要稳定、单纯，所以采用了**单线程**，对外界开了**一扇**追求之门，只能等**上一个追求者被拒绝之后**，**下一个追求者才能够进入**。
 
 ```javascript
+/**
+ * @description 如果wooer1聊天了很久(聊了10句)，那么wooer2一直会等着
+ * 如果wooer1执行完(被拒绝了)，wooer2进入之后聊了一小会就结束了
+ * wooer3进入
+*/
+function wooer1() {
+  var i = 0;
+  while(i < 10) {
+    console.log("Say Hello!");
+    i++;
+  }
+}
 
+function wooer2() {
+  console.log("Say Hello!");
+}
+
+function wooer3() {
+  console.log("Say Hello!");
+}
+
+wooer1();
+wooer2();
+wooer3();
 ```
 
 #### 单线程的好处
