@@ -551,4 +551,68 @@ a.length = 0;
 a = ['Dave'];
 ```
 
+
+## 示例
+
+- **暂时性死区(temperal dead zone)**，也就是说let语句不像var语句会产生hoisting(变量提升)，JavaScript引擎也会意识到在后边的let定义，只是不支持在let声明语句之前引用该变量而已。所以，只要在同一个block中，let是在后边定义的，就不能在之前引用该变量。与此同时，也不能再去取嵌套外层的值了(x=10)。
+
+```javascript
+/**
+ * @description 暂时性死区
+*/
+
+let x = 10;
+let foo = () => {
+  console.log(x);
+  let x = 20;
+  x++;
+}
+foo(); // Uncaught ReferenceError: can't access lexical declaration 'x' before initialization
+
+// 换种写法
+let x = 10;
+function foo() {
+  console.log(x);
+  let x = 20;
+  x++;
+}
+foo(); // Uncaught ReferenceError: can't access lexical declaration 'x' before initialization
+
+// 换种写法
+let x = 10;
+function foo() {
+  console.log(x);
+  x = 20;
+  x++;
+}
+foo(); // 10
+
+
+// var 写法 var存在hoisting(变量提升)，所以不存在暂时性死区
+var x = 10;
+var foo = () => {
+  console.log(x);
+  var x = 20;
+  x++;
+}
+foo(); // undefined
+
+// 换种写法
+var x = 10;
+var function foo() {
+  console.log(x);
+  var x = 20;
+  x++;
+}
+foo(); // undefined
+
+// 换种写法
+var x = 10;
+var function foo() {
+  console.log(x);
+  x = 20;
+  x++;
+}
+foo(); // 10
+```
 ------
