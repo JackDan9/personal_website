@@ -195,7 +195,7 @@ Function.prototype.myCall = function(context) {
 
   var args = [];
 
-  for(var i = 0, len = arguments.length; i < len; i++) {
+  for(var i = 1, len = arguments.length; i < len; i++) {
     args.push('arguments[' + i + ']');
   }
 
@@ -203,6 +203,10 @@ Function.prototype.myCall = function(context) {
   delete context.fn;
   return result;
 }
+
+let arr = [26, 185];
+let ele = "jackdan";
+arr.push.myCall(arr, ele);
 
 var personObj = {
   tall: 185
@@ -215,6 +219,35 @@ var sayName = function(name, age) {
 }
 
 sayName.myCall(personObj, 'jackdan', 26);
+```
+
+- 优化一下，不用eval函数实现。
+
+```javascript
+Function.prototype.myCall = function(context) {
+  let ctx = Object(context) || window;
+
+  ctx.fn = this;
+
+  let args = [];
+
+  let result;
+
+  for(let i = 1, len = arguments.length; i < len; i++) {
+    args.push(arguments[i]);
+  }
+
+  result = ctx.fn(...args);
+
+  delete ctx.fn;
+  return result;
+}
+
+let arr = [26, 185];
+let ele = "jackdan";
+let ele1 = "handsome jackdan";
+
+arr.push.myCall(arr, ele, ele1);
 ```
 
 ------
