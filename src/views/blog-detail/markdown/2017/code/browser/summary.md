@@ -19,7 +19,9 @@
 
 ## 浏览器的种类介绍
 
+
 | 版本 | 是否开源 | 内核 | 渲染引擎(Layout Engine或者Rendering Engine) | JS 引擎 | HTTP 1.0服务器(宽带连接) | HTTP 1.1服务器(宽带连接) | HTTP 1.0服务器(拨号连接) | HTTP 1.1服务器(拨号连接) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | 
 | IE7和早期版本 | 否 | Trident | Trident | JScript | 4 | 2 | 4 | 2 |
 | IE8 | 否 | Trident | Trident | JScript | 6 | 6 | 4 | 2 |
 | IE9 | 否 | Trident | Trident | Chakra | 10 | 10 | ? | ? |
