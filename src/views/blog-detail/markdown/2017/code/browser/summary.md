@@ -20,13 +20,13 @@
 ## 浏览器的种类介绍
 
 | 版本 | 是否开源 | 内核 | 渲染引擎(Layout Engine或者Rendering Engine) | JS 引擎 | HTTP 1.0服务器(宽带连接) | HTTP 1.1服务器(宽带连接) | HTTP 1.0服务器(拨号连接) | HTTP 1.1服务器(拨号连接) |
-| IE7和早期版本 | Trident | Trident | JScript | 否 | 4 | 2 | 4 | 2 |
+| IE7和早期版本 | 否 | Trident | Trident | JScript | 4 | 2 | 4 | 2 |
 | IE8 | 否 | Trident | Trident | JScript | 6 | 6 | 4 | 2 |
 | IE9 | 否 | Trident | Trident | Chakra | 10 | 10 | ? | ? |
 | IE 10 | 否 | Trident | Trident | Chakra | 6 | 6 | ? | ? |
 | IE 11 | 否 | Trident | Trident | Chakra | 6 | 6 | ? | ? |
-| IE Edge | 否 | EdgeHTML | EdgeHTML | Chakra | 6 | 6 | | ? | ? |
-| Google Chrome |  是 | Blink | Blink | Blink | 6 | 6 | ? | ? |
+| IE Edge | 否 | EdgeHTML | EdgeHTML | Chakra | 6 | 6 | ? | ? |
+| Google Chrome | 是 | Blink | Blink | Blink | 6 | 6 | ? | ? |
 | FireFox | 是 | Gecko | Gecko | OdinMonkey | 6 | 6 | ? | ? |
 | Safari | 否 | Webkit | Webkit | Nitro | 4 | 4 | ? | ? |
 | Opera | 否 | 最初是自己的Presto内核，后来是Webkit，现在是Blink内核 | Blink | OdinMonkey | ? | 8 | ? | ? |
@@ -38,6 +38,7 @@
 ------
 
 ## 浏览器的主要功能
+
 - 浏览器的主要功能是将用户**选择的web资源**呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常是`HTML`，也包括`PDF`、`Image`以及其他格式。用户用`URI`(`Uniform Resource Identifier` 统一资源标识符)来指定所请求资源的位置。
 - HTML和CSS规范中规定了浏览器解释html文档的方式，由W3C组织对这些规范进行维护，W3C是负责制定Web标准的组织
 - HTML规范的最新版本是[http://www.w3.org/TR/html401/](http://www.w3.org/TR/html401/)，HTML5规范还在定制中，最新的CSS规范版本是[http://www.w3.org/TR/CSS2](http://www.w3.org/TR/CSS2)， CSS3规范还在定制中。
@@ -57,6 +58,7 @@
 ------
 
 ## 浏览器的主要构成High Level Structure
+
 - 浏览器的主要组件包括:
 	- 1. **用户界面** —— 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分;
 	- 2. **浏览器引擎** —— 用来查询以及操作渲染引擎的接口;
@@ -70,16 +72,19 @@
 
 > 需要注意的是, Google Chrome浏览器不同于大部分浏览器，Google Chrome浏览器为每个Tab分配了各自的渲染引擎实例，每个Tab就是一个独立的进程。
 
+
+
 - 对于构成浏览器的这些组件详细原理分析，后面会持续更新。
 
 ------
 
 ## 组件间的通信Communication between the components
-- Firefox和Chrome都开发了一个**特殊的通信结构**，后面会详细讨论
+- `Firefox`和`Chrome`都开发了一个**特殊的通信结构**，后面会详细讨论
 
 ------
 
 ## 渲染引擎 The rendering engine
+
 - 渲染引擎的职责就是**渲染**，即在浏览器窗口中显示所请求的内容。
   - 默认情况下，渲染引擎可以显示`HTML`、`XML`文档以及图片，它也可以借助插件(一种浏览器扩展)显示其他类型数据，例如使用PDF阅读器插件(PDF.js)，可以显示PDF格式，将由专门一章讲解插件以及其扩展，这里只讨论渲染引擎最主要的用途——显示应用了`CSS之后的HTML`以及`图片`。
 
