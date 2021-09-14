@@ -15,7 +15,7 @@ let p1 = new Promise((resolve) => {
 setTimeout(() => {
     console.log(7);
 
-    new Promise((reject) => {
+    new Promise((resolve, reject) => {
         reject(8)
     }).then((res) => {
         console.log(res);
