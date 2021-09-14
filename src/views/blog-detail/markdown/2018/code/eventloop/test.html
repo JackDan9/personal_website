@@ -1,0 +1,29 @@
+let p1 = new Promise((resolve) => {
+    console.log(1);
+
+    let p2 = new Promise(() => {
+        console.log(2);
+        setTimeout(() => {
+            console.log(3);
+            resolve(5);
+        }, 0)
+    });
+
+    resolve(6);
+})
+
+setTimeout(() => {
+    console.log(7);
+
+    new Promise((resolve, reject) => {
+        reject(8)
+    }).then((res) => {
+        console.log(res);
+    });
+}, 0)
+
+p1.then(function(a) {
+    console.log(a);
+})
+
+console.log(10)

@@ -147,20 +147,20 @@ function debounce(fn, delay_timer) {
 ```javascript
 // 简化写法
 function throttle(fn, delay) {
-            let valid = true
-            return function() {
-                if(!valid) {
-                    // 休息时间，不要打扰我
-                    return false;
-                }
-                //工作时间, 执行函数并且在间隔期内把状态设为无效
-                valid = false;
-                setTimeout(() => {
-                    fn();
-                    valid = true;
-                }, delay);
-            }
-        }
+  let valid = true
+  return function() {
+    if(!valid) {
+      // 休息时间，不要打扰我
+      return false;
+    }
+    //工作时间, 执行函数并且在间隔期内把状态设为无效
+    valid = false;
+    setTimeout(() => {
+      fn();
+      valid = true;
+    }, delay);
+  };
+};
 
 function throtte(fn, delay_timer) {
   var ctx;
