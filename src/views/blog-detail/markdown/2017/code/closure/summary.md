@@ -182,7 +182,7 @@ function throtte(fn, delay_timer) {
     // 如果间隔时间超过设定时间，即再次设置事件触发的定时器
     if (diff >= 0) {
       // 更新最近事件触发的时间
-      previous = now;
+      previous = Date.now();
       setTimeout(later, delay_timer);
     }
   };
