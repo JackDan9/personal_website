@@ -93,9 +93,9 @@ C(3);
 ```javascript
 
 // 普通函数
-// 声明时 --- 根据调用的改变 
+// 声明时 --- 根据调用的改变，谁调用这个this, this就指向谁，如果没有调用者，非严格模式下，window，严格模式下undefined
 // 箭头函数
-// 定义时---父级，this指向可以改变
+// 定义时---该函数所在的作用域指向的对象
 
 function person() {
   console.log(this);
@@ -114,19 +114,21 @@ person1();
 // 执行上下文
 // obj, this, fn
 Function.prototype.myCall = function(context) {
-  var ctx = Object(context) || window;
-  // var fn = Symbol();
-  // fn = this;
-  // ctx.fn = fn;
-  ctx.fn = this;
-  var args = Array.prototype.slice.call(arguments);
-  ctx.fn(...args);
-  // eval string => 函数执行
-  // for(var i = 1; i < args.length; i++) {
-  //   eval('ctx.fn(' + args[i] + ')');
-  // }
-  delete ctx.fn;
-  return ctx;
+  let ctx = Object(context) || window;
+  let fn = Symbol();
+  ctx[fn] = this;
+
+  let result;
+
+  let args = [];
+  for(let i = 1, len = arguments.length; i < len; i++) {
+    args.push(arguments[i]);  
+  }
+  result = ctx[fn](...args);
+  
+  delete ctx[fn];
+  
+  return result;
 }
 
 fn.myCall(obj, 1, 2 ,3);
@@ -145,12 +147,41 @@ fn.call(obj);
 
 - 8. apply
 ```javascript
+Function.prototype.myApply = function(context, arr) {
+  let ctx = Object(context) || window;
+  let fn = Symbol();
+  ctx[fn] = this;
 
+  let result;
+  if(!arr.length) {
+    result = ctx[fn]();
+  } else {
+    result = ctx[fn](...arr);
+  }
+
+  delete ctx[fn];
+  return result;
+}
 ```
 
 - 9. bind
 ```javascript
+Function.prototype.myBind = function(context) {
+  let self = this;
+  let args = Array.prototype.slice.call(arguments, 1);
 
+  let fTemp = function() {};
+
+  let fBound = function() {
+    let bindArgs = Array.prototype.slice.call(arguments);
+    return self.apply(this instanceof fTemp ? this : context, args.concat(bindArgs));
+  }
+
+  fTemp.prototype = this.prototype;
+  fBound.prototype = new fTemp();
+
+  return fBound;
+}
 ```
 
 - 10. for ... of 与 for ... in 区别
@@ -188,29 +219,27 @@ class Person1 extends Person {
 
 console.log(Person1.__proto__);
 
-function Person(name, age) {
+function Parent(name, age) {
   this.name = name;
   this.age = age;
 }
 
-Person.prototype.sayName = function() {
-  console.log(this.name)
+Parent.prototype.sayHello = function() {
+  console.log(this.name + '' + this.age);
 }
 
-function Person1(height) {
+function Child(name, age, height) {
+  Parent.call(this, name, age);
   this.height = height;
-  Person.call(this);
 }
 
-Person1.prototype.sayAll = function() {
-  console.log(this.name, this.age, this.height);
+function fTemp() {}
+
+fTemp.prototype = Parent.prototype;
+Child.prototype = new fTemp();
+Child.prototype.sayHello = function() {
+  console.log(this.name + '' + this.age + '' + this.height);
 }
-
-function fTemp = function() {};
-fTemp.prototype = Person.prototype;
-
-Person1.__proto__ = Person;
-Person1.prototype = new fTemp();
 ```
 - 13. Module语法
 ```javascript
@@ -238,6 +267,56 @@ new Promise(function() {
 
 })
 // 写原生实现
+
+var MyPromise = function(resolver) {
+  let self = this;
+  let status = 'pending';
+  let result = '';
+  resolver(self.bind.resolve(this), self.bind.reject(this));
+}
+
+MyPromise.prototype.resolve(function(result) {
+  if(this.status === 'pending') {
+    this.status = 'fulfilled';
+    this.result = result;
+  }
+  return this;
+})
+MyPromise.prototype.reject(function(result) {
+  if(this.status === 'pending') {
+    this.status = 'rejected';
+    this.result = result;
+  }
+  return this;
+})
+
+MyPromise.prototype.then(function(isResolve, isReject) {
+  if(this.status === 'fulfilled') {
+    let isMyPromise = isResolve(this.result);
+    if(isMyPromise instanceof MyPromise) {
+      return isMyPromise(this.result);
+    }
+    return this;
+  } else if(this.status === 'rejected' && arguments[1]) {
+    let isMyPromise = isReject(this.result);
+    if(isMyPromise instanceof MyPromise) {
+      let err = new Error(this.result);
+      return isMyPromise(err);
+    }
+    return this;
+  }
+})
+
+MyPromise.prototype.catch(function(isReject) {
+  if(this.statue === 'rejected') {
+    let isMyPromise = isReject(this.result);
+    if(isMyPromise instanceof MyPromise) {
+      let err = new Error(this.result);
+      return isMyPromise(err);
+    }
+    return this;
+  }
+})
 ```
 - 15. Promise.all实现
 
@@ -245,6 +324,34 @@ new Promise(function() {
 Promise.all([p1, p2, p3])
 // 如果其中有一个是rejected，返回rejected，否则返回resolved/fulfilled
 // 写原生实现
+
+Promise.myAll = function(arr) {
+  if(!Array.isArray(arr) || arr.length === 0) {
+    throw Error("Please input array type");
+  } else {
+    for(let i = 0, len = arr.length; i < len; i++) {
+      if(!(arr[i] instanceof Promise)) {
+        throw Error("Please input promise's array type");
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      let result = new Array(arr.length);
+      let index = 0;
+      for(let j = 0; j < arr.length; j++) {
+        arr[j].then((value) => {
+          index++;
+          result[j] = value;
+          if(index === arr.length) {
+            resolve(result);
+          }
+        }, (error) => {
+          reject(error);
+        })
+      }
+    })
+  }
+}
 ```
 - 16. CommonJS AMD CMD ES6
 ```javascript
@@ -281,14 +388,29 @@ define('./a, ./b', {
 ```
 - 19. 防抖
 ```javascript
-function(fn, timer) {
-
+function debounce(fn, delay) {
+  let timer;
+  return function() {
+    if(timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+      fn.apply(this, arguments);
+    }, delay)
+  }
 }
 ```
 - 20. 节流
 ```javascript
-function(fn, timer) {
-
+function throttle(fn, delay) {
+  let prevTime = 0;
+  return function() {
+    let nowTime = new Date.getTime();
+    if(nowTime - prevTime > delay) {
+      fn.apply(this, arguments);
+      prevTime = nowTime;
+    }
+  }
 }
 ```
 - 21. 泛型(TS)
@@ -327,6 +449,8 @@ console.log('script end');
 // 笔试+面试
 // 音调保持一致
 ```
+
+- fetch
 
 
 ## CSS
@@ -374,6 +498,11 @@ right {
 }
 ```
 - 5. 实现一个平行四边形
+```css
+.a {
+  transform: skewX(-10deg)
+}
+```
 
 - 6. 实现一段平移
 ```css
@@ -384,8 +513,6 @@ right {
 animation
 transfrom
 transtion
-scale
-
 ```
 - 8. position
 ```css
@@ -395,24 +522,71 @@ absolute
 fixed
 ```
 
+- 9. 实现一条对角线
+
+```css
+transform: rotate(30deg)
+```
+
+- 10. 支持12px以下的字体
+```css
+transform: scale(0.8);
+```
+
 ## HTML
 
 # 框架
 ## React
 1. setState异步更新、同步更新
+
+```javascript
+1. setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
+2. setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
+3. setState 的批量更新优化也是建立在“异步”（合成事件、钩子函数）之上的，在原生事件和setTimeout 中不会批量更新，在“异步”中如果对同一个值进行多次setState，setState的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时setState多个不同的值，在更新时会对其进行合并批量更新。
+```
 2. 生命周期状态
-3. 
+```javascript
+componentWillMount();
+
+componentDidMount();
+
+componentWillReceiveProps(nextProps);
+// getDerivedStateFromProps(nextProps, prevState); react16.4 代替了旧的componentWillReceiveProps及componentWillMount
+shouldComponentUpdate(nextProps, nextState);
+componentWillUpdate(nextProps, nextState);
+// getSnapshotBeforeUpdate(prevProps, prevState);
+componentDidUpdate(prevProps, prevState);
+
+componentWillUnMount();
+```
+3. Fiber
+- 16版本之后
+4. Hooks
+- 使用useEffect，不要调用函数层次太多，代码应该一眼看清楚哪些函数会被useEffect调用
 ### ReactDOM
 ### ReactRouter
 - 
 ### Redux
-1. react-redux
-2. 
+1. react-redux redux-saga
+2. mobx
+3. 
 ## Vue
 
 # 构建工具
 ## Babel
+parse transform generating
+
 ## Webpack
+- HRM(HOT Replacement Module)
+- 
 
 # Node.js
 ## Egg.js
+
+# 算法
+## 两个大数相加
+```javascript
+
+```
+## 斐波那契数列
+## 
