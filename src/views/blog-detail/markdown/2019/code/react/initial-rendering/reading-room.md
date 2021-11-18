@@ -611,6 +611,7 @@ parse transform generating
 
 ```
 ## 斐波那契数列
+
 ## 找出url中的
 
 
@@ -651,3 +652,56 @@ console.log(flat(a, 1));
 类似于微软的架构，Pass层更多偏Windows，一体机/混合云。
 ## 第四范式
 公司的远景——帮助传统行业进行数字化的转型，帮助数字化转型过程中的工程师更加方便进行研究和分析
+
+```javascript
+
+```
+## 
+
+
+## 找出queryString
+
+```javascript
+/**
+ * 输入: 'http://www.baidu.com/index.html?a=1&b=2&c=3&d#hash'
+ * 输出: { a: '1', b: '2', c: '3', d: '' }
+ * 备注: 程序尽可能满足
+*/
+
+function findQueryString(str) {
+
+}
+```
+
+## 实现Array原生方法unique
+
+```javascript
+/**
+ * 输入: let arr1 = [1, 2, 3, 4, 4, 1, 2, 3, 8, 7, 9]
+ * 执行: arr1.unique()
+ * 输出: [1, 2, 3, 4, 8, 7, 9];
+ * 
+ * 输入: [1, 1, 8, 4, 0, 5, 6].unique();
+ * 输出: [1, 8, 4, 0, 5, 6]
+*/
+
+Array.prototype.unique = function() {
+
+
+}
+```
+
+## 找出最长的斐波那契子序列的子序列
+
+```javascript
+/**
+ * 输入: [1,2,3,4,5,6,7,8]
+ * 输出: [1,2,3,5,8]
+ * 
+ * 输入: [1,3,7,11,12,14,18]
+ * 输出: [1,11,12]、[3,11,14] 以及 [7,11,18]
+*/
+function findFib(arr) {
+  
+}
+```
