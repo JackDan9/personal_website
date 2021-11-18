@@ -7,6 +7,7 @@ Number, String, Boolean, Null, undefined, Symbol
 // 引用类型
 Array, Object, Function
 ```
+
 - 2. 数据类型判定方法
 ```javascript
 // typeof 
@@ -318,6 +319,9 @@ MyPromise.prototype.catch(function(isReject) {
   }
 })
 ```
+
+- 好的解决方案是什么，为什么这么做，有没有更好的，别人会怎么做？
+
 - 15. Promise.all实现
 
 ```javascript
@@ -448,6 +452,20 @@ console.log('script end');
 // 不要抢答面试官的问题，不要太着急
 // 笔试+面试
 // 音调保持一致
+var on = function(name, fn) {
+  if(!obj[name]) {
+    obj[name] = [];
+  }
+  obj[name].push(fn);
+}
+
+var emit = function(name, fn) {
+  if(obj[name]) {
+    obj[name].map((fn) => {
+      fn(val);
+    })
+  }
+}
 ```
 
 - fetch
@@ -455,6 +473,10 @@ console.log('script end');
 
 ## CSS
 - 1. 盒子模型
+
+```css
+IE盒模型的content包括border、padding，box-sizing:border-box
+```
 - 2. BFC(Block Format Content)
 
 ```css
@@ -589,4 +611,43 @@ parse transform generating
 
 ```
 ## 斐波那契数列
-## 
+## 找出url中的
+
+
+## flat是想
+
+```javascript
+var a = [1, [2, [3, 4]]];
+
+function flat(arr, n) {
+  if(!n) {
+    n = 1;
+  }
+
+  let result = [];
+
+  arr.forEach((item) => {
+    if(Array.isArray(item)) {
+      n--;
+      if(n < 0) {
+        let newArr = result.push(item);
+        return newArr;
+      }
+      result.push(...(flat(item, n)));
+    } else {
+      result.push(item);
+    }
+  })
+  return result;
+}
+console.log(flat(a, 1));
+```
+
+## 业务sense(三年到五年)
+结合业务本身
+## 业务线
+11个不同的产品线(Pass层，Sass层，Iass层)
+## 客户(行业的标杆客户)
+类似于微软的架构，Pass层更多偏Windows，一体机/混合云。
+## 第四范式
+公司的远景——帮助传统行业进行数字化的转型，帮助数字化转型过程中的工程师更加方便进行研究和分析
