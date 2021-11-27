@@ -1,0 +1,340 @@
+# let and const
+
+## let命令
+
+```javascript
+var _a = 1;
+console.log(_a); // 1
+```
+
+```javascript
+let _a = 1;
+console.log(_a); // 1
+```
+
+### var vs let不同点(面试高频点)
+
+#### let不存在变量提升
+
+```javascript
+console.log(_a); // 输出 undefined
+var _a = 2; 
+// 等价于
+var _a;
+console.log(_a);
+_a = 2; // 输出 undefined
+```
+
+```javascript
+console.log(_a); // 输出 Error ReferenceError
+let _a = 2;
+```
+
+#### 暂时性死区
+
+```javascript
+var _a = 1;
+
+if(true) {
+  _a = 2;
+  console.log(_a); // 2
+  var _a;
+}
+```
+
+```javascript
+var _a = 1; // 全局
+
+if(true) { // 块级 --- 封闭的空间
+  _a = 2;
+  console.log(_a); // ReferenceError
+  let _a;
+}
+```
+
+- 结论: 在块级作用域里面，使用let命令声明变量之前，这个变量是不可以被使用的，这个其实就是暂时性死区(temporal dead zone)
+
+```javascript
+// 分别输出什么
+if(true) {
+  _a = 1;
+  console.log(_a);
+
+  let _a;
+  console.log(_a);
+
+  _a = 2;
+  console.log(_a);
+}
+```
+
+#### 不允许重复声明
+
+```javascript
+var _a = 1;
+let _a = 1; // SyntaxError
+console.log(_a);
+```
+
+```javascript
+var _a = 1;
+var _a = 1;
+console.log(_a); // 1
+```
+
+```javascript
+var _abc = 1;
+console.log(_abc); // 单某
+// ...
+var _abc = 2;
+// ...
+console.log(_abc); // 王某
+```
+
+```javascript
+function fn1() {
+  let _a = 1;
+  var _a = 1;
+}
+
+function fn2() {
+  let _a = 1;
+  let _a = 1;
+}
+```
+
+- let命令不允许在相同的作用域下，重复声明一个变量。
+
+------
+
+## 块级作用域 scope
+
+```javascript
+{
+
+}
+// 对象
+// 函数
+// if
+// for
+```
+
+- 允许你的代码去做任意嵌套
+
+```javascript
+{
+  // 第一层作用域
+  {
+    // 第二层...
+    {
+      // 第三层...
+      {
+        let _a  = 1;
+      }
+      console.log(_a); // ReferenceError
+    }
+  }
+}
+```
+
+### 全局作用域
+
+- 全局作用域中的对象(声明的变量或者函数等等)在整个代码中都允许被访问(能够去使用它)
+
+```javascript
+var _a = 1;
+
+function fn() {
+  console.log(_a);
+}
+
+function fn1() {
+  console.log(_a);
+}
+
+fn(); // 1
+fn1(); // 1
+```
+
+```javascript
+var _date = new Date();
+
+function fn() {
+  console.log(_date);
+}
+
+function fn1() {
+  console.log(_date);
+}
+
+fn();
+fn1();
+```
+
+```javascript
+var _a = 1;
+
+function fn() {
+  console.log(_a);
+  if(false) { // 存在一个变量提升的过程，导致我内层的_a变量覆盖了外层的_a
+    var _a = 2;
+  }
+}
+
+fn(); // undefined
+```
+
+```javascript
+let _a = 1;
+
+function fn() {
+  let _a = 2;
+  console.log(_a); // 2 外部的(外层的代码块)使用外部的，内部的(内层的代码块)使用内部的
+  if(false) {
+    let _a = 3;
+  }
+  if(true) {
+    let _a = 4;
+  }
+  console.log(_a); // 2
+}
+
+fn();
+console.log(_a); // 1
+```
+
+```javascript
+// 总结来说: 内部就用内部的，外部就用外部
+var _a = 1;
+
+console.log(_a)
+function fn() {
+  var _a;
+  console.log(_a);
+  if(false) {
+    _a = 2;
+  }
+}
+
+fn(); // undefined
+```
+
+```javascript
+var _s = 'jackdan';
+
+for(var i = 0; i < _s.length; i++) {
+  console.log(_s[i]); // 
+}
+
+console.log(i); // 7
+// 就是我的变量i，循环都已经结束，它还存在
+```
+
+```javascript
+var _s = 'jackdan';
+for(let i = 0; i < _s.length; i++) {
+  console.log(_s[i]);
+}
+
+console.log(i);
+```
+
+
+### 函数作用域
+
+- 作用在函数内部(变量或者函数)，生命周期是随着函数的存在而存在，随着函数的销毁被销毁
+
+```javascript
+function fn() {
+  var _a = 1;
+  console.log(_a);
+}
+
+fn(); // 1
+console.log(_a); // ReferenceError
+```
+
+
+### 块(代码块)级作用域与函数作用域
+
+- 任何的一个代码块中，不仅仅指代函数块
+
+- ES5有一个规定: 函数只能在顶层作用域或者说在函数作用域之中声明，不能在块级作用域中声明(不存在浏览器端)
+
+```javascript
+'use strict';
+
+if(true) {
+  function fn() {
+    var _a = 1;
+    console.log(_a);
+  }
+  fn();
+}
+```
+
+```javascript
+if(true) {
+  function fn() {
+    var _a = 1;
+    console.log(_a);
+  }
+  fn();
+}
+```
+
+```javascript
+try {
+  function fn() {
+    var _a = 1;
+    console.log(_a);
+  }
+} catch(e) {
+ 
+} finally() {
+
+}
+```
+
+- ES6中引入了块级作用域，明确规定了在块级作用域中可以声明函数，块级作用域中声明的函数有点类似于let，并不是完全等于let，块级作用域内部是内部，外部是外部.
+
+```javascript
+function fn() { console.log(1) }
+
+(function () {
+  if(false) {
+    // 在if代码块里面重复声明了一次函数fn
+    function fn() { console.log(2) }
+    // let fn = function() { console.log(2) } // 1
+  }
+
+  fn(); // Erro
+})();
+
+(function () {
+  if(false) {
+    // 在if代码块里面重复声明了一次函数fn
+    function fn() { console.log(2) }
+    // let fn = function() { console.log(2) } // 1
+  }
+
+  fn(); // 输出一个Error
+}());
+```
+
+- ES5中不允许你在块级作用域中声明函数(在浏览器端没有用)
+- ES6中是允许你在块级作用域中声明函数
+- 有点类似于`let`，内部是内部，外部是外部
+- 分浏览器端和非浏览器端
+
+- 块级作用域必需用一个大括号括起来的。
+
+```javascript
+if(true) let _a = 1; // SyntaxError: Lexical declaration cannot appear in a single-statement context
+
+if(true) {
+  let _a = 1;
+}
+```
+
+
