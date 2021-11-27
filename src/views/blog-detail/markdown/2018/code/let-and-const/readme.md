@@ -337,4 +337,114 @@ if(true) {
 }
 ```
 
+## const 命令
 
+- 声明一个常量(只读 Read only), 那就这个常量是不能修改
+
+```javascript
+if(true) {
+  const _a; // SyntaxError: Missing initializer in const declaration
+}
+```
+
+```javascript
+const _a = 1;
+_a = 2; // TypeError: Assignment to constant variable.
+console.log(_a);
+```
+
+```javascript
+var _a = 1;
+_a = 2;
+console.log(_a); // 2
+```
+
+```javascript
+let _a = 1;
+_a = 2;
+console.log(_a); // 2
+```
+
+- const 允许在代码块中定义
+- const 具有let命令的特点
+
+```javascript
+if(true) {
+  const _a = 1;
+}
+
+console.log(_a); // ReferenceError: _a is not defined
+```
+
+```javascript
+if(true) {
+  console.log(_a); // ReferenceError: Cannot access '_a' before initialization
+  const _a = 1;
+}
+```
+
+```javascript
+const _a = 1; // xe0...
+const _a = 2; // SyntaxError: Identifier '_a' has already been declared
+```
+
+- const为什么声明的是一个常量？
+- 并不是变量的值不得变动，而是变量指向的那个内存地址所保存的数据是不得改动的。
+- 基础数据类型: Boolean, Number, String
+- 值：变量指向的那个内存地址所保存的数据
+- 引用数据类型: Array, Object
+- 变量指向的那个内存地址所保存的数据只是一个指向实际数据的指针
+
+```javascript
+const _a = {};
+_a.name = 'jackdan';
+console.log(_a);
+```
+
+```javascript
+const _a = {};
+_a.name = 'jackdan';
+
+_a = {}; // TypeError: Assignment to constant variable.
+
+console.log(_a);
+```
+
+```javascript
+const _a = [];
+
+_a.push("jackdan");
+_a.length = 0;
+_a.shift("jackdan");
+console.log(_a);
+```
+
+```javascript
+const _a = [];
+
+_a.push("jackdan");
+_a.length = 0;
+_a.shift("jackdan");
+console.log(_a);
+
+_a = ["jackdan"]; // TypeError: Assignment to constant variable.
+```
+
+- 有没有办法将引用数据类型也做到，对象本身也不能再去操作
+
+```javascript
+'use strict';
+// freeze:冻结
+const _a = Object.freeze({});
+_a.name="jackdan"; // TypeError: Cannot add property name, object is not extensible
+```
+
+```javascript
+// freeze:冻结
+const _a = Object.freeze({});
+_a.name="jackdan"; // TypeError: Cannot add property name, object is not extensible
+console.log(_a);
+```
+
+## var function let const
+## import class
