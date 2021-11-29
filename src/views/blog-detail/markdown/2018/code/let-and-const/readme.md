@@ -448,3 +448,5 @@ console.log(_a);
 
 ## var function let const
 ## import class
+
+# 顶层对象
