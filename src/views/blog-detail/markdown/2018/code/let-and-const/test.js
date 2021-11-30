@@ -11,3 +11,13 @@ function _max(nums) {
 }
 
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var maximumProduct = function(nums) {
+  nums.sort((a, b) => a - b);
+  let _len = nums.length;
+  return Math.max(nums[_len - 1] * nums[_len - 2] * nums[_len - 3], nums[0] * nums[1] * nums[_len - 1]);
+};
+
