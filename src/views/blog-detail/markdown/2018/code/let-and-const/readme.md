@@ -450,3 +450,104 @@ console.log(_a);
 ## import class
 
 # 顶层对象
+
+- 浏览器环境，指的是window对象
+- Node环境的话，指的是global对象
+
+```javascript 
+// Node 
+global._a = 1;
+
+// 浏览器
+window._a = 1;
+```
+
+## ES5
+- 顶层对象跟我们的全局变量是等价的.
+
+```javascript
+// Node
+// global._a = 1;
+// console.log(_a); // 1
+
+_a = 2;
+console.log(window._a); // ReferenceError: window is not defined
+console.log(global._a); // 2
+```
+
+```javascript
+// 浏览器
+// window._a = 1;
+// console.log(_a); // 1
+
+_a = 2;
+console.log(window._a); // 2
+```
+
+- 会导致几个问题
+- 1. 我没办法在编译阶段就知道变量是否存在未声明的错误，只有在我运行代码的时候才知道;
+- 2. 协同开发的过程当中，出现数据混乱的错误，还不好排查问题;
+- 3. 不利于模块化开发或者组件化开发;
+
+```javascript
+// A
+_a = 2;
+_b = 3;
+
+// B
+_a = 3;
+_b = 4;
+
+console.log(_a); // 3
+console.log(_b); // 4
+
+console.log(global._a); // 3
+console.log(global._b); // 4
+```
+
+## ES6
+
+- 规定，let命令和const命令，不允许声明到声明的全局变量就不再是顶层对象的属性；
+
+```javascript
+var _a = 1;
+// console.log(global._a); // 1
+console.log(window._a); // 1
+
+let _b = 2;
+// console.log(global._b); // undefined
+console.log(window._b); // undefined
+```
+
+- JavaScript语言里面存在顶层对象的概念，提供了一个全局环境或者是全局作用域，所有的代码都在这个环境中运行。
+
+- 在浏览器端: 顶层对象指的是window 
+- 在Node: 顶层对象指的是global
+- 在Web Worker和浏览器中: self也会是顶层对象
+
+```javascript
+// 浏览器端: Window 
+// Node: 当前模块
+// ES6中: 返回undefined
+console.log(this);
+```
+
+- CSP(Content Security Policy)，new Funtion方法都可能无法使用。
+
+- 我想有一段代码在任何环境下都可以运行，我应该怎么做？
+
+```javascript
+// Node: console.log(typeof window); // undefined
+// Node: console.log(typeof process); // object
+// Node: console.log(typeof require); // function
+// Node: console.log(typeof global); // object
+(typeof window !== 'undefined') ? 
+  window : 
+  (typeof process === 'object' && typeof require === 'function' && typeof global === 'object') ? 
+  global : 
+  this;
+```
+
+------
+
+> Thinking in Jackdan
