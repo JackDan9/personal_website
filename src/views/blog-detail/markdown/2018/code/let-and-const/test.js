@@ -1,2 +1,5 @@
-_a = 1;
-console.log(global._a); // 1
+let _obj = {
+  _a: 1
+}
+
+console.log(_obj);
