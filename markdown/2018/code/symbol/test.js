@@ -1,10 +1,8 @@
+// let _replace = Symbol.replace;
 let _obj = {};
-
-_obj.name = {
-  _a: Symbol('a'),
-  _b: Symbol('a'),
-  _c: Symbol('a')
-};
-
-console.log(_obj);
-console.log(_obj.name._a == _obj.name._b);
+_obj[Symbol.replace] = (..._s) => {
+  console.log(_s);
+}
+// String.prototype.replace()
+console.log('Hello'.replace(_obj, 'Jackdan!')); // [ 'Hello', 'Jackdan!' ]
+console.log('Hello'.replace(_obj, 'Jackdan!')); // Hello 

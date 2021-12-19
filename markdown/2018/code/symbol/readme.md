@@ -194,6 +194,212 @@ console.log(_obj);
 console.log(_obj.name._a == _obj.name._b);
 ```
 
-- deepCopy
+## 属性名Symbol的特征
+
 ```javascript
+// let _obj = {
+//   _a: 1,
+//   _b: 2,
+//   _c: 3
+// };
+
+// // for...in
+// for(let _objKey in _obj) {
+//   console.log(_objKey);
+// } 
+
+let _s = Symbol();
+let _obj1 = {
+  [_s]: 1,
+  _d: 4,
+}
+
+// for(let _objKey1 in _obj1) {
+//   console.log(_objKey1)
+// }
+
+// Object.keys()
+console.log(Object.keys(_obj1)); // [ '_d' ]
+
+// Object.getOwnPropertyNames()
+console.log(Object.getOwnPropertyNames(_obj1)); // [ '_d' ]
+
+// JSON.stringify()
+console.log(_obj1); // { _d: 4, [Symbol()]: 1 }
+console.log(JSON.stringify(_obj1)); // {"_d":4}
 ```
+
+- 它并不是对象的私有属性。
+
+```javascript
+// let _obj = {
+//   _a: 1,
+//   _b: 2,
+//   _c: 3
+// };
+
+// // for...in
+// for(let _objKey in _obj) {
+//   console.log(_objKey);
+// } 
+
+let _s = Symbol();
+let _obj1 = {
+  [_s]: 1,
+  _d: 4,
+}
+
+// for(let _objKey1 in _obj1) {
+//   console.log(_objKey1)
+// }
+
+// Object.keys()
+console.log(Object.keys(_obj1)); // [ '_d' ]
+
+// Object.getOwnPropertyNames()
+console.log(Object.getOwnPropertyNames(_obj1)); // [ '_d' ]
+
+// JSON.stringify()
+console.log(_obj1); // { _d: 4, [Symbol()]: 1 }
+console.log(JSON.stringify(_obj1)); // {"_d":4}
+
+// Object.getOwnPropertySymbols();
+console.log(Object.getOwnPropertySymbols(_obj1)); // [ Symbol() ]
+```
+
+```javascript
+// let _obj = {
+//   _a: 1,
+//   _b: 2,
+//   _c: 3
+// };
+
+// // for...in
+// for(let _objKey in _obj) {
+//   console.log(_objKey);
+// } 
+
+let _s = Symbol();
+let _obj1 = {
+  [_s]: 1,
+  _d: 4,
+}
+
+// for(let _objKey1 in _obj1) {
+//   console.log(_objKey1)
+// }
+
+// Object.keys()
+console.log(Object.keys(_obj1)); // [ '_d' ]
+
+// Object.getOwnPropertyNames()
+console.log(Object.getOwnPropertyNames(_obj1)); // [ '_d' ]
+
+// JSON.stringify()
+console.log(_obj1); // { _d: 4, [Symbol()]: 1 }
+console.log(JSON.stringify(_obj1)); // {"_d":4}
+
+// Object.getOwnPropertySymbols(); // 对象当中Symbol作为属性名的健名
+console.log(Object.getOwnPropertySymbols(_obj1)); // [ Symbol() ]
+
+// Reflect.ownKeys(); 对象当中所有类型的健名
+console.log(Reflect.ownKeys(_obj1)); //  [ '_d', Symbol() ]
+// public protected private
+// class 
+```
+
+# Symbol的方法
+
+```javascript
+let _s = Symbol();
+let _obj = {
+  [_s]: 1,
+  _b: 3,
+  _a: 2,
+};
+
+_obj._a = 3;
+_obj._s = 5;
+// _obj[_s] = 4;
+console.log(_obj); // { _b: 3, _a: 3, [Symbol()]: 1 }
+```
+
+```javascript
+let _s = Symbol('a');
+let _s1 = Symbol('a');
+console.log(_s == _s1);
+console.log(_s === _s1);
+```
+
+## Symbol.for();
+
+```javascript
+// 字符串搜索的这个动作是全局
+let _s = Symbol.for('a');
+let _s1 = Symbol.for('a');
+let _s2 = Symbol.for('b');
+
+console.log(_s == _s2);
+console.log(_s === _s2);
+```
+
+```javascript
+// Symbol.keyFor()
+
+let _s = Symbol.for('a');
+let _s1 = Symbol.for('a');
+let _s2 = Symbol.for('b');
+
+let _s3 = Symbol('c');
+
+console.log(Symbol.keyFor(_s)); // a
+console.log(Symbol.keyFor(_s1)); // a
+console.log(Symbol.keyFor(_s2)); // b
+console.log(Symbol.keyFor(_s3)); // undefined
+```
+
+## Symbol.iterator
+
+- 指向该对象的默认遍历方法
+
+```javascript
+// iterator 遍历器
+// for...of
+let _obj = {
+  _a: 1,
+  _b: 2,
+  _c: 3
+}
+
+_obj[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+}
+
+for(let _key of _obj) { // TypeError: _obj is not iterable
+  console.log(_key); // 1 2
+}
+```
+
+## Symbol.replace
+
+- 对象的Symbol.replace 属性，指向是一个方法，当我的当前对象被String.prototype.replace调用的时候，会返回该方法的返回值
+
+```javascript
+// let _replace = Symbol.replace;
+let _obj = {};
+_obj[Symbol.replace] = (..._s) => {
+  console.log(_s);
+}
+// String.prototype.replace()
+console.log('Hello'.replace(_obj, 'Jackdan!')); // [ 'Hello', 'Jackdan!' ]
+console.log('Hello'.replace(_obj, 'Jackdan!')); // Hello 
+```
+## Symbol.split
+
+对象的Symbol.split 属性，指向是一个方法，当我的当前对象被String.prototype.split调用的时候，会返回该方法的返回值
+
+```javascript
+
+```
+

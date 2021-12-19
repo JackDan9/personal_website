@@ -10,7 +10,8 @@
     "build:dll": "webpack --progress --mode production --config ./webpack.dll.js",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "upload": "sh ./scripts/upload.sh"
   },
   "dependencies": {
     "axios": "^0.21.0",
