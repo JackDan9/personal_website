@@ -37,5 +37,5 @@ sshpass -p password scp -P port || 22 ./develop/${packageName}-${time}.tar.gz ro
 echo '************************end upload tar*****************************'
 
 echo '************************start updating dist in server*****************************'
-# sshpass -p password 
+sshpass -p password 
 echo '************************end updating dist in server*****************************'
