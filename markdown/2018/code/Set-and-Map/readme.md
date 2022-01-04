@@ -451,7 +451,7 @@ _arr.forEach(([_k, _v]) => {
   _m5.set(_k, _v);
 });
 
-// 接一个二维数组，二维数组中的元素也是数组，元素数组中的前两位值作为map的key和value
+// 接收一个二维数组，二维数组中的元素也是数组，元素数组中的前两位值作为map的key和value
 console.log(_m); // Map(2) { 1 => 2, 3 => 4 }
 console.log(_m1); // Map(2) { 1 => 2, 4 => 5 }
 console.log(_m2); // Map(2) { 1 => 2, 5 => 6 }
@@ -516,3 +516,106 @@ console.log(NaN == NaN); // false
 // undefined null
 // NaN 在Map当中把它视为同一个健
 ```
+
+## WeakMap
+
+
+```javascript
+// 生成健值对的集合
+const _wm = new WeakMap();
+
+const _key = { name: "Jackdan" } 
+_wm.set(_key, 1);
+console.log(_wm);
+
+const _wm1 = new WeakMap([
+  [[1, 2], 2],
+  [[3, 4], 4]
+])
+
+const _wm2 = new WeakMap([
+  [1, 2],
+  [3, 4]
+])
+
+console.log(_wm2); // TypeError: Invalid value used as weak map key
+console.log(_wm1);
+```
+
+### 与Map区别
+
+#### 就是WeakMap里面的key必须是一个对象(不能是null)，不允许其他类型的值作为健
+
+```javascript
+const _wm = new WeakMap();
+
+// _wm.set(1, 1); // TypeError: Invalid value used as weak map key
+// _wm.set(null, 2); // TypeError: Invalid value used as weak map key
+// _wm.set(undefined, 3); // TypeError: Invalid value used as weak map key
+_wm.set([1, 2, 3], 4);
+console.log(_wm); // WeakMap { <items unknown> }
+// Symbol
+// String
+```
+
+#### WeakMap的健所指向的值/对象，是不会被垃圾回收机制识别的，或者不计入垃圾回收机制
+
+```javascript
+// const _dom1 = document.getElementById("myDom1");
+// const _dom2 = document.getElementById("myDom2");
+const _dom1 = [1];
+const _dom2 = [2];
+
+const _arr = [
+  [_dom1, "myDom1"],
+  [_dom2, "myDom2"]
+];
+
+// 如果我不去做_dom1和_dom2的销毁，其实在内存这两块开辟的内存空间就一直会被占用，这其实就是内存的浪费/内存的泄露
+_arr[0] = null;
+_arr[1] = null;
+
+console.log(_arr);
+```
+
+```javascript
+// 健所引用的值/对象是一个弱引用
+// 特点： 如果你不再需要引用，又想让它自动的释放内存资源出来，健以及健引用/指代(=>)值/对象会自动消失，不用考虑手动删除
+// 场景：key是对象，又想往这个健去增添数据，又不想被/影响垃圾回收机制，可以使用WeakMap去覆盖
+
+const _wm = new WeakMap();
+const _arr = [1];
+
+_wm.set(_arr, 'jackdan');
+console.log(_wm.get(_arr)); // jackdan
+// WeakMap对健为_arr的引用其实是一个弱引用，不会被计入垃圾回收机制里面
+```
+
+```javascript
+const _wm = new WeakMap();
+const _arr = [1];
+
+_wm.set(_arr, 'jackdan');
+// console.log(_wm.has(_arr)); // true
+// _wm.delete(_arr);
+// console.log(_wm.has(_arr)); 
+// console.log(_wm.clear()); // TypeError: _wm.clear is not a function
+// console.log(_wm.keys()); // TypeError: _wm.keys is not a function
+console.log(_wm.get(_arr)); // jackdan
+// WeakMap对健为_arr的引用其实是一个弱引用，不会被计入垃圾回收机制里面
+```
+
+```javascript
+// WeakMap对健做的一个弱引用，而健值并没有去做弱引用，健值还是可以正常引用
+const _wm = new WeakMap();
+
+let _objValue = {name: "jackdan"};
+const _objKey = {age: 26};
+
+_wm.set(_objKey, _objValue);
+_objValue = null;
+console.log(_wm.get(_objKey)); // { name: 'jackdan' }
+```
+
+- 操作DOM元素，DOM元素被删除/被清空了，这个时候就不用考虑它了，就可以采用WeakMap
+- 作为class类的私有属性的时候，当我们声明的实例消失或者被清除的时候，实例的私有属性也随之消失，这个时候也是可以采用WeakMap

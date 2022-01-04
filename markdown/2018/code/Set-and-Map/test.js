@@ -1,7 +1,8 @@
-const _m = new Map();
-_m.set(-0, 1);
-console.log(_m); // Map(1) { 0 => 1 }
-console.log(_m.get(0)); // 1
-console.log(_m.get(+0)); // 1
+const _wm = new WeakMap();
 
-console.log(NaN == NaN); // false
+let _objValue = {name: "jackdan"};
+const _objKey = {age: 26};
+
+_wm.set(_objKey, _objValue);
+_objValue = null;
+console.log(_wm.get(_objKey)); // { name: 'jackdan' }
