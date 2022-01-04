@@ -33,9 +33,9 @@ tar -zcvf ./develop/${packageName}-${time}.tar.gz -C dist/ .
 
 echo '************************start upload tar*****************************'
 # mac sshpass curl -L https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb > sshpass.rb && brew install sshpass.rb && rm sshpass.rb
-sshpass -p Djj@Wff1314 scp -P 9522 ./develop/${packageName}-${time}.tar.gz root@106.15.47.133:/opt/html/personalWebsite 
+sshpass -p password scp -P port || 22 ./develop/${packageName}-${time}.tar.gz root@0.0.0.0.0:/opt/html/personalWebsite 
 echo '************************end upload tar*****************************'
 
 echo '************************start updating dist in server*****************************'
-sshpass -p Djj@Wff1314 
+# sshpass -p password 
 echo '************************end updating dist in server*****************************'
