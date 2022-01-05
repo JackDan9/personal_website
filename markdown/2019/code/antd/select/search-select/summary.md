@@ -3,7 +3,7 @@
 ## 实例
 ### Example1 - 远程搜索
 
-- 远程搜索是指我们的结果是从API接口里面获取返回的，进而显示到Select Option中，如果这个时候开启filterOption。
+- 远程搜索是指我们的结果是从API接口里面获取返回的，进而显示到Select Option中，如果这个时候开启filterOption，其实会先走到filterOption中。
 
 ```typescript
 import React, { useState, useRef, useMemo, ReactNode } from "react";
