@@ -1,8 +1,7 @@
-const _wm = new WeakMap();
+const _r = new FinalizationRegistry(v => {
+  // ...
+});
 
-let _objValue = {name: "jackdan"};
-const _objKey = {age: 26};
-
-_wm.set(_objKey, _objValue);
-_objValue = null;
-console.log(_wm.get(_objKey)); // { name: 'jackdan' }
+let _obj = {};
+_r.register(_obj, "注册表清除器提醒");
+_r.unregister(_obj);

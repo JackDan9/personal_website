@@ -617,5 +617,83 @@ _objValue = null;
 console.log(_wm.get(_objKey)); // { name: 'jackdan' }
 ```
 
-- 操作DOM元素，DOM元素被删除/被清空了，这个时候就不用考虑它了，就可以采用WeakMap
-- 作为class类的私有属性的时候，当我们声明的实例消失或者被清除的时候，实例的私有属性也随之消失，这个时候也是可以采用WeakMap
+- 场景1: 操作DOM元素，DOM元素被删除/被清空了，这个时候就不用考虑它了，就可以采用WeakMap
+- 场景2: 作为`class`类的私有属性的时候，当我们声明的实例消失或者被清除的时候，实例的私有属性也随之消失，这个时候也是可以采用WeakMap
+
+## WeakRef
+
+- 我们引入WeakRef，是为了用于对直接创建对象进行弱引用
+
+```javascript
+let _obj = {};
+_obj._a = 1;
+console.log(_obj);
+// WeakRef也是一个构造函数
+let _wr = new WeakRef(_obj);
+// 创建了一个基于_obj的新实例/对象_wr
+// 这个时候，我们垃圾回收机制对它不起效果了
+// _wr的引用不会影响/妨碍原始对象_obj被垃圾回收机制回收/清除
+console.log(_wr);
+```
+
+### deref()方法 - 判断原始对象有没有被垃圾回收机制处理/回收/清除
+```javascript
+// deref()，其实是在WeakRef实例对象上的一个方法
+let _obj = {}
+_obj._a = 1;
+let _wr = new WeakRef(_obj); // TypeError: WeakRef: target must be an object
+_obj._b = 2;
+console.log(_wr.deref()); // { _a: 1, _b: 2 }
+// if(typeof _wr.deref() !== 'undefined') {
+
+// }
+if(_wr.deref()) {
+  console.log("原始对象没有被垃圾回收机制处理!");
+} else {
+  console.log("原始对象被垃圾回收机制处理!");
+}
+
+// 
+```
+
+- 作为缓存的时候，对象的弱引用是拥有一个非常的作用
+
+```javascript
+// 暂存状态=>缓存
+const _cache = function(fn) {
+  const _mapCache = new Map();
+  return _key => {
+    const _ref = _mapCache.get(_key);
+    if(_ref) {
+      const _existedCache  = _ref.deref();
+      // if(_existedCache !== undefined) 
+      if(typeof _existedCache !== 'undefined') return _existedCache;
+    }
+
+    const _f = fn(_key);
+    _mapCache.set(_key, new WeakRef(_f));
+    return _f;
+  };
+};
+```
+
+- 注意点: 一旦使用了WeakRef()却对原始对象做一个弱引用，原始对象必须存在(不会被垃圾回收机制处理/清除)，原始对象只会在后面的**事件循环(event loop)**才会被清除，就在当前的事件循环就是不会被清除。
+
+```javascript
+// 垃圾回收清理器注册表
+// FinalizationRegistry构造函数的作用
+// 用来目标对象被垃圾回收机制处理/清除了，执行一下回调函数
+// const _r = new FinalizationRegistry(callback());
+const _r = new FinalizationRegistry(v => {
+  console.log(v);
+  console.log("垃圾回收机制已经清除了我的目标对象！");
+});
+
+const _r = new FinalizationRegistry(v => {
+  // ...
+});
+
+let _obj = {};
+_r.register(_obj, "注册表清除器提醒");
+_r.unregister(_obj);
+```
