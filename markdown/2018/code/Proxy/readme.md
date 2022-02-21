@@ -116,3 +116,259 @@ let _obj = {proxy: new Proxy(_target, _handler)};
 - `getPrototypeOf(target)`: 拦截`Object.getPrototypeOf(Proxy)`，返回是一个对象。
 - `setPrototpeOf(target, proto)`: 拦截`Object.setPrototypeOf(Proxy, proto)`，返沪一个布尔值
 - `isExtensible(target)`: 拦截`Object.isExtensible(Proxy)`，返回一个布尔值
+
+
+## Proxy实例的方法
+
+### `get(target, propKey, receiver)`
+
+```javascript
+// target --- 目标对象
+// propKey --- 属性名/键
+// receiver --- proxy实例本身(严格意义上来说，它是操作行为所针对的对象)，Options(可选的)
+var _car = {
+  _price: 136000
+};
+
+console.log(_car._name); // undefined
+
+var _p = new Proxy(_car, {
+  get: function(target, propKey) {
+    if (propKey in target) {
+      return target[propKey];
+    } else {
+      return ReferenceError("不好意思！你的 " + propKey + " 不存在！");
+    }
+  }
+});
+
+// console.log(_car._name); // undefined
+console.log(_car._price); // 136000
+console.log(_p._price); // 136000
+console.log(_p._name); // ReferenceError: 不好意思！你的_name不存在！
+```
+
+```javascript
+// 特点
+// Proxy get实例方法是会被继承
+var _obj = {};
+var _p = new Proxy(_obj, {
+  get: function(_target, _propKey, _receiver) {
+    console.log("拿到: " + _propKey); // 拿到: _name
+    return _target[_propKey];
+  }
+});
+
+var _obj1 = Object.create(_p);
+console.log(_obj1._name);
+```
+
+- `Object.defineProperty`
+
+```javascript
+// get ---- getter函数
+var _obj = {};
+// 数据描述符: enumerable, writable, configurable, value
+// 存取描述符: get, set
+console.log(_obj._name); // undefined
+Object.defineProperty(_obj, "_name", {
+  get() { return "jackdan" },
+});
+
+console.log(_obj._name); // jackdan
+```
+
+- 实例
+
+```javascript
+// 通过代理Proxy的实例方法实现了从末尾位置读取数组的元素
+var _arr = [1, 2, 3, 4];
+console.log(_arr[-1]); // undefined
+console.log(_arr[_arr.length - 1]); 
+
+function _handleArr(_arrParams) {
+  var _handler = {
+    get(_target, _propKey, _receiver) {
+      var _index = Number(_propKey);
+      if (_index < 0) {
+        _propKey = String(_target.length + _index);
+      }
+      return Reflect.get(_target, _propKey, _receiver);
+    }
+  };
+
+  // var _target = [];
+  // _target.push(...params);
+  return new Proxy(_arrParams, _handler);
+}
+
+var _arr1 = _handleArr(_arr);
+console.log(_arr1[-2]); // 3
+```
+
+```javascript
+// DOM 对象
+var _handleDom = new Proxy({}, {
+  get: function(_target, _propKey) {
+  // get(_target, _propKey) {
+    return function(_attrs = {}, ..._children) {
+      var _el = document.createElement(_propKey); // ReferenceError: document is not defined
+      for(let _attrItem of Object.keys(_attrs)) {
+        _el.setAttribute(_propKey, _attrs[_attrItem]);
+      }
+      for(let _child of _children) {
+        if(typeof _child === 'string') {
+          _child = document.createTextNode(_child);
+        }
+        _el.appendChild(_child);
+      }
+      return _el;
+    }
+  }
+});
+
+var _el = _handleDom.div({}, '你好！我的名字是', _handleDom.a({href: 'www.baidu.com'}, "超链接"), '. 我喜欢');
+console.log(_el)
+```
+
+```javascript
+var _p = new Proxy({}, {
+  get: function(_target, _propKey, _receiver) {
+    return _receiver;
+  }
+});
+
+console.log(_p);
+console.log(_p.getReceiver);
+console.log(_p.getReceiver === _p); // true
+console.log(_p.a === _p);
+
+var _p1 = Object.create(_p);
+console.log(_p1.a === _p); // false
+console.log(_p1.a === _p1); // true
+```
+
+### `set(taget, propKey, value, receiver)`
+
+- 拦截对象某个属性的赋值操作
+
+```javascript
+// var _car 
+// target 目标对象
+// propKey 属性名/键
+// value 属性值/键值
+// receiver Proxy实例本身
+var _p = new Proxy({}, {
+  set: function(_target, _propKey, _value, _receiver) {
+    if(_propKey === '_price') {
+      if (!Number.isInteger(_value)) {
+        throw new TypeError(_value + "不是一个合法的整数值！");
+      }
+      if (_value >= 20000000) {
+        throw new RangeError(_value + "我买不起！");
+      }
+    }
+  }
+});
+
+_p._price = 1;
+// _p._price = 'a'; // throw new TypeError(_value + "不是一个合法的整数值！");
+// _p._price = 20000000000; // RangeError: 20000000000我买不起！
+```
+
+```javascript
+var _obj = {};
+Object.defineProperty(_obj, "_price", {
+  value: 136000,
+  writable: false
+});
+
+// 'use strict'
+var _handler = {
+  set: function(_target, _propKey, _value, _receiver) {
+    _obj[_propKey] = _value;
+    return true;
+  }
+};
+
+var _p = new Proxy(_obj, _handler);
+_p._price = 126000; // TypeError: 'set' on proxy: trap returned truish for property '_price' which exists in the proxy target as a non-configurable and non-writable data property with a different value
+console.log(_p._price);
+```
+
+```javascript
+'use strict';
+
+var _p = new Proxy({}, {
+  set: function(_target, _propKey, _value, _receiver) {
+    // return false;
+    // return null;
+    // return undefined;
+    // return 0;
+    // return '';
+  }
+})
+
+_p._a = 1; // TypeError: 'set' on proxy: trap returned falsish for property '_a'
+```
+
+```javascript
+var _p = new Proxy({}, {
+  set: function(_target, _propKey, _value, _receiver) {
+    _target[_propKey] = _receiver;
+    return true;
+  }
+});
+
+var _obj = {};
+Object.setPrototypeOf(_obj, _p);
+
+_obj._price = 1360000;
+console.log(_obj);
+console.log(_obj._price);
+console.log(_obj._price === _obj); // true
+// 本身上面没有找到 -> 原型对象上去找 ... -> null 
+// 第一步: 我们设置_obj的_price属性值，但是_obj并没有_price属性,它会继续去原型链上找_price.
+// _p有一个set方法，_price就会触发set方法，receiver指向原始赋值行为所在的对象，_obj
+```
+
+### `apply(target, object, args)`
+
+```javascript
+// target 目标对象
+// object 
+// args 
+var _targetFunc = function() {
+  return "我叫JackDan1!"
+}
+var _handler = {
+  apply: function(_target, _object, _args) {
+    return "我叫JackDan!"
+  }
+}
+
+console.log(_targetFunc()); // 我叫JackDan1!
+
+var _p = new Proxy(_targetFunc, _handler);
+console.log(_p); // [Function: _targetFunc]
+console.log(_p()); // 我叫JackDan!
+```
+
+```javascript
+var _sum = function(_a, _b) {
+  return _a + _b;
+}
+
+var _p = new Proxy(_sum, {
+  apply: function(_target, _object, _args) {
+    console.log(_target); // [Function: _sum]
+    console.log(_object); // undefined 目标对象的上下文对象(this) null
+    console.log(_args); // [ 1, 2 ] 目标对象的参数数组
+    return Reflect.apply(...arguments) * 3;
+  }
+});
+
+// console.log(_p(1, 2)); // 3 * 3 = 9
+console.log(_p.call(null, 5, 6)); // 11 * 3 = 33
+console.log(_p.apply(null, [3, 4])); // 7 * 3 = 21
+```
