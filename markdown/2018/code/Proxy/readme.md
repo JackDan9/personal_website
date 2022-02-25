@@ -372,3 +372,5 @@ var _p = new Proxy(_sum, {
 console.log(_p.call(null, 5, 6)); // 11 * 3 = 33
 console.log(_p.apply(null, [3, 4])); // 7 * 3 = 21
 ```
+
+### `has(target, propKey)`
