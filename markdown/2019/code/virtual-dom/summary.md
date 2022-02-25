@@ -1,12 +1,12 @@
 # Virtual Dom 虚拟DOM
 
-| 标题 | 内容 |
-| --- | --- |
-| VirtualDOM | 为什么要有VirtualDOM? |
-| VirtualDOM | 与真实DOM的区别? |
-| VirtualDOM | VirtualDOM的优势 |
-| VirtualDOM | VirtualDOM实例 |
-| VirtualDOM | VirtualDOM应用 |
+| 标题       | 内容                                           |
+| ---------- | ---------------------------------------------- |
+| VirtualDOM | 为什么要有VirtualDOM?                          |
+| VirtualDOM | 与真实DOM的区别?                               |
+| VirtualDOM | VirtualDOM的优势                               |
+| VirtualDOM | VirtualDOM实例                                 |
+| VirtualDOM | VirtualDOM应用                                 |
 | VirtualDOM | VirtualDOM的体现, React, Vue, Angular, Sevelte |
 
 
@@ -37,13 +37,29 @@
   <head>
     <meta charset="utf-8" />
     <title>document object model</title>
+    <script type="text/javascript">
+      // ul list 节点信息
+      var list = document.getElementById("list");
+      console.log("list: ", list);
+      var firstLiItem = document.getElementsByClassName("li-item")[0];
+      console.log("firstLiItem: ", firstLiItem);
+      var secondLiItem = document.getElementsByClassName("li-item")[1];
+      console.log("secondLiItem: ", secondLiItem);
+      firstLiItem.textContent = 'Change Element li 1';
+      secondLiItem.textContent = 'Change Element li 2';
+
+      var newLiItem = document.createElement("li"); 
+      newLiItem.classList.add("li-item");
+      newLiItem.textContent = 'Element li 3';
+      list.appendChild(newLiItem);
+    </script> 
   </head>
   <body>
     <div>
       <h2>Hello Real DOM<h2>
-      <ul>
-        <li>Element li 1</li>
-        <li>Element li 2</li>
+      <ul id="list">
+        <li class="li-item">Element li 1</li>
+        <li class="li-item">Element li 2</li>
       </ul>
     </div>
   </body>
@@ -65,5 +81,28 @@ html
   |—— |—— |—— |—— li("Element li 2")
 ```
 
+- API(通常就是指JavaScript脚本)操作，如下是获取`ul`节点，更新`li`节点中已有的内容以及增加一个新的`li`节点到`ul`节点中。
+
+```javascript
+// ul list 节点信息
+var list = document.getElementById("list");
+console.log("list: ", list);
+
+var firstLiItem = document.getElementsByClassName("li-item")[0];
+console.log("firstLiItem: ", firstLiItem);
+var secondLiItem = document.getElementsByClassName("li-item")[1];
+console.log("secondLiItem: ", secondLiItem);
+firstLiItem.textContent = 'Change Element li 1';
+secondLiItem.textContent = 'Change Element li 2';
+
+var newLiItem = document.createElement("li"); 
+newLiItem.classList.add("li-item");
+newLiItem.textContent = 'Element li 3';
+list.appendChild(newLiItem);
+```
+
+- 单纯从代码出发并不能看出真实DOM的问题，我们只是对真实DOM有了一个认知和认识，我们还要继续往下去分析。
+
+------
 
 > Thinking in JackDan
