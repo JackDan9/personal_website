@@ -10,5 +10,47 @@
 | VirtualDOM | VirtualDOM的体现, React, Vue, Angular, Sevelte |
 
 
+------
+## VirtualDOM引入的原因
+
+- 这里用过`Vue`和`React`可能都知道VirtualDOM的作用，避免真实DOM的频繁更新从而提升渲染效率，那么真实DOM和VirtualDOM效率究竟是怎么一回事了？这是我们需要好好研究的一门学问。
+
+------
+### 真实DOM - Real DOM
+
+- DOM(Document Object Model)文档对象模型(直译过来的含义)，它是`HTML(HyperText Markup Language)`和`XML(Extensible Markup Language)`文档的变成接口。
+- DOM提供了对**文档的结构化的表述**，并定义了一种方式**可以使从程序中对该结构进行访问**，从而改变文档的结构，样式和内容。
+- DOM将文档解析为一个由节点和对象(包含属性和方法的对象)组成的结构集合。
+- 总结来说，DOM会将web页面和脚本或者程序语言连接起来。
+- DOM(Document Object Model)的含义有两层:
+
+```md
+1. 基于节点和对象来表示的文档模型(the object-based representation);
+2. 操作这些节点和对象的API(常见的就是JavaScript脚本语言)
+```
+
+- 真实DOM的实例
+
+```html
+<!DOCTYPE html>
+<html lane="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>document object model</title>
+  </head>
+  <body>
+    <div>
+      <h2>Hello Real DOM<h2>
+      <ul>
+        <li>Element li 1</li>
+        <li>Element li 2</li>
+      </ul>
+    </div>
+  </body>
+</html>
+```
+
+- 我们可以清晰得看出来，这是一棵树的结构
+
 
 > Thinking in JackDan
