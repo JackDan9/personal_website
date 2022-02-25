@@ -50,7 +50,20 @@
 </html>
 ```
 
-- 我们可以清晰得看出来，这是一棵树的结构
+- 我们可以清晰得看出来，这是一棵树的结构->DOM树也叫做Parse树(分析树)，树的每个分支的终点都是一个节点(node)，每个节点都包含对象(text, 子节点)，包含一些节点属性(class, id)。这就是基于对象来表示对象。
+
+```
+html
+  |—— head
+  |—— |—— meta
+  |—— |—— title
+  |—— body
+  |—— |—— div
+  |—— |—— |—— h2("Hello Real DOM")
+  |—— |—— |—— ul
+  |—— |—— |—— |—— li("Element li 1")
+  |—— |—— |—— |—— li("Element li 2")
+```
 
 
 > Thinking in JackDan
