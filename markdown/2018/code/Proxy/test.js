@@ -1,16 +1,14 @@
-var _sum = function(_a, _b) {
-  return _a + _b;
-}
+var _obj = {
+  _a: 1
+};
+Object.preventExtensions(_obj); // 变成不可扩展的
 
-var _p = new Proxy(_sum, {
-  apply: function(_target, _object, _args) {
-    console.log(_target); // [Function: _sum]
-    console.log(_object); // undefined 目标对象的上下文对象(this) null
-    console.log(_args); // [ 1, 2 ] 目标对象的参数数组
-    return Reflect.apply(...arguments) * 3;
+var _p = new Proxy(_obj, {
+  has: function(_target, _propKey) {
+    return false;
   }
 });
 
-// console.log(_p(1, 2)); // 3 * 3 = 9
-console.log(_p.call(null, 5, 6)); // 11 * 3 = 33
-console.log(_p.apply(null, [3, 4])); // 7 * 3 = 21
+console.log('_a' in _p); // false 
+// 变成不可扩展的时候
+console.log('_a' in _p); // TypeError: 'has' on proxy: trap returned falsish for property '_a' but the proxy target is not extensible

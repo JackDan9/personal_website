@@ -374,3 +374,164 @@ console.log(_p.apply(null, [3, 4])); // 7 * 3 = 21
 ```
 
 ### `has(target, propKey)`
+
+- 想去拦截**判断对象里面是否具有某个属性时的操作**，这个时候has()就派上用场。
+- 额外知识点: 典型的判断对象里面是否具有某个属性的操作运算符就是`in`
+
+```javascript
+var _obj = {
+  _a: 1,
+  a: 2,
+}
+
+console.log('_a' in _obj); // true
+console.log('b' in _obj); // false
+// in运算符 -> 判断对象中是否存在某个属性
+
+var _p = new Proxy(_obj, {
+  has: function(target, propKey) {
+    console.log(propKey); // _a
+    if (propKey[0] === '_') {
+      console.log("propKey[0]", propKey[0]); // _
+      return false;
+    }
+    return true;
+  }
+});
+
+console.log('_a' in _p); // false
+```
+
+- `hasOwnProperty`
+
+- 判断对象中的属性是对象自身的属性还是继承的属性
+
+```javascript
+var _obj = {
+  _a: 1,
+  a: 2
+}
+
+var _obj2 = Object.create(_obj);
+
+_obj2.b = 2;
+_obj2._b = 3;
+
+
+// console.log(_obj2); // { b: 2, _b: 3 }
+// console.log('_a' in _obj2);  // true
+
+var _p = new Proxy(_obj2, {
+  has: function(target, propKey) {
+    console.log(target);
+    // if (propKey[0] === '_') {
+    //   console.log(propKey);
+    //   return false;
+    // }
+    // return true;
+    return propKey in target;
+  }
+});
+
+var _p1 = new Proxy(_obj, {
+  has: function(target, propKey) {
+    console.log(_obj);
+    // if()
+    // if (propKey[0] === '_') {
+    //   console.log(propKey);
+    //   return false;
+    // }
+    // return true;
+    return propKey in target;
+  }
+});
+
+// console.log(_p);
+// console.log('_a' in )
+// console.log('_a' in _obj2); // true
+console.log('_a' in _p); // false
+// 我不去判断你是否是继承的属性，没有HasOwnProperty操作的拦截，而是只是HasProperty操作的拦截
+console.log('_a' in _p1); // false
+
+// console.log(_obj2.hasOwnProperty('_a')); // false
+// console.log(_p.hasOwnProperty('_a')); // false
+// console.log(_obj.hasProperty('_a')); // 没有hasProperty的方法
+```
+
+- 不可扩展或者不可配置的对象，是否还可以进行has拦截 
+
+```javascript
+var _obj = {
+  _a: 1
+};
+Object.preventExtensions(_obj); // 变成不可扩展的
+
+var _p = new Proxy(_obj, {
+  has: function(_target, _propKey) {
+    return false;
+  }
+});
+
+console.log('_a' in _p); // false 
+// 变成不可扩展的时候
+console.log('_a' in _p); // TypeError: 'has' on proxy: trap returned falsish for property '_a' but the proxy target is not extensible
+```
+
+- `in`存在拦截操作，`for...in`循环操作符存不存在has的拦截
+
+
+## `construct(target, args)`: 拦截Proxy实例对象作为`构造函数调用`的操作
+
+- 作为构**造函数调用**的操作将会被Proxy实例对象所拦截
+- 什么是否才会存在构造函数的调用？`new`的操作就是构造函数的调用
+
+```javascript
+// var _obj = {}; // 本身的空对象作为目标对象有没有什么问题 有，TypeError: _p is not a constructor
+// construct()方法目标对象必须要是一个函数，而不是简单的对象，是因为construct()方法拦截的是构造函数
+var _obj = function() {};
+var _p = new Proxy(_obj, {
+  construct: function(_target, _args) {
+    // _target是我们的目标对象
+    // _args并不是像我们在apply拦截方法里面的目标对象的上下文
+    // _args构造函数的参数数组
+    console.log("调用: " + _args); // 调用: 1，_args传递到_proxy里面的参数
+    console.log("参数: ", _args[10]); // undefined
+    console.log("参数0:", _args[0]); // 1
+    return {
+      _a: _args[0] * 2
+    }; // OK
+    // return _args; // OK
+    // return _args[0]; // TypeError: 'construct' on proxy: trap returned non-object ('1')
+  }
+});
+
+// 如果我返回不是一个对象
+console.log(_p); // [Function: _obj]
+console.log(_p(1)); // undefined
+// console.log((new _p(1)));  // TypeError: _p is not a constructor // new 操作符作为construct构造函数的操作
+// console.log((new _p(1))._a); // new 操作符操作过后的实例(instance)对象，实例对象里面的一个属性
+
+// construct()方法返回的必须是一个对象，否则会报错 // TypeError: 'construct' on proxy: trap returned non-object ('1')
+```
+
+
+```javascript
+var _funcObj = function() {};
+var _handler = {
+  construct: function(_target, _args) {
+    console.log(this); // { construct: [Function: construct] }
+    console.log(_handler); // { construct: [Function: construct] }
+
+    console.log(this == _handler); // true
+    console.log(this === _handler); // true
+    return new _target(..._args);
+  }
+}
+var _p = new Proxy(_funcObj, _handler);
+new _p();
+// console.log(new _p());
+
+// 构造函数拦截方法construct方法中的this指向的是_handler本身，而不是我的实例对象
+```
+
+
