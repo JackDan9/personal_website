@@ -477,6 +477,28 @@ console.log('_a' in _p); // false
 console.log('_a' in _p); // TypeError: 'has' on proxy: trap returned falsish for property '_a' but the proxy target is not extensible
 ```
 
+```javascript
+var _obj = {
+  _a: 1
+};
+
+Object.defineProperty(_obj, '_a', {
+  // writable: false,
+  configurable: false
+});
+
+
+var _p = new Proxy(_obj, {
+  has: function(_target, _propKey) {
+    return _propKey in _target;
+  }
+});
+
+console.log('_a' in _obj); // true
+console.log('_a' in _p); /// true
+// console.log('_a' in)
+```
+
 - `in`存在拦截操作，`for...in`循环操作符存不存在has的拦截
 
 
@@ -534,4 +556,61 @@ new _p();
 // 构造函数拦截方法construct方法中的this指向的是_handler本身，而不是我的实例对象
 ```
 
+------
 
+## `deleteProperty(target, propKey)`: 拦截去删除Proxy里面指定的propKey的操作，返回一个布尔值
+
+```javascript
+var _obj = {
+  _a: 1,
+  a: 2
+};
+
+var judgeKey = function(_key, _action) {
+  if(_key[0] === '_') {
+    throw new Error(`首字母为'_'的删除${_action}是不允许的`)
+  }
+}
+
+var _p = new Proxy(_obj, {
+  deleteProperty: function(_target, _propKey) {
+    judgeKey(_propKey, 'delete');
+    delete _target[_propKey];
+    return true;
+  }
+});
+
+console.log("_obj: ", _obj); // { _a: 1, a: 2 }
+console.log("_p: ", _p); // { _a: 1, a: 2 }
+console.log(_p == _obj); // false
+console.log(_p === _obj); // false
+// delete _p._a; // Error: 首字母为'_'的删除delete是不允许的
+delete _p.a; // 允许的
+console.log(_p); // { _a: 1 }
+console.log(_obj); // { _a: 1 }
+```
+
+```javascript
+var _obj = {
+  _a: 1
+};
+
+Object.defineProperty(_obj, '_a', {
+  // writable: false,
+  configurable: false
+});
+
+var _p = new Proxy(_obj, {
+  deleteProperty: function(_target, _propKey) {
+    delete _target[_propKey];
+    return true;
+  }
+});
+
+// delete _p._a // TypeError: 'deleteProperty' on proxy: trap returned truish for property '_a' which is non-configurable in the proxy target
+// console.log(delete _p._a); // true 
+console.log(_p);
+console.log(_obj);
+```
+
+- 目标对象自身的属性(Property)是不可配置的，不是被deleteProperty方法删除，硬要删除，对不起，你将得到一个错误。

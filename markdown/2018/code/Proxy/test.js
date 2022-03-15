@@ -1,14 +1,19 @@
 var _obj = {
   _a: 1
 };
-Object.preventExtensions(_obj); // 变成不可扩展的
+
+Object.defineProperty(_obj, '_a', {
+  // writable: false,
+  configurable: false
+});
+
 
 var _p = new Proxy(_obj, {
   has: function(_target, _propKey) {
-    return false;
+    return _propKey in _target;
   }
 });
 
-console.log('_a' in _p); // false 
-// 变成不可扩展的时候
-console.log('_a' in _p); // TypeError: 'has' on proxy: trap returned falsish for property '_a' but the proxy target is not extensible
+console.log('_a' in _obj); // true
+console.log('_a' in _p); /// true
+// console.log('_a' in)
