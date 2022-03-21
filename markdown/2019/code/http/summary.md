@@ -84,6 +84,9 @@
 - HTTPS于1994年首次被网景公司(Netscape)提出，随后扩展到互联网上。
 - 最初，HTTPS是与SSL(Secure Sockets Layer)一起使用的；在SSL演变为TSL(Transport Sockets Layer)时，HTTPS也由在2000年五月公布的RFC 2818正式确定下来。
 
+
+------
+
 > https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE
 > https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE
 > Thinking in JackDan
