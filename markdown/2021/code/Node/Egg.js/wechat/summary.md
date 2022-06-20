@@ -2,7 +2,7 @@
 
 | 标题 | 内容 |
 | --- | --- |
-| | |
+|  | |
 | | |
 
 ## Config配置代码
@@ -18,19 +18,73 @@ module.exports = appInfo => {
 
 ## 路由代码
 ```javascript
+'use strict';
 
+/**
+ * @param {Egg.Application} app - egg application
+ */
+module.exports = app => {
+  router.post('/wechat', controller.wechat.wechat.wechat);
+  router.get('/wechat', controller.wechat.wechat.index);
+}
 ```
 
 ## 控制层代码 
 
 ```javascript
+'use strict';
 
+/**
+ * 微信公众号基础配置，接口接入
+ * // app/controller/wehcat/wechat.js
+ */
+
+const wechat = require('co-wechat');
+const crypto = require('crypto');
+
+const Controller = require('egg').Controller;
+
+class WechatController extends Controller {
+  async index() {
+    const { ctx } = this;
+    
+    const query = ctx.request.query;
+    const signature = query.signature;
+    const timestamp = query.timestamp;
+    const nonce = query.nonce;
+    const echostr = query.echostr;
+    if (await this.check(timestamp, nonce, signature, 'weixin')) {
+      this.ctx.body = echostr;
+    } else {
+      this.ctx.body = 'It is not from weixin';
+    }
+  }
+
+  async check(timestamp, nonce, signature, token) {
+    const tmp = [token, timestamp, nonce].sort().join('');
+    const currSign = crypto.createHash('sha1').update(tmp).digest('hex');
+    return (currSign === signature);
+  }
+}  
+
+WechatController.prototype.wechat = wechat({
+  token: 'weixin', // 基础配置的token信息
+  appid: 'wx8a709a03e1584e6b', // 微信公众号的appid信息
+  encodingAESKey: 'H6xJLje9n5JjgAFiCsmk0TfIkcUpiGrURAUxtnRui0G', // 微信公众号的encodingAESKey信息
+}).middleware(async (message, ctx) => {
+  console.log(message);
+  return { type: 'text', content: 'Hello world!' };
+})
+
+module.exports = WechatController;
 ```
 
 ## 安装Middleware
 
 ```shell
 npm i co-wechat -s
+
+
 ```
 
 
