@@ -109,3 +109,4 @@ module.exports = WechatController;
 
 > [微信公众号基础服务对接说明](https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html)
 > [微信公众号接口调试](https://mp.weixin.qq.com/debug/cgi-bin/apiinfo)
+> [源码位置](https://github.com/JackDan9/miniProgram/tree/master/better-work-server)
