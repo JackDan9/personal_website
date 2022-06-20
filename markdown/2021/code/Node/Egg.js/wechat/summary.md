@@ -2,11 +2,32 @@
 
 | 标题 | 内容 |
 | --- | --- |
-|  | |
-| | |
+| 引入 | 服务搭建(http|http(s)) |
+| 配置 | Config配置 |
+| 代码实现 | 控制层、路由  |
+
+## 安装依赖
+
+```shell
+npm i co-wechat -s
+# or 
+yarn add co-wechat
+# or
+cnpm i co-wechat -s
+```
 
 ## Config配置代码
 ```javascript
+/* eslint valid-jsdoc: "off" */
+
+'use strict';
+
+/**
+ * 微信公众号对接配置内容
+ * 
+ * config/config.default.js
+ * 当然这里面也有一些其他的配置，这里只展示
+ */
 module.exports = appInfo => {
   config.wehcat = {
     token: 'token', // 基础配置的token信息
@@ -77,14 +98,6 @@ WechatController.prototype.wechat = wechat({
 })
 
 module.exports = WechatController;
-```
-
-## 安装Middleware
-
-```shell
-npm i co-wechat -s
-
-
 ```
 
 
