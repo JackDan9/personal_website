@@ -42,4 +42,4 @@ componentWillReceiveProps(): void
 
 ## getDerivedStateFromProps 定义
 
-- `getDerivedStateFromProps` 声明周期的意思就是从props中获取state，其功能
+- `getDerivedStateFromProps` 声明周期的意思就是从props中获取state，其功能实际上就是将传入的props映射到state上面。
