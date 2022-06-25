@@ -5,7 +5,7 @@
 | componentWillReceiveProps | 定义，作用 |
 | componentWillReceiveProps | 弃用原因，熟悉原理 |
 | getDerivedStateFromProps | 定义， 作用 |
-
+| getDerivedStateFromProps VS componentWillReceiveProps | 用法，写法，原理 |
 
 ------
 
@@ -42,4 +42,68 @@ componentWillReceiveProps(): void
 
 ## getDerivedStateFromProps 定义
 
-- `getDerivedStateFromProps` 声明周期的意思就是从props中获取state，其功能实际上就是将传入的props映射到state上面。
+- `getDerivedStateFromProps` 声明周期的意思就是从`props`中获取`state`，其功能实际上就是将**传入的props映射到state**上面。这个函数会在每次`re-rendering`之前被调用，意味着即使你的**`props`没有任何变化**，而是**父`state`发生了变化**，导致**子组件发生了`re-render`**，这个生命周期函数依然会被调用。
+-  用一个静态函数`getDerivedStateFromProps`来取代被`deprecated`的几个生命周期函数，就是强制开发者在`render`之前只做无副作用的操作，而且能做的操作局限在根据`props`和`state`决定新的`state`，而已。
+
+```md
+// 原文
+getDerivedStateFromProps exists for only one purpose. It enables a component to update its internal state as the result of changes in props.
+```
+
+- 由此我们可以得出`getDerivedStateFromProps`的作用
+
+------
+
+## getDerivedStateFromProps 作用
+
+- `getDerivedStateFromProps`的作用就是为了让`props`能更新到组件内部`state`中
+
+------
+
+## componentWillReceiveProps VS getDerivedStateFromProps
+
+```javascript
+componentWillReceiveProps(nextProps) {
+  let isNeedRerender = false;
+  const thisQuery = this.props.location.query;
+  const nextQuery = nextProps.location.query;
+  if (thisQuery.pageNumber != nextQuery.pageNumber) {
+    isNeedRerender = true;
+  }
+  if (thisQuery.pageSize != nextQuery.pageSize) {
+    isNeedRerender = true;
+  }
+  if (thisQuery.queryStr != nextQuery.queryStr) {
+    isNeedRerender = true;
+  }
+  if (isNeedRerender) {
+    this.getDataRerender(nextProps); // 请求接口数据，更新state
+  }
+}
+```
+
+```javascript
+static getDerivedStateFromProps(nextProps, prevState) {
+  if (nextProps.location.query.pageSize !== prevState.pageSize ||
+    nextProps.location.query.queryStr !==  prevState.queryStr ||
+    nextProps.location.query.pageNumber !== prevState.pageNumber) {
+      return {
+        pageSize: nextProps.location.query.pageSize,
+        pageNumber: nextProps.location.query.pageNumber,
+        queryStr: nextProps.location.query.queryStr
+      };
+    }
+    return null;
+}
+
+componentDidUpdate(prevProps, prevState) {
+  if (this.state.pageSize !== prevState.pageSize || 
+    this.state.pageNumber !== prevState.pageNumber ||
+    this.state.queryStr !== prevState.queryStr) {
+      this.getDataRerender(); // 请求接口数据，更新state
+    }
+}
+```
+
+## 生命周期图对比
+
