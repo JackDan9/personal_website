@@ -664,3 +664,123 @@ console.log(_p);
 // 如果我的目标对象的某个属性被我设置成不可写或者不可配置的时候，我们改写这个值是不生效或者说是我们用`defineProperty()`方法是不得改变设置的这些属性。
 // preventExtensions()的时候，目标对象是不可扩展的，我可以用defineProperty()的操作，但是其实它是不生效的或者说是没有意义的
 ```
+
+## `getOwnPropertyDescriptor(target, propKey)`
+
+- 拦截`Object.getOwnPropertyDescriptor()`操作，并且返回一个属性描述符(对象)或者`undefined`
+
+```javascript
+var obj = {
+  _a: 1,
+  b: 2,
+  c: 3
+}
+
+var proxyHandle = {
+  getOwnPropertyDescriptor(target, propKey) {
+    if (propKey[0] === '_') {
+      return;
+    }
+    return Object.getOwnPropertyDescriptor(target, propKey);
+  }
+}
+
+var proxy = new Proxy(target, proxyHandle);
+
+console.log(Object.getOwnPropertyDescriptor(proxy, "a"));
+console.log(Object.getOwnPropertyDescriptor(proxy, "_a"));
+console.log(Object.getOwnPropertyDescriptor(proxy, "b"));
+console.log(Object.getOwnPropertyDescriptor(proxy, "c"));
+```
+
+```javascript
+var obj = {
+  _a: 1,
+  b: 2,
+  c: 3
+}
+
+var proxyHandle = {
+  getOwnPropertyDescriptor(target, propKey) {
+    if (propKey[0] === '_') {
+      // return 1; // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned neither object nor undefined for property '_a'
+      // return  Object.getOwnPropertyDescriptor(target, propKey);
+    }
+    return Object.getOwnPropertyDescriptor(target, propKey);
+  }
+}
+
+// Object.preventExtensions(obj); // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned undefined for property '_a' which exists in the non-extensible proxy target
+// Object.defineProperty(obj, "_a", {
+//   configurable: false // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned undefined for property '_a' which is non-configurable in the proxy target
+// })
+// Object.defineProperty(obj, "_a", {
+//   writable: false // 正常返回
+// })
+
+// Object.defineProperty(obj, "_a", {
+//   enumerable: false // 正常返回
+// })
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.getOwnPropertyDescriptor(proxy, "a")); // undefined
+console.log(Object.getOwnPropertyDescriptor(proxy, "_a")); // undefined
+console.log(Object.getOwnPropertyDescriptor(proxy, "b")); // { value: 2, writable: true, enumerable: true, configurable: true }
+console.log(Object.getOwnPropertyDescriptor(proxy, "c")); // { value: 3, writable: true, enumerable: true, configurable: true }
+```
+
+- 只存在于自身的目标对象的属性描述符对象
+
+```javascript
+var obj = {
+  _a: 1,
+  b: 2,
+  c: 3
+}
+
+var proxyHandle = {
+  getOwnPropertyDescriptor(target, propKey) {
+    if (propKey[0] === '_') {
+      // return 1; // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned neither object nor undefined for property '_a'
+      // return  Object.getOwnPropertyDescriptor(target, propKey);
+      return;
+    }
+    return Object.getOwnPropertyDescriptor(target, propKey);
+  }
+}
+
+// Object.preventExtensions(obj); // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned undefined for property '_a' which exists in the non-extensible proxy target
+// Object.defineProperty(obj, "_a", {
+//   configurable: false // TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned undefined for property '_a' which is non-configurable in the proxy target
+// })
+// Object.defineProperty(obj, "_a", {
+//   writable: false // 正常返回
+// })
+
+// Object.defineProperty(obj, "_a", {
+//   enumerable: false // 正常返回
+// })
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.getOwnPropertyDescriptor(proxy, "a")); // undefined
+console.log(Object.getOwnPropertyDescriptor(proxy, "_a")); // undefined
+console.log(Object.getOwnPropertyDescriptor(proxy, "b")); // { value: 2, writable: true, enumerable: true, configurable: true }
+console.log(Object.getOwnPropertyDescriptor(proxy, "c")); // { value: 3, writable: true, enumerable: true, configurable: true }
+
+var obj1 = {
+  d: 4
+}
+
+var obj2 = Object.create(obj1);
+
+console.log(obj2["d"]); // 4
+// Object.getOwnPropertyDescriptor()
+// target: 需要获取/查找的目标对象
+// propKey: 指定的属性名称(存在目标对象内)
+
+// return: 指定的属性名称在目标对象(当前对象)内，则返回其属性描述对象(符 property descriptor)，否则返回undefined
+console.log(Object.getOwnPropertyDescriptor(obj2, "d")); // undefined
+console.log(Object.getOwnPropertyDescriptor(obj1, "d")); // { value: 4, writable: true, enumerable: true, configurable: true }
+```
