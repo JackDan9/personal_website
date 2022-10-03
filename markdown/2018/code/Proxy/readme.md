@@ -784,3 +784,153 @@ console.log(obj2["d"]); // 4
 console.log(Object.getOwnPropertyDescriptor(obj2, "d")); // undefined
 console.log(Object.getOwnPropertyDescriptor(obj1, "d")); // { value: 4, writable: true, enumerable: true, configurable: true }
 ```
+
+## getPrototypeOf(target)
+
+- 作用: `getPrototypeOf(target)`方法主要用来拦截获取对象原型。当我读取到代理对象的原型时，这个方法就会被调用。
+
+```javascript
+var obj = {
+    a: 1
+};
+
+var obj1 = {
+  b: 2
+};
+
+var proxy = new Proxy(obj, {
+  getPrototypeOf(target) {
+    return obj1;
+    // return null; // Ok
+    // return; // TypeError: 'getPrototypeOf' on proxy: trap returned neither object nor null
+    // return 1; // TypeError: 'getPrototypeOf' on proxy: trap returned neither object nor null
+    // return '1'; // TypeError: 'getPrototypeOf' on proxy: trap returned neither object nor null
+  }
+});
+
+console.log(Object.getPrototypeOf(proxy)); 
+// console.log(Object.getPrototypeOf(proxy) === obj1); // true
+```
+
+- `getPrototypeOf`方法返回(`return`)必须是一个对象或者`null`。
+
+- 获取对象的原型还有哪些操作？
+```javascript
+Object.getPrototypeOf() // Object.getPrototypeOf(object) 返回的是指对对象的原型。返回值: 指定对象的原型|null
+Reflect.getPrototypeOf() // Reflect.getPrototypeOf(target) 返回的是指定对象的原型。返回值: 指定对象的原型|null
+__proto__||Object.prototype.__proto__ // Object.prototype.__proto__ __proto__属性访问器。返回值: 访问对象的原型|null 已经被弃用
+Object.prototype.isPrototypeOf() // Object.prototype.isPrototypeOf() 判断目标对象是否存在另外一个对象的原型链上。obj.isPrototypeOf(obj1) obj1.prototype 返回值: Boolean(true|false)
+instanceof // instanceof 判断目标对象是否存在另外一个对象的对象原型链上。obj instanceof obj1 obj1本身 返回值: Boolean(true|false) 
+```
+
+```javascript
+var obj = {
+    a: 1
+};
+
+var proxy = new Proxy(obj, {
+  getPrototypeOf(target) {
+    return Array.prototype; // prototype(explicit prototype property 显式原型) 和 __proto__(implicit prototype property 隐式原型) new class
+  }
+});
+
+console.log(Object.getPrototypeOf(proxy) === Array.prototype); // true
+console.log(Reflect.getPrototypeOf(proxy) === Array.prototype); // true
+// console.log(proxy.prototype.__proto__); // TypeError: Cannot read property '__proto__' of undefined
+console.log(proxy.__proto__ === Array.prototype); // true
+console.log(Array.prototype.isPrototypeOf(proxy)); // true
+console.log(proxy instanceof Array); // true
+```
+
+- 当目标对象是不可以拓展的目标对象，这个时候我们的proxy拦截获取原型对象方法`getPrototypeOf`是发生TypeError
+
+```javascript
+// var obj = Object.preventExtensions({
+//     a: 1
+// }) // TypeError: 'getPrototypeOf' on proxy: proxy target is non-extensible but the trap did not return its actual prototype
+
+var obj = {
+    a: 1
+};
+
+Object.defineProperty(obj, 'a', {
+    // configurable: false // Ok
+    // writable: false  // Ok
+    // enumerable: false // Ok
+})
+
+
+var proxy = new Proxy(obj, {
+  getPrototypeOf(target) {
+    return Array.prototype;
+  }
+});
+
+
+console.log(Object.getPrototypeOf(proxy) === Array.prototype);
+```
+
+## `isExtensible(target)`
+
+- 作用: 拦截`isExtensible()`操作。`Object.isExtensible()`和`Reflect.isExtensible()`
+- `Object.isExtensible()`: 判断一个目标对象是否可以扩展(能否在它的原有基础上去扩展新的属性/添加新的属性)
+- `Reflect.isExtensible()`: 判断一个目标对象是否可以扩展(能否在它的原有基础上去扩展新的属性/添加新的属性)
+- `Object.isExtensible()`与`Reflect.isExtensible()`区别在于一些特殊返回值。
+
+```javascript
+// console.log(Object.isExtensible(1)); // false
+console.log(Reflect.isExtensible(1)); // TypeError: Reflect.isExtensible called on non-object
+```
+
+```javascript
+var obj = {};
+
+var proxy = new Proxy(obj, {
+  isExtensible: function(target) {
+    console.log("target called");
+    return true;
+  }
+});
+
+
+Object.isExtensible(proxy);
+```
+
+- `isExtensible(target)`拦截器返回值只能是Boolean类型，如果不是Boolean类型，这个是时候发生强转(强制转换成Boolean)
+
+```javascript
+var obj = {};
+
+var proxy = new Proxy(obj, {
+  isExtensible: function(target) {
+    console.log("target called"); // OK
+    return 1;
+  }
+});
+
+
+console.log(Object.isExtensible(proxy)); // true
+```
+
+```javascript
+var obj = {};
+
+var obj1 = Object.preventExtensions({
+    a: 1
+});
+
+console.log(Object.isExtensible(obj1)); // false
+
+var proxy = new Proxy(obj1, {
+  isExtensible: function(target) {
+    console.log("target called"); // OK
+    return true; // TypeError: 'isExtensible' on proxy: trap result does not reflect extensibility of proxy target (which is 'true')
+  }
+});
+
+// 注意点(强限制点): 我的拦截器`isExtensible`返回值必须与我的目标对象的`isExtensible`属性保持一致
+console.log(Object.isExtensible(proxy)); // TypeError: 'isExtensible' on proxy: trap result does not reflect extensibility of proxy target (which is 'false')
+```
+
+- **注意点(强限制点)**: 我的拦截器`isExtensible`返回值必须与我的目标对象的`isExtensible`属性保持一致
+
