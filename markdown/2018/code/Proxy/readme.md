@@ -1183,3 +1183,7 @@ for(var _key in obj) {
     console.log(_key); // c
 }
 ```
+
+------
+
+## `setPrototpeOf(target, proto)`
