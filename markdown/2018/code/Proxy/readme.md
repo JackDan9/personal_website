@@ -934,3 +934,252 @@ console.log(Object.isExtensible(proxy)); // TypeError: 'isExtensible' on proxy: 
 
 - **注意点(强限制点)**: 我的拦截器`isExtensible`返回值必须与我的目标对象的`isExtensible`属性保持一致
 
+
+------
+
+## `preventExtensions(target)`
+
+- 作用: 拦截`preventExtensions()`操作，
+- `Object.preventExtensions(object)`: 方法让目标对象变成一个不可扩展，也就是说永远不要再添加新的属性。
+- `Reflect.preventExtensions(target)`: 方法让目标对象变成一个不可扩展，也就是说永远不要再添加新的属性。
+
+```javascript
+var obj = {
+  a: 1
+};
+
+var proxy = new Proxy(obj, {
+  preventExtensions: function(target) {
+    console.log("target called");
+    return true
+  }
+});
+
+
+console.log(Object.preventExtensions(proxy)); // TypeError: 'preventExtensions' on proxy: trap returned truish but the proxy target is extensible
+```
+
+- 特点: 返回的是一个Boolean类型的值。如果它返回的不是一个Boolean类型的值，它会做一个强转(强制转换你的类型为Boolean类型)
+
+
+```javascript
+var obj = {
+    a: 1
+};
+  
+var proxy = new Proxy(obj, {
+    preventExtensions: function(target) {
+        console.log("target called");
+        Object.preventExtensions(target);
+        return true;
+    }
+});
+  
+// 约束条件: 如果目标对象是可扩展的，proxy的拦截器函数只能返回false // TypeError: 'preventExtensions' on proxy: trap returned falsish
+// 如果我的proxy拦截器函数想返回true，就需要将我的目标对象变为不可扩展的
+// Object.preventExtensions(proxy);
+console.log(Object.preventExtensions(proxy)); // { a: 1 }
+```
+
+```javascript
+'use strict';
+
+var obj = {
+    a: 1
+}
+
+var proxyHandle = {
+    preventExtensions(target) {
+        target.b = 2;
+        Object.preventExtensions(target);
+        target.c = 3; // TypeError: Cannot add property c, object is not extensible
+        return true;
+    }
+};
+
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(obj.a); // 1
+
+Object.preventExtensions(proxy);
+
+console.log(obj.b); // 2
+console.log(obj.c); // undefined 非严格模式
+```
+
+------
+
+## `ownKeys(target)`
+
+- 作用: 拦截目标对象读取自身属性的操作/拦截目标对象自身属性的读取操作
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        return ['a'];
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy)); // ['a'];
+```
+
+- 特点: 就是返回值必须是一个数组。数组里面的值必须是存在我的目标对象里面的属性值。
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        // return ['a'];
+        // ownKeys的返回值必须是一个数组，原因它目标对象获取自身属性操作的返回值也是一个数组。
+        return 1; // TypeError: CreateListFromArrayLike called on non-object
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy)); // []; 
+```
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        // return ['a'];
+        // 返回值数组的元素要么是一个String, 要么是一个Symbol。原因是目标对象本身的属性名要么就是String，要么就是Symbol。
+        return [1, undefined, null];  // TypeError: 1 is not a valid property name
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy)); // []; 
+```
+
+```javascript
+var obj = {
+    a: 1,
+};
+
+console.log(obj);
+
+Object.defineProperty(obj, 'b', {
+    enumerable: false,
+    configurable: true,
+    writable: true,
+    value: 2,
+})
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        // 我的结果列表包含目标对象自有的(own)key就是这个key必须是可枚举 
+        return ['b'];
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy)); // []
+```
+
+```javascript
+var obj = Object.preventExtensions({
+    a: 1,
+    b: 2
+})
+
+console.log(obj);
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        // 如果我的目标对象本身是不可扩展的，那么我的结果数组里面必须包含目标对象自有的属性，如果是额外的属性会报错，如果目标对象的自有属性没有全部返回也会报错。
+        return ['a']; // TypeError: 'ownKeys' on proxy: trap result did not include 'a'
+        // TypeError: 'ownKeys' on proxy: trap result did not include 'b'
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy));
+```
+
+```javascript
+var obj = {
+    a: 1,
+    b: 2,
+    c: 3,
+    [Symbol.for('d')]: 4
+};
+
+console.log(obj);
+
+Object.defineProperty(obj, 'e', {
+    enumerable: false,
+    configurable: true,
+    writable: true,
+    value: 5,
+})
+
+var proxyHandle = {
+    ownKeys(target) {
+        console.log("target called");
+        // return ['a'];
+        // 1. 目标对象上不存在的属性
+        // 2. 属性名为Symbol值
+        // 3. 不可遍历(enumerable)的属性
+        return [Symbol.for('d'), 'd', 'e', 'a'];  // TypeError: 1 is not a valid property name
+    }
+};
+
+var proxy = new Proxy(obj, proxyHandle);
+
+console.log(Object.keys(proxy)); // ['a']; 
+```
+
+- `Object.keys()`: 返回一个由目标对象自身可以枚举属性的key组成的**数组**，数组中属性的key排序和正常循环遍历目标对象时返回的顺序保持一致，但是要把Symbol属性名|key除外。
+- `Object.getOwnPropertyNames()`: 返回一个由目标对象的自身所有属性的属性名|key组成的**数组**(这个里面并没有包括Symbol值作为属性的属性名|key)组成的数组。
+- `Object.getOwnPropertySymbols()`: 返回一个由目标对象自身的所有Symbol属性名|key的数组
+- `for...in`: 以任意顺序迭代一个对象可枚举属性，但是要把Symbol属性名|key除外，包括继承的可枚举属性。
+- `Reflect.ownKeys()`: 返回一个由目标对象自身的属性名|key(键)组成的数组。
+
+```javascript
+var obj = {
+    c: 3
+};
+var a = Symbol("a");
+var b = Symbol.for("b");
+
+obj[a] = 1;
+obj[b] = 2;
+
+console.log(Object.getOwnPropertySymbols(obj)); // [ Symbol(a), Symbol(b) ]
+console.log(Object.getOwnPropertyNames(obj)); // [ 'c' ]
+console.log(Object.keys(obj)); // ['c']
+console.log(Reflect.ownKeys(obj)); // [ 'c', Symbol(a), Symbol(b) ]
+for(var _key in obj) {
+    console.log(_key); // c
+}
+```

@@ -1,18 +1,16 @@
-var obj = {};
+var obj = {
+    c: 3
+};
+var a = Symbol("a");
+var b = Symbol.for("b");
 
-var obj1 = Object.preventExtensions({
-    a: 1
-});
+obj[a] = 1;
+obj[b] = 2;
 
-console.log(Object.isExtensible(obj1)); // false
-
-var proxy = new Proxy(obj, {
-  isExtensible: function(target) {
-    console.log("target called"); // OK
-    return NaN; // TypeError: 'isExtensible' on proxy: trap result does not reflect extensibility of proxy target (which is 'true')
-  }
-});
-
-// 注意点(强限制点): 我的拦截器`isExtensible`返回值必须与我的目标对象的`isExtensible`属性保持一致
-console.log(Object.isExtensible(proxy)); // TypeError: 'isExtensible' on proxy: trap result does not reflect extensibility of proxy target (which is 'false')
-
+console.log(Object.getOwnPropertySymbols(obj)); // [ Symbol(a), Symbol(b) ]
+console.log(Object.getOwnPropertyNames(obj)); // [ 'c' ]
+console.log(Object.keys(obj)); // ['c']
+console.log(Reflect.ownKeys(obj)); // [ 'c', Symbol(a), Symbol(b) ]
+for(var _key in obj) {
+    console.log(_key); // c
+}
