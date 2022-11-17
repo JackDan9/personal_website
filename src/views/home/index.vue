@@ -31,8 +31,10 @@ declare let document: Document | any;
 
 @Component({})
 export default class Index extends Vue {
+  private timer: ReturnType<typeof setTimeout> = setTimeout(() => {}, 0);
+
   public mounted(): void {
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       const canvas = document.getElementById("main");
 
       /**
@@ -363,6 +365,11 @@ export default class Index extends Vue {
 
       requestAnimationFrame(render);
     }, 300);
+  }
+
+  public destroyed(): void {
+    console.log(this.timer);
+    clearTimeout(this.timer);
   }
 }
 </script>

@@ -1,11 +1,49 @@
-# redux
+# Redux
+
+| 标题 | 内容 |
+| --- | --- |
+| Redux | 为什么需要引入Redux? |
+| Redux | Redux特点、作用 |
+
+
+------
+
+## 为什么需要引入Redux
 
 - React 有props和state:
 
-- 1. props意味着父级分下来的属性
-- 2. state意味着组件内部可以自行管理的状态，并且整个React没有数据向上回溯的能力，这就是react的单向数据流
+```javascript
+import React from "react";
 
-- **React根本无法让两个组件互相交流**，使用对方的数据，react的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制，**把所有的state集中到组件顶部**，**能够灵活的将所有state各取所需的分发给所有的组件**，是的，这就是redux。
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 1
+    }
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+```
+
+- 1. props意味着**父级分下来的属性**
+- 2. state意味着**组件内部可以自行管理的状态**，并且整个React没有数据向上回溯的能力，这就是React的单向数据流
+
+- **React根本无法让两个组件互相交流**，这里说得太绝对了，可以通过Context来做这件事情的。
+- `Context`: 提供了一个**无需为每层组件手动添加props**,就能在**组件树间进行数据传递**的方法。
+```javascript
+// Context
+
+```
+
+- 使用对方的数据，React的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制，**把所有的state集中到组件顶部**，**能够灵活的将所有state各取所需的分发给所有的组件**，是的，这就是Redux。
 
 ## 定义
 

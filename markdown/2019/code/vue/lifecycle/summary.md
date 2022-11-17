@@ -67,7 +67,8 @@ renderMixin(Vue)
 // 4. 如果该函数没有返回对象，则返回this。
 // 所以这个是this 指向了Vue自身，我们可以继续源码研究发现Vue.prototype._init方法
 // Vue.prototype._init方法是在initMixin(Vue)中的，我们看一下
-let uid = 0
+
+let uid = 0 // uid作用
 
 export function initMixin (Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
